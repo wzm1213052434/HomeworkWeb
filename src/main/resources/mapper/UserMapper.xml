@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	
+	<mapper namespace="com.xaut.mapper.UserMapper">
+	
+	<!-- 通过用户id查找用户对象 -->
+	<select id="findUserById" resultType="User" parameterType="Integer">
+		select * from users where id = #{id}
+	</select>
+	
+	<!-- 通过用户名查找用户对象 -->
+	<select id="findUserByUsername" resultType="User" parameterType="String">
+		select * from users where username = #{username} 
+	</select>
+	
+	<!-- 根据用户名查找其角色 -->
+	<select id="findRolesByUsername" resultType="String" parameterType="String">
+		select sn
+		from role,user_roles,users
+		where role.id = user_roles.rid 
+			and users.id = user_roles.uid 
+			and users.username = #{username}
+	</select>
+	
+	<!-- 根据用户名查找其权限 -->
+	<select id="findPermissionsByUsername" resultType="String" parameterType="String">
+		select resource
+		from permission,users,user_roles,roles_permissions
+		where permission.id = roles_permissions.pid 
+			and roles_permissions.rid = user_roles.rid 
+			and users.id = user_roles.uid 
+			and users.username = #{username}
+	</select>
+</mapper>

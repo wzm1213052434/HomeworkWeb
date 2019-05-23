@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+	
+	<!-- 1.配置Realm -->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="md5"/>
+        <property name="hashIterations" value="1"/>
+    </bean>
+    <bean id="userRealm" class="com.xaut.realm.UserRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="authorizationCacheName" value="permissionCache"></property>
+    </bean>
+    
+    <!-- 2.会话管理器 -->
+    <bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.MemorySessionDAO"/>
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+    
+    <!-- 3.缓存管理器 使用Ehcache实现 -->
+    <bean id="shiroEhcacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    	<property name="cacheManager" ref="ehCacheManagerFactory"></property>
+    </bean>
+    
+    <!-- 4.Filter -->
+    <bean id="rolesOrFilter" class="com.xaut.shiro.filter.RolesOrFilter"/>
+    
+    <!-- 5.安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="userRealm"/>
+        <property name="sessionManager" ref="sessionManager" />
+        <property name="cacheManager" ref="shiroEhcacheManager" />
+    </bean>
+    
+    <!-- 6.Shiro生命周期处理器 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    
+    <!-- 7.开启权限注解支持  -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">
+    	<property name="proxyTargetClass" value="true" />
+	</bean>
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+	
+	<!-- 8.异常处理 -->
+	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/nopermission.jsp</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 9.过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login" />
+        <property name="unauthorizedUrl" value="/nopermission.jsp" />
+        <property name="filterChainDefinitions">
+            <value>
+            	<!-- 静态资源允许访问 -->
+                /app/** = anon
+                /assets/** = anon
+            	<!-- 登录页允许访问 -->
+                /login = anon
+                /logout = logout
+                <!-- 无权限页面允许访问 -->
+                /nopermission.jsp = anon
+                /add = rolesOr["superadmin","admin"]
+                /** = user
+            </value>
+        </property>
+        <property name="filters">
+            <map>
+                <entry key="rolesOr" value-ref="rolesOrFilter"/>
+            </map>
+        </property>
+    </bean>
+</beans>

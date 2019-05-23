@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	
+	<mapper namespace="com.xaut.mapper.PermissionMapper">
+	<!-- 根据id查角色信息 -->
+	<select id="findPermissionById" resultType="Permission" parameterType="Integer">
+		select * from permission where id = #{id}
+	</select>
+</mapper>
