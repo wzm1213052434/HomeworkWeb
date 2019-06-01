@@ -25,9 +25,9 @@
       rel="stylesheet"
       type="text/css"
     />
-    <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
+    <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
   type="text/css" />
-    <link href="../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
     <link
       href="assets/global/css/components.css"
       rel="stylesheet"
@@ -325,8 +325,8 @@
       type="text/javascript"
       src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"
     ></script>
-    <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
-    <script src="../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
     <script
       src="assets/global/scripts/metronic.js"
       type="text/javascript"
@@ -339,7 +339,7 @@
       src="assets/admin/layout2/scripts/demo.js"
       type="text/javascript"
     ></script>
-    <script src="../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+    <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
       //文件上传函数
