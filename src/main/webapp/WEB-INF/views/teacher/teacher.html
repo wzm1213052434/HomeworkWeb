@@ -87,7 +87,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
                                 <img alt="" class="img-circle hide1" src="../../../assets/global/img/user.png" />
-                                <span class="username username-hide-on-mobile"> Bob </span>
+                                <span class="username username-hide-on-mobile" id="userNameSpan"> Bob </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu">
@@ -177,16 +177,7 @@
                             </div>
                         </div>
                         <div class="portlet-body">
-                            <div class="list-group">
-                                <a href="course.html" class="list-group-item list-group-item-info">
-                                    课程1
-                                </a>
-                                <a href="course.html" class="list-group-item list-group-item-info">
-                                    课程2
-                                </a>
-                                <a href="course.html" class="list-group-item list-group-item-info">
-                                    课程3
-                                </a>
+                            <div class="list-group" id="lessonList">
                             </div>
                         </div>
                     </div>
@@ -253,6 +244,57 @@
     <script src="../../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
+        //模拟的后端数据
+        var datas=[
+            {
+                name:'课程1',
+                href:'course.html'
+            },
+            {
+                name:'课程2',
+                href:'course.html'
+            }
+        ]
+
+        //页面内容初始化请求
+        var ajaxForUserInfo = () =>{
+            let userId = sessionStorage.getItem("userName");
+            $.ajax({
+                url:'获取用户名的接口',
+                type:'POST',
+                async:false,
+                data:{
+                    teacherId: userId
+                },
+                success: function (responseStr){
+                    
+                }
+            })
+        }
+
+
+        var ajaxForLessons = function () {
+            var lessonList = $('#lessonList');
+            let userId = sessionStorage.getItem("userName");
+            $.ajax({
+                url:'获取老师信息的接口',
+                type:'POST',
+                async:true,
+                data:{
+                    teacherId:userId
+                },
+                beforeSend: function () {
+                    console.log("正在进行，请稍候");
+                },
+                success: function (responseStr) {
+                    for(var j=0;j<datas.length;j++){
+                        var newNode=$('<a class="list-group-item list-group-item-info">'+datas[j].name+'</a>');
+                        newNode.attr('href',datas[j].href);
+                        lessonList.append(newNode);
+                    }
+                }
+            })
+        }
         //文件上传函数
         var fileUpload = function () {
             $("#upload").click(function () {
@@ -307,6 +349,12 @@
             UIExtendedModals.init();//模态框函数
             judgeTheType();
             fileUpload();
+          /*  var lessonList = $('#lessonList');
+            for (var j = 0; j < datas.length; j++) {
+                var newNode = $('<a class="list-group-item list-group-item-info">' + datas[j].name + '</a>');
+                newNode.attr('href', datas[j].href);
+                lessonList.append(newNode);
+            }*/
         });
     </script>
     <!-- END JAVASCRIPTS -->

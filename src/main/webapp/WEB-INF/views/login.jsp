@@ -100,7 +100,7 @@
 			<label class="checkbox">
 			<input type="checkbox" name="rememberMe" value="1"/> 记住我 </label>
 
-				<button type="submit" class="btn green pull-right">
+				<button type="submit" class="btn green pull-right" id="submit">
 			登录<i class="m-icon-swapright m-icon-white"></i>
 			</button>
 				
@@ -116,8 +116,6 @@
 		</div>
 		</form>
 		
-	
-
 				<!-- BEGIN FORGOT PASSWORD FORM -->
 	<form class="forget-form" action="忘记密码的处理API写在这" method="post">
 		<h3>忘记密码了?</h3>
@@ -149,10 +147,6 @@
 	<!-- END LOGIN -->
 	<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 	<!-- BEGIN CORE PLUGINS -->
-	<!--[if lt IE 9]>
-<script src="assets/global/plugins/respond.min.js"></script>
-<script src="assets/global/plugins/excanvas.min.js"></script> 
-<![endif]-->
 	<script src="assets/global/plugins/jquery.min.js"
 		type="text/javascript"></script>
 	<script src="assets/global/plugins/jquery-migrate.min.js"
@@ -180,14 +174,26 @@
 		type="text/javascript"></script>
 	<script src="assets/admin/pages/scripts/login.js"
 		type="text/javascript"></script>
-	<!-- 	<script src="assets/admin/pages/scripts/login-soft.js" -->
-	<!-- 		type="text/javascript"></script> -->
 	<!-- END PAGE LEVEL SCRIPTS -->
 	<script>
+
+	//sessionStorage
+		var saveTheName = ()=>{
+			var submit = $("#submit");
+			 submit.click(()=>{
+				var nameInput=document.getElementById("username");
+				var name=nameInput.value;
+				if(!!name){
+					sessionStorage.setItem("userName", name);
+				}
+			 })
+		}
+
 		jQuery(document).ready(function() {
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Login.init();
+			saveTheName();
 		});
 	</script>
 	<!-- END JAVASCRIPTS -->
