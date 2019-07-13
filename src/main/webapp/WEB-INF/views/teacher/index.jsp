@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -138,7 +139,10 @@
                     class="img-circle hide1"
                     src="assets/global/img/user.png"
                   />
-                  <span class="username username-hide-on-mobile"> Bob </span>
+                  <span class="username username-hide-on-mobile">
+                  	<%User user=(User)request.getSession().getAttribute("user"); %>
+                  	<%=user.getUsername()%>
+                  </span>
                   <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu">

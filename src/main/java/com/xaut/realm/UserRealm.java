@@ -3,7 +3,7 @@ package com.xaut.realm;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -15,6 +15,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +34,11 @@ public class UserRealm extends AuthorizingRealm {
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		
 		String username = (String)principals.getPrimaryPrincipal();
+		
+		//将user写进session中
+		User user = userService.findUserByUsername(username);
+		Subject currentUser = SecurityUtils.getSubject();
+	    currentUser.getSession().setAttribute("user", user);
 		
 		//从数据库或者缓存中读取数据
         Set<String> roles = findRolesByUsername(username);
