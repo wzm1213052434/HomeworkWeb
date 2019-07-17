@@ -267,7 +267,8 @@
                     teacherId: userId
                 },
                 success: function (responseStr){
-                    
+                   let  userNameSpan=document.getElementById("userNameSpan");
+                   userNameSpan.value=responseStr.datas.name;
                 }
             })
         }
@@ -349,6 +350,8 @@
             UIExtendedModals.init();//模态框函数
             judgeTheType();
             fileUpload();
+            ajaxForLessons();
+            ajaxForUserInfo();
           /*  var lessonList = $('#lessonList');
             for (var j = 0; j < datas.length; j++) {
                 var newNode = $('<a class="list-group-item list-group-item-info">' + datas[j].name + '</a>');
