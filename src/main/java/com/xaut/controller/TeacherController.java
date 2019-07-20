@@ -7,6 +7,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -81,10 +82,11 @@ public class TeacherController {
 	 * 功能：解析Excel的值
 	 * 参数：Excel名称
 	 */
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/readExcel")
 	@ResponseBody
 	public Boolean readExcel(String filename) {
-		//1.读取excel表信息
+		//1.读取excel表信息，封装为bean
 		HSSFWorkbook swb = null;
 		try {
 			swb = new HSSFWorkbook(new FileInputStream("E:\\HomeWorkWeb\\teacher\\excel\\"+filename));
@@ -98,8 +100,31 @@ public class TeacherController {
 				int LastCellNum = row.getLastCellNum();
 				for (int j = 0; j < LastCellNum; j++) {
 					//首先强制设置成string类型，避免其他类型出错
-					//row.getCell(0).setCellType("");
-					System.out.print(row.getCell(j).getStringCellValue() + " ");
+					HSSFCell cell = row.getCell(j);
+					switch(cell.getCellType())
+					{
+					case HSSFCell.CELL_TYPE_NUMERIC://数字 
+						System.out.print(cell.getNumericCellValue()+" ");
+						break;
+					case HSSFCell.CELL_TYPE_STRING://字符串
+						System.out.print(cell.getStringCellValue()+" ");
+						break;
+					case HSSFCell.CELL_TYPE_BOOLEAN://Boolean
+						System.out.print(cell.getBooleanCellValue()+" ");   
+                        break;
+					case HSSFCell.CELL_TYPE_FORMULA://公式   
+                        System.out.print(cell.getCellFormula()+" ");
+                        break;
+                    case HSSFCell.CELL_TYPE_BLANK://空值   
+                        System.out.print(" ");
+                        break;
+                    case HSSFCell.CELL_TYPE_ERROR://故障   
+                        System.out.print(" ");
+                        break;
+                    default:
+                        System.out.print("未知类型   ");
+                        break;
+					}
 				}
 				System.out.println();
 			}
