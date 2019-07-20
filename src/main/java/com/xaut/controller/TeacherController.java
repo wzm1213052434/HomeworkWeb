@@ -1,10 +1,15 @@
 package com.xaut.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,7 +28,7 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 功能：教师上传excel
+	 * 功能：保存教师上传excel
 	 * 参数：request域中的file
 	 * 返回值：true | false
 	 */
@@ -36,13 +41,14 @@ public class TeacherController {
         String originalFilename = file.getOriginalFilename();
         
         //2.保存文件
-		String dirPath = "E:\\HomeWorkWeb\\teacher\\excel";//保存的路径
+        //2.1保存的路径
+		String dirPath = "E:\\HomeWorkWeb\\teacher\\excel";
 		File filePath = new File(dirPath);
 		if(!filePath.exists()) { //不存在文件夹则创建
 			filePath.mkdirs();
 		}
 		
-		//新的文件名字
+		//2.2新的文件名字(重复提交以时间戳区分文件版本)
         String newFileName = new Date().getTime()+originalFilename;
         try {
         	File targetFile = new File(filePath,newFileName);//封装上传文件位置的全路径
@@ -52,6 +58,52 @@ public class TeacherController {
         	e.printStackTrace();
         	return false;
         }
+        
+        //3.调用函数处理excel的值
+        if(!readExcel(newFileName))
+        {
+        	return false;
+        }
+        
         return true;
+	}
+	
+	/**
+	 * 功能：解析Excel的值
+	 * 参数：Excel名称
+	 */
+	@RequestMapping(value = "/readExcel")
+	@ResponseBody
+	public Boolean readExcel(String filename) {
+		//1.读取excel表信息
+		HSSFWorkbook swb = null;
+		try {
+			swb = new HSSFWorkbook(new FileInputStream("E:\\HomeWorkWeb\\teacher\\excel\\"+filename));
+			HSSFSheet sheet = swb.getSheetAt(0);
+			// 获取sheet中的最后一行（最大行）
+			int lastRowNum = sheet.getLastRowNum();
+			for (int i = 0; i <= lastRowNum; i++) {
+				// 获取当前行
+				HSSFRow row = sheet.getRow(i);
+				// 获取当前行最后单元格列号（最大列）
+				int LastCellNum = row.getLastCellNum();
+				for (int j = 0; j < LastCellNum; j++) {
+					//首先强制设置成string类型，避免其他类型出错
+					row.getCell(0).setCellType("");
+					System.out.print(row.getCell(j).getStringCellValue() + " ");
+				}
+				System.out.println();
+			}
+
+			swb.close();
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		//2.课程表
+		//3.教师表+用户表+用户角色表
+		//4.学生表+用户表+用户角色表
+		//5.学生课程表
+		return true;
 	}
 }
