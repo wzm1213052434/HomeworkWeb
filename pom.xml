@@ -189,6 +189,7 @@
 			<artifactId>shiro-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+<<<<<<< HEAD
 		
 		<!-- 整合POI技术 -->
 		<dependency>
@@ -207,6 +208,15 @@
 		    <version>3.17</version>
 		</dependency>
 	</dependencies>
+=======
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+>>>>>>> 4455675f2e4402ef41e69ab40416fb741fa89772
 	<build>
 		<finalName>HomeWorkWeb</finalName>
 	</build>
