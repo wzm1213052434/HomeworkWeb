@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +17,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RequestMapping(value = "/teacher")
 @Controller
 public class TeacherController {
+
+	// 日志
+	private Logger logger = LoggerFactory.getLogger(TeacherController.class);
+
 	/**
 	 * 教师主页
 	 */
@@ -49,6 +56,7 @@ public class TeacherController {
             file.transferTo(targetFile);//把本地文件上传到封装上传文件位置的全路径
         } catch(Exception e)
         {
+        	logger.error("上传文件异常: " +e);
         	e.printStackTrace();
         	return false;
         }
