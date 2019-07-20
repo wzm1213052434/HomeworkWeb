@@ -7,14 +7,13 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-=======
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
->>>>>>> 4455675f2e4402ef41e69ab40416fb741fa89772
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -99,7 +98,7 @@ public class TeacherController {
 				int LastCellNum = row.getLastCellNum();
 				for (int j = 0; j < LastCellNum; j++) {
 					//首先强制设置成string类型，避免其他类型出错
-					row.getCell(0).setCellType("");
+					//row.getCell(0).setCellType("");
 					System.out.print(row.getCell(j).getStringCellValue() + " ");
 				}
 				System.out.println();
