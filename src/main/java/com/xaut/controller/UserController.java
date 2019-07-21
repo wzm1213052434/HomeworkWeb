@@ -33,10 +33,9 @@ public class UserController {
     public String userLogin(User user,Model model) {
         Subject subject = SecurityUtils.getSubject();
         
-     	// 身份验证
-        UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(),user.getPassword());
+     	//身份验证
+        UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getPassWord());
         try {
-            token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (UnknownAccountException e) {
         	model.addAttribute("error", "账号不存在");
