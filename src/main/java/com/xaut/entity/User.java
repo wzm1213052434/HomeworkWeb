@@ -1,90 +1,101 @@
 package com.xaut.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户实体类
+ * Created by 旺旺
+ * 2019/7/21 1:07
+ * 用户类
  */
-public class User implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private String username;
-	private String password;
-	private boolean rememberMe;
-	private int flag;
-	private String salt;
-	private boolean locked;
-	private Date createtime;
-	private String remark1;
-	private String remark2;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public boolean isRememberMe() {
-		return rememberMe;
-	}
-	public void setRememberMe(boolean rememberMe) {
-		this.rememberMe = rememberMe;
-	}
-	public int getFlag() {
-		return flag;
-	}
-	public void setFlag(int flag) {
-		this.flag = flag;
-	}
-	public String getSalt() {
-		return salt;
-	}
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-	public boolean isLocked() {
-		return locked;
-	}
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-	}
-	public Date getCreatetime() {
-		return createtime;
-	}
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-	public String getRemark1() {
-		return remark1;
-	}
-	public void setRemark1(String remark1) {
-		this.remark1 = remark1;
-	}
-	public String getRemark2() {
-		return remark2;
-	}
-	public void setRemark2(String remark2) {
-		this.remark2 = remark2;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", rememberMe=" + rememberMe
-				+ ", flag=" + flag + ", salt=" + salt + ", locked=" + locked + ", createtime=" + createtime
-				+ ", remark1=" + remark1 + ", remark2=" + remark2 + "]";
-	}
+public class User {
+
+    /* 主键 */
+    private String id;
+
+    /* 用户名 */
+    private String userName;
+
+    /* 密码 */
+    private String passWord;
+
+    /* 账号类型 */
+    private String flag;
+
+    /* 加盐 */
+    private String salt;
+
+    /* 是否锁定,0为未锁定,1为锁定,默认为0 */
+    private String isLocked;
+
+    /* 更新时间 */
+    private Date updateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public String getIsLocked() {
+        return isLocked;
+    }
+
+    public void setIsLocked(String isLocked) {
+        this.isLocked = isLocked;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", userName='" + userName + '\'' +
+                ", passWord='" + passWord + '\'' +
+                ", flag='" + flag + '\'' +
+                ", salt='" + salt + '\'' +
+                ", isLocked='" + isLocked + '\'' +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

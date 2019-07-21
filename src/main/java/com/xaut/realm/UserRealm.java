@@ -64,14 +64,14 @@ public class UserRealm extends AuthorizingRealm {
         if(user == null){
         	throw new UnknownAccountException();//没找到帐号
         }
-        if(user.getPassword() == null) {
+        if(user.getPassWord() == null) {
         	throw new IncorrectCredentialsException(); //密码错误
         }
-        if(Boolean.TRUE.equals(user.isLocked())) {
+        if("1".equals(user.getIsLocked())) {
             throw new LockedAccountException(); //帐号锁定
         }
         
-        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,user.getPassword(),getName());
+        SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(username,user.getPassWord(),getName());
         //加盐
         simpleAuthenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(username));
         return simpleAuthenticationInfo;
