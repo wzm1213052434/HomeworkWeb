@@ -141,7 +141,7 @@
                   />
                   <span class="username username-hide-on-mobile">
                   	<%User user=(User)request.getSession().getAttribute("user"); %>
-                  	<%=user.getUsername()%>
+                  	<%=user.getUserName()%>
                   </span>
                   <i class="fa fa-angle-down"></i>
                 </a>
