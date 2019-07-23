@@ -92,7 +92,7 @@
                                 <img alt="" class="img-circle hide1" src="../../../assets/global/img/user.png" />
                                 <span class="username username-hide-on-mobile" id="userNameSpan"> 
 								<%User user=(User)request.getSession().getAttribute("user"); %>
-								<%=user.getUsername()%>
+								<%=user.getUserName()%>
 								</span>
                                 <i class="fa fa-angle-down"></i>
                             </a>

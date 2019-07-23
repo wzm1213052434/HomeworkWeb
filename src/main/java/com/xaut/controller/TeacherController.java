@@ -140,4 +140,14 @@ public class TeacherController {
 		//5.学生课程表
 		return true;
 	}
+	
+	/**
+	 * 功能：获得课程信息
+	 * 参数：老师教工号
+	 */
+	@RequestMapping(value = "/findCourseByTeacherTno")
+	@ResponseBody
+	public void findCourseByTeacherTno() {
+		
+	}
 }
