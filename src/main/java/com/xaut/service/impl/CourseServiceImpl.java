@@ -13,7 +13,7 @@ public class CourseServiceImpl {
 	private CourseMapper courseMapper;
 	
 	/**
-	 * 查找老师的所有课程信息
+	 * 查找教师所开的课程信息
 	 * @param 老师的职工号tno
 	 * @return
 	 */
