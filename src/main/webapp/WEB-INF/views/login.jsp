@@ -81,7 +81,7 @@
 				<!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
 				<label class="control-label visible-ie8 visible-ie9">账号</label>
 				<div class="input-icon">
-					<i class="fa fa-user"></i> <input name="username" id="username"
+					<i class="fa fa-user"></i> <input name="userName" id="username"
 						size="25" 
 						class="form-control form-control-solid placeholder-no-fix"
 						type="text" autocomplete="off" placeholder="账号" />
@@ -90,7 +90,7 @@
 			<div class="form-group">
 				<label class="control-label visible-ie8 visible-ie9">密码</label>
 				<div class="input-icon">
-					<i class="fa fa-lock"></i> <input name="password" id="password"
+					<i class="fa fa-lock"></i> <input name="passWord" id="password"
 						size="25" 
 						class="form-control form-control-solid placeholder-no-fix"
 						type="password" autocomplete="off" placeholder="密码" />
@@ -194,7 +194,7 @@
 			Layout.init(); // init current layout
 			Login.init();
 			saveTheName();
-		});
+		})
 	</script>
 	<!-- END JAVASCRIPTS -->
 </body>

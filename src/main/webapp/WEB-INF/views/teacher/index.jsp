@@ -3,6 +3,7 @@
 <%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <title>教师端 | 课程信息</title>
@@ -91,7 +92,7 @@
                                 <img alt="" class="img-circle hide1" src="../../../assets/global/img/user.png" />
                                 <span class="username username-hide-on-mobile" id="userNameSpan"> 
 								<%User user=(User)request.getSession().getAttribute("user"); %>
-                  	<%=user.getUsername()%>
+								<%=user.getUsername()%>
 								</span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
@@ -309,7 +310,7 @@
                 formData.append("file", $("#file")[0].files[0]);
                 formData.append("name", name);
                 $.ajax({
-                    url: '接口写在这',
+                    url: 'teacher/upload',
                     type: 'POST',
                     async: false,
                     data: formData,

@@ -1,54 +1,77 @@
 package com.xaut.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 角色实体类
+ * Created by 旺旺
+ * 2019/7/20 1:25
+ * 角色类
  */
-public class Role implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private String rname;
-	private String sn;
-	private boolean available;
-	private Date createtime;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getRname() {
-		return rname;
-	}
-	public void setRname(String rname) {
-		this.rname = rname;
-	}
-	public String getSn() {
-		return sn;
-	}
-	public void setSn(String sn) {
-		this.sn = sn;
-	}
-	public boolean isAvailable() {
-		return available;
-	}
-	public void setAvailable(boolean available) {
-		this.available = available;
-	}
-	public Date getCreatetime() {
-		return createtime;
-	}
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	@Override
-	public String toString() {
-		return "Role [id=" + id + ", rname=" + rname + ", sn=" + sn + ", available=" + available + ", createtime="
-				+ createtime + "]";
-	}
+public class Role {
+
+    /* 角色(主键) */
+    private String id;
+
+    /* 角色名称 */
+    private String roleName;
+
+    /* 角色标记 */
+    private String roleFlag;
+
+    /* 是否可用(0为不可用,1为可用),默认为1 */
+    private String isAvailable;
+
+    /* 更新时间 */
+    private Date updateTime;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getRoleFlag() {
+        return roleFlag;
+    }
+
+    public void setRoleFlag(String roleFlag) {
+        this.roleFlag = roleFlag;
+    }
+
+    public String getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(String isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id='" + id + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", roleFlag='" + roleFlag + '\'' +
+                ", isAvailable='" + isAvailable + '\'' +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

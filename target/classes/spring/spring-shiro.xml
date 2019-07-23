@@ -73,7 +73,7 @@
                 /assets/** = anon
             	<!-- 登录页允许访问 -->
                 /login = anon
-                /logout = logout
+                /logout = anon
                 <!-- 无权限页面允许访问 -->
                 /nopermission.jsp = anon
                 /add = rolesOr["superadmin","admin"]

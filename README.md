@@ -7,3 +7,9 @@
 - 启动 MySQL
 - 为项目添加 tomacat服务、部署项目并运行
 - 打开浏览器进入 `http://localhost:8080/HomeWorkWeb`
+
+**项目资源：**
+- 教师新建课程上传excel表路径为E:\HomeWorkWeb\teacher\excel
+
+**项目规则：**
+- 命名规则：均采用驼峰命名
