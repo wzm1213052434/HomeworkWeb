@@ -3,8 +3,6 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * Created by 旺旺
- * 2019/7/21 1:07
  * 用户类
  */
 public class User {
@@ -25,77 +23,70 @@ public class User {
     private String salt;
 
     /* 是否锁定,0为未锁定,1为锁定,默认为0 */
-    private String isLocked;
+    private String locked;
 
     /* 更新时间 */
     private Date updateTime;
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public String getPassWord() {
-        return passWord;
-    }
+	public String getPassWord() {
+		return passWord;
+	}
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
 
-    public String getFlag() {
-        return flag;
-    }
+	public String getFlag() {
+		return flag;
+	}
 
-    public void setFlag(String flag) {
-        this.flag = flag;
-    }
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
-    public String getSalt() {
-        return salt;
-    }
+	public String getSalt() {
+		return salt;
+	}
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
-    public String getIsLocked() {
-        return isLocked;
-    }
+	public String getLocked() {
+		return locked;
+	}
 
-    public void setIsLocked(String isLocked) {
-        this.isLocked = isLocked;
-    }
+	public void setLocked(String locked) {
+		this.locked = locked;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
-                ", passWord='" + passWord + '\'' +
-                ", flag='" + flag + '\'' +
-                ", salt='" + salt + '\'' +
-                ", isLocked='" + isLocked + '\'' +
-                ", updateTime=" + updateTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", passWord=" + passWord + ", flag=" + flag + ", salt="
+				+ salt + ", locked=" + locked + ", updateTime=" + updateTime + "]";
+	}
 }

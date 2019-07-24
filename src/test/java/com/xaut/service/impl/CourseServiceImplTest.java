@@ -7,6 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Course;
 import com.xaut.service.impl.CourseServiceImpl;
 
+/*
+ * 单元测试
+ */
 public class CourseServiceImplTest {
 
 	/**

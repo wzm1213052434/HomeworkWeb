@@ -3,8 +3,6 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * Created by 旺旺
- * 2019/7/20 1:25
  * 角色类
  */
 public class Role {
@@ -13,65 +11,60 @@ public class Role {
     private String id;
 
     /* 角色名称 */
-    private String roleName;
+    private String rName;
 
     /* 角色标记 */
-    private String roleFlag;
+    private String sn;
 
     /* 是否可用(0为不可用,1为可用),默认为1 */
-    private String isAvailable;
+    private String available;
 
     /* 更新时间 */
-    private Date updateTime;
+    private Date createTime;
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getRoleName() {
-        return roleName;
-    }
+	public String getrName() {
+		return rName;
+	}
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
+	public void setrName(String rName) {
+		this.rName = rName;
+	}
 
-    public String getRoleFlag() {
-        return roleFlag;
-    }
+	public String getSn() {
+		return sn;
+	}
 
-    public void setRoleFlag(String roleFlag) {
-        this.roleFlag = roleFlag;
-    }
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
 
-    public String getIsAvailable() {
-        return isAvailable;
-    }
+	public String getAvailable() {
+		return available;
+	}
 
-    public void setIsAvailable(String isAvailable) {
-        this.isAvailable = isAvailable;
-    }
+	public void setAvailable(String available) {
+		this.available = available;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id='" + id + '\'' +
-                ", roleName='" + roleName + '\'' +
-                ", roleFlag='" + roleFlag + '\'' +
-                ", isAvailable='" + isAvailable + '\'' +
-                ", updateTime=" + updateTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Role [id=" + id + ", rName=" + rName + ", sn=" + sn + ", available=" + available + ", createTime="
+				+ createTime + "]";
+	}
 }

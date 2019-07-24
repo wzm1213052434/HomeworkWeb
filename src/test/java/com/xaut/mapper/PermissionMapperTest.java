@@ -5,6 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Permission;
 
+/*
+ * 单元测试
+ */
 public class PermissionMapperTest {
 	/**
 	 * 测试ID查找权限信息

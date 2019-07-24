@@ -5,6 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Role;
 
+/*
+ * 单元测试
+ */
 public class RoleMapperTest {
 	/**
 	 * 测试ID查找角色信息

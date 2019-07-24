@@ -14,7 +14,7 @@ public class Course {
     private String tno;
 
     /* 课程名 */
-    private String cname;
+    private String cName;
 
     /* 学年 */
     private String year;
@@ -32,7 +32,7 @@ public class Course {
     private String state;
 
     /* 选课表名 */
-    private String stableName;
+    private String tableName;
 
     /* 更新时间 */
     private Date updateTime;
@@ -53,12 +53,12 @@ public class Course {
 		this.tno = tno;
 	}
 
-	public String getCname() {
-		return cname;
+	public String getcName() {
+		return cName;
 	}
 
-	public void setCname(String cname) {
-		this.cname = cname;
+	public void setcName(String cName) {
+		this.cName = cName;
 	}
 
 	public String getYear() {
@@ -102,11 +102,11 @@ public class Course {
 	}
 
 	public String getTableName() {
-		return stableName;
+		return tableName;
 	}
 
-	public void setTableName(String stableName) {
-		this.stableName = stableName;
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
 	}
 
 	public Date getUpdateTime() {
@@ -119,8 +119,8 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return "Course [cno=" + cno + ", tno=" + tno + ", cname=" + cname + ", year=" + year + ", term=" + term
-				+ ", time=" + time + ", place=" + place + ", state=" + state + ", tableName=" + stableName
+		return "Course [cno=" + cno + ", tno=" + tno + ", cName=" + cName + ", year=" + year + ", term=" + term
+				+ ", time=" + time + ", place=" + place + ", state=" + state + ", tableName=" + tableName
 				+ ", updateTime=" + updateTime + "]";
 	}
 }

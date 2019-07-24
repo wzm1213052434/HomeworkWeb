@@ -6,6 +6,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Course;
 
+/*
+ * 单元测试
+ */
 public class CourseMapperTest {
 	/**
 	 * 测试通过用户id查找用户对象

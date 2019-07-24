@@ -3,87 +3,68 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * Created by 旺旺
- * 2019/7/20 1:28
  * 学生类
  */
 public class Student {
 
     /* 学号(主键) */
-    private String id;
+    private String sno;
 
     /* 学生姓名 */
-    private String name;
+    private String sName;
 
     /* 专业 */
-    private String major;
+    private String depart;
 
     /* 邮箱 */
-    private String mail;
-
-    /* 性别 */
-    private String sex;
+    private String mailbox;
 
     /* 更新时间 */
     private Date updateTime;
 
-    public String getId() {
-        return id;
-    }
+	public String getSno() {
+		return sno;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setSno(String sno) {
+		this.sno = sno;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getsName() {
+		return sName;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setsName(String sName) {
+		this.sName = sName;
+	}
 
-    public String getMajor() {
-        return major;
-    }
+	public String getDepart() {
+		return depart;
+	}
 
-    public void setMajor(String major) {
-        this.major = major;
-    }
+	public void setDepart(String depart) {
+		this.depart = depart;
+	}
 
-    public String getMail() {
-        return mail;
-    }
+	public String getMailbox() {
+		return mailbox;
+	}
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+	public void setMailbox(String mailbox) {
+		this.mailbox = mailbox;
+	}
 
-    public String getSex() {
-        return sex;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", major='" + major + '\'' +
-                ", mail='" + mail + '\'' +
-                ", sex='" + sex + '\'' +
-                ", updateTime=" + updateTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Student [sno=" + sno + ", sName=" + sName + ", depart=" + depart + ", mailbox=" + mailbox
+				+ ", updateTime=" + updateTime + "]";
+	}
 }
