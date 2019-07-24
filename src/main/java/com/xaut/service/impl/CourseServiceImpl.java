@@ -1,5 +1,23 @@
 package com.xaut.service.impl;
 
-public class CourseServiceImpl {
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.xaut.entity.Course;
+import com.xaut.mapper.CourseMapper;
+
+@Service
+public class CourseServiceImpl {
+	@Autowired
+	private CourseMapper courseMapper;
+	
+	/**
+	 * 查找教师所开的课程信息
+	 * @param 老师的职工号tno
+	 * @return
+	 */
+    public List<Course> findCourseByTeacherTno(String tno){
+    	return this.courseMapper.findCourseByTeacherTno(tno);
+    }
 }

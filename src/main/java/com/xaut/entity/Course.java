@@ -3,20 +3,18 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * Created by 旺旺
- * 2019/7/21 1:12
  * 课程类
  */
 public class Course {
 
-    /* 课程id(主键) */
-    private String id;
+    /* 课程号 */
+    private String cno;
 
-    /* 教职工id */
-    private String teacherId;
+    /* 教职工号 */
+    private String tno;
 
     /* 课程名 */
-    private String courseName;
+    private String cname;
 
     /* 学年 */
     private String year;
@@ -25,113 +23,104 @@ public class Course {
     private String term;
 
     /* 上课时间 */
-    private String courseTime;
+    private String time;
 
     /* 上课地点 */
-    private String courseAddress;
+    private String place;
 
     /* 是否结课(0为未结课,1为已结课),默认为0 */
-    private String isOver;
+    private String state;
 
     /* 选课表名 */
-    private String tableName;
+    private String stableName;
 
     /* 更新时间 */
     private Date updateTime;
 
-    public String getId() {
-        return id;
-    }
+	public String getCno() {
+		return cno;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public void setCno(String cno) {
+		this.cno = cno;
+	}
 
-    public String getTeacherId() {
-        return teacherId;
-    }
+	public String getTno() {
+		return tno;
+	}
 
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
+	public void setTno(String tno) {
+		this.tno = tno;
+	}
 
-    public String getCourseName() {
-        return courseName;
-    }
+	public String getCname() {
+		return cname;
+	}
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-    }
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
-    public String getYear() {
-        return year;
-    }
+	public String getYear() {
+		return year;
+	}
 
-    public void setYear(String year) {
-        this.year = year;
-    }
+	public void setYear(String year) {
+		this.year = year;
+	}
 
-    public String getTerm() {
-        return term;
-    }
+	public String getTerm() {
+		return term;
+	}
 
-    public void setTerm(String term) {
-        this.term = term;
-    }
+	public void setTerm(String term) {
+		this.term = term;
+	}
 
-    public String getCourseTime() {
-        return courseTime;
-    }
+	public String getTime() {
+		return time;
+	}
 
-    public void setCourseTime(String courseTime) {
-        this.courseTime = courseTime;
-    }
+	public void setTime(String time) {
+		this.time = time;
+	}
 
-    public String getCourseAddress() {
-        return courseAddress;
-    }
+	public String getPlace() {
+		return place;
+	}
 
-    public void setCourseAddress(String courseAddress) {
-        this.courseAddress = courseAddress;
-    }
+	public void setPlace(String place) {
+		this.place = place;
+	}
 
-    public String getIsOver() {
-        return isOver;
-    }
+	public String getState() {
+		return state;
+	}
 
-    public void setIsOver(String isOver) {
-        this.isOver = isOver;
-    }
+	public void setState(String state) {
+		this.state = state;
+	}
 
-    public String getTableName() {
-        return tableName;
-    }
+	public String getTableName() {
+		return stableName;
+	}
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+	public void setTableName(String stableName) {
+		this.stableName = stableName;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id='" + id + '\'' +
-                ", teacherId='" + teacherId + '\'' +
-                ", courseName='" + courseName + '\'' +
-                ", year='" + year + '\'' +
-                ", term='" + term + '\'' +
-                ", courseTime='" + courseTime + '\'' +
-                ", courseAddress='" + courseAddress + '\'' +
-                ", isOver='" + isOver + '\'' +
-                ", tableName='" + tableName + '\'' +
-                ", updateTime=" + updateTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Course [cno=" + cno + ", tno=" + tno + ", cname=" + cname + ", year=" + year + ", term=" + term
+				+ ", time=" + time + ", place=" + place + ", state=" + state + ", tableName=" + stableName
+				+ ", updateTime=" + updateTime + "]";
+	}
 }
