@@ -12,7 +12,7 @@ public class Announcement {
 	/* 公告名 */
 	private String aName;
 	
-	/*  */
+	/* 描述 */
 	private String desc;
 	
 	/* 发布时间 */
