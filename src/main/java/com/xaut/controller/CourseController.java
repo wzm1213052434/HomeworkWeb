@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.xaut.entity.Course;
 import com.xaut.service.impl.CourseServiceImpl;
+import com.xaut.util.ResponseBean;
 
 @RequestMapping(value = "/course")
 @Controller
@@ -25,10 +26,13 @@ public class CourseController {
 	 */
 	@RequestMapping(value = "/findCourseByTeacherTno",method=RequestMethod.GET)
 	@ResponseBody
-	public List<Course> findCourseByTeacherTno(HttpServletRequest request,HttpServletResponse response) {
+	public ResponseBean findCourseByTeacherTno(HttpServletRequest request,HttpServletResponse response) {
 		String tno = request.getParameter("teacherId").toString();
-		System.out.println(tno);
+
+		List<Course> course = courseServiceImpl.findCourseByTeacherTno(tno);
 		
-		return courseServiceImpl.findCourseByTeacherTno(tno);
+		ResponseBean responseBean = new ResponseBean();
+		responseBean.setData(course);
+		return responseBean;
 	}
 }

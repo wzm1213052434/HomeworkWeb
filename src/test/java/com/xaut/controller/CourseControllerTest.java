@@ -12,6 +12,6 @@ public class CourseControllerTest {
 	@Test
 	public void findCourseByTeacherTnoTest() {
 		//打开浏览器登录后输入以下url查看
-		//http://localhost:8080/HomeWorkWeb/course/findCourseByTeacherTno?teacherId=104496
+		//http://localhost:8080/HomeWorkWeb/course/findCourseByTeacherTno?teacherId=123456
 	}
 }
