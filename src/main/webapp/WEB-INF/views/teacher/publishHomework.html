@@ -9,58 +9,52 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta content="教师端课程页面" name="description" />
     <meta content="xiaoMing" name="author" />
-     <!-- END GLOBAL MANDATORY STYLES -->
-    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"
-        type="text/css" />
+
+    <!-- BEGIN GLOBAL MANDATORY STYLES 页面标准通用css-->
+    <link href="../../../assets/global/fonts/2.css" rel="stylesheet" type="text/css">
+    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
-        type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet"
-        type="text/css" />
+        type="text/css">
+    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css">
     <link href="../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet"
         type="text/css" />
-        <link href="../../../assets/global/css/components.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css" />
-    <link id="style_color" href="../../../assets/admin/layout2/css/themes/default.css" rel="stylesheet"
+    <!-- END GLOBAL MANDATORY STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES 页面特有部件的CSS-->
+    <!--下拉菜单-->
+    <link rel="stylesheet" type="text/css"
+        href="../../../assets/global/plugins/bootstrap-select/bootstrap-select.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/select2/select2.css" />
+    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/jquery-multi-select/css/multi-select.css" />
+    <!--模态框-->
+    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
         type="text/css" />
+    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <!--时间选择器-->
     <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/clockface/css/clockface.css" />
-    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css" />        
+    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-datepicker/css/datepicker3.css" />
     <link rel="stylesheet" type="text/css"
-            href="../../../assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
-    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" />
+        href="../../../assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css" />
     <link rel="stylesheet" type="text/css"
-            href="../../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+        href="../../../assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css" />
     <link rel="stylesheet" type="text/css"
-            href="../../../assets/global/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
-
-    <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
+        href="../../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" type="text/css"
+        href="../../../assets/global/plugins/bootstrap-datetimepicker/css/datetimepicker.css" />
+    <!--文本编辑器-->
+    <link rel="stylesheet" type="text/css"
+        href="../../../assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
     <link rel="stylesheet" type="text/css"
         href="../../../assets/global/plugins/bootstrap-markdown/css/bootstrap-markdown.min.css">
     <link rel="stylesheet" type="text/css" href="../../../assets/global/plugins/bootstrap-summernote/summernote.css">
-    <link rel="shortcut icon" href="../../../assets/global/img/webIcon.ico" />
-    <style>
-        .fileinput-button {
-            position: relative;
-            display: inline-block;
-            overflow: hidden;
-        }
-
-        .fileinput-button input {
-            position: absolute;
-            right: 0px;
-            top: 0px;
-            opacity: 0;
-            -ms-filter: 'alpha(opacity=0)';
-            font-size: 200px;
-        }
-
-        .divider {
-            border-left: 1px solid grey;
-        }
-    </style>
+    <!-- BEGIN THEME STYLES 页面基础部件的css-->
+    <link href="../../../assets/global/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="../../../assets/admin/layout2/css/themes/default.css" rel="stylesheet" type="text/css" />
+    <link href="../../../assets/admin/layout2/css/custom.css" rel="stylesheet" type="text/css" />
+    <!-- END THEME STYLES -->
+    <link rel="shortcut icon" href="../../../assets/global/img/webIcon.ico" /> 
 </head>
 
 <body class="page-boxed page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo ">
@@ -158,7 +152,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="readHomework.html">
                                 <i class="icon-check"></i>
                                 <span class="title">批阅作业</span>
                                 <span class="arrow "></span>
@@ -189,12 +183,12 @@
                         <div class="portlet-body">
                             <form action="#" class="form-horizontal form-row-sepe">
                                 <div class="form-group">
-                                    <label class="control-label col-md-2"  style="text-align:center;">课程名</label>
-                                    <div class="col-md-4">
-                                        <select class="form-control input-xlarge select2me" data-placeholder="Select...">
-                                            <option value=""></option>
-                                            <option value="AL">Alabama</option>
-                                            <option value="WY">Wyoming</option>
+                                    <label class="control-label col-md-2" style="text-align:center;">课程名</label>
+                                    <div class="col-md-3">
+                                        <select class="bs-select form-control" id="ddl">
+                                            <option>Mustard</option>
+                                            <option>Ketchup</option>
+                                            <option>Relish</option>
                                         </select>
                                     </div>
                                 </div>
@@ -202,7 +196,7 @@
                                     <label class="control-label col-md-2"  style="text-align:center;">开始日期</label>
                                     <div class="col-md-3">
                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" class="form-control" readonly>
+                                            <input type="text" class="form-control" readonly id="beginDate">
                                             <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                             </span>
@@ -213,7 +207,7 @@
                                     <label class="control-label col-md-2" style="text-align:center;">截止日期</label>
                                     <div class="col-md-3">
                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
-                                            <input type="text" class="form-control" readonly>
+                                            <input type="text" class="form-control" readonly id="deadLine">
                                             <span class="input-group-btn">
                                                 <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                             </span>
@@ -223,14 +217,14 @@
                                 <div class="form-group last">
                                     <label class="control-label col-md-2" style="text-align:center;">作业描述</label>
                                     <div class="col-md-10">
-                                        <textarea class="wysihtml5 form-control" rows="6"></textarea>
+                                        <textarea class="wysihtml5 form-control" rows="6" id="content"></textarea>
                                     </div>
                                 </div>
 
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-2 col-md-10">
-                                            <button type="submit" class="btn green"><i class="fa fa-check"></i> 发布</button>
+                                            <button type="submit" class="btn green" id="submit"><i class="fa fa-check"></i> 发布</button>
                                         </div>
                                     </div>
                                 </div>
@@ -251,61 +245,141 @@
         </div>
         <!-- END 底部栏 -->
     </div>
-    <script src="../../../assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
-    <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js"
-        type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
-        type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"
-        type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
-        type="text/javascript"></script>
-    <!-- END CORE PLUGINS -->
-    <!-- BEGIN PAGE LEVEL PLUGINS 就是一些页面特有部件的js-->
-    <script src="../../../assets/admin/pages/scripts/components-pickers.js"></script>
-    <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
-    <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"
-        type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
-    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
-    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
-    <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-     <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
-    <script type="text/javascript" src="../../../assets/global/plugins/clockface/js/clockface.js"></script>
-    <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
-    <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
-    <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-    <script src="../../../assets/admin/pages/scripts/components-pickers.js"></script>
-    <script type="text/javascript"
-        src="../../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+
+        <!-- BEGIN CORE PLUGINS 底下是条件注释不要删去 在浏览器等级低于IE9的时候注释 -->
+        <!--[if lt IE 9]>
+        <script src="../../../assets/global/plugins/respond.min.js"></script>
+        <script src="../../../assets/global/plugins/excanvas.min.js"></script> 
+        <![endif]-->
+        <script src="../../../assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+        <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+        <script src="../../../assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+            type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"
+            type="text/javascript"></script>
+        <!-- END CORE PLUGINS -->
+        <!-- BEGIN PAGE LEVEL PLUGINS  就是一些页面特有部件的js -->
+        <!--下拉菜单-->
+        <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+        <script type="text/javascript" src="../../../assets/global/plugins/select2/select2.min.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
+        <!--时间选择器-->
+        <script src="../../../assets/admin/pages/scripts/components-pickers.js"></script>
+        <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+        <script type="text/javascript" src="../../../assets/global/plugins/clockface/js/clockface.js"></script>
+        <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-daterangepicker/moment.min.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+        <script type="text/javascript"
+            src="../../../assets/global/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
+        <script src="../../../assets/admin/pages/scripts/components-pickers.js"></script>
+        <!--文本编辑器-->
         <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
         <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
         <script src="../../../assets/global/plugins/bootstrap-markdown/lib/markdown.js" type="text/javascript"></script>
-        <script src="../../../assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js" type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/bootstrap-markdown/js/bootstrap-markdown.js"
+            type="text/javascript"></script>
         <script src="../../../assets/global/plugins/bootstrap-summernote/summernote.min.js" type="text/javascript"></script>
+        <!--模态框-->
+        <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js"
+            type="text/javascript"></script>
+        <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+        <script src="../../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+        <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+        <!-- END PAGE LEVEL PLUGINS -->
+        <!-- BEGIN PAGE LEVEL SCRIPTS  为页面整体基本布局 基本元件的js-->
+        <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+        <script src="../../../assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+        <script src="../../../assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+        <script src="../../../assets/admin/pages/scripts/components-dropdowns.js"></script>
         <script src="../../../assets/admin/pages/scripts/components-editors.js"></script>
+        <script src="../../../assets/admin/pages/scripts/components-dropdowns.js"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
     <script>
+        var lesson = [];
+        //获取课程函数
+        var lessons = function(){
+            let userId = sessionStorage.getItem("userName");
+            $.ajax({
+                url:'',
+                type:"GET",
+                async: false,
+                data:{
+                    teacherId: userId
+                },
+                success:function(responseStr){
+                     //往数组里面放课程名
+                     for(var i in responseStr){
+                         lesson.push(i.name);
+                     }
+                }
+            })
+        }
 
-        
+        //向下拉菜单放课程
+        var pushLessons = function(){
+            lessons();
+            let html = "";
+            for(let j = 0; j < lesson.length; j++){
+                html += "<option>"+lesson[j]+"</option>";
+            }
+            $("#ddl").html(html);
+        }
 
+        //作业提交函数
+        var publish = function() {
+            $("#submit").click(function(){
+                var deadLine = $("#deadLine").val();
+                var content = $("#content").val();
+                var beginDate = $("#beginDate").val();
+                var itemText = $("#ddl option:selected").text();
+                alert(content);
+                if(!deadLine){
+                    alert("请输入作业截止日期");
+                    return ;
+                }
+                if(!beginDate){
+                    alert("请输入作业开始日期");
+                    return ;
+                }
+                if(!itemText) {
+                    alert("请选择课程");
+                    return ;
+                }
+                if(!content){
+                    alert("请输入作业内容");
+                    return ;
+                }
+                $.ajax({
+                    url:"",
+                    type: 'POST',
+                    async: false,
+                    data:{
+                        deadLine:deadLine,
+                        content:content,
+                        beginDate:beginDate,
+                        itemText:itemText
+                    },
+                    success:function(responseStr){
 
+                    }
+                })
+            })
+        }
 
         jQuery(document).ready(function () {
             // initiate layout and plugins
@@ -315,6 +389,9 @@
             UIExtendedModals.init();//模态框函数
             ComponentsPickers.init();//时间选择器初始化函数
             ComponentsEditors.init();//编辑器初始化函数
+            ComponentsDropdowns.init();//下拉选择框初始化函数
+            //pushLessons();
+            publish();
         });
     </script>
     <!-- END JAVASCRIPTS -->
