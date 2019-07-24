@@ -8,7 +8,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="admin" name="description"/>
 <meta content="HeQin" name="author"/>
-<title>管理员界面</title>
+<title>作业信息</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
@@ -39,7 +39,7 @@
 	<div class="page-header-inner">
 		<div class="page-logo">
 			<a href="#">
-				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
+			<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 			</div>
@@ -169,14 +169,14 @@
 						<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu	">
-						<li class="active">
-							<a href="#"><i class="icon-bar-chart"></i> 用户信息</a>
+						<li>
+							<a href="lookindex"><i class="icon-bar-chart"></i> 用户信息</a>
 						</li>
 						<li>
 							<a href="lookCourse"><i class="icon-bar-chart"></i> 课程信息</a>
 						</li>
-						<li>
-							<a href="lookWork"><i class="icon-bar-chart"></i> 作业信息</a>
+						<li class="active">
+							<a href="#"><i class="icon-bar-chart"></i> 作业信息</a>
 						</li>
 						<li>
 							<a href="lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a>
@@ -228,77 +228,14 @@
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li><i class="fa fa-home"></i>系统使用详情<i class="fa fa-angle-right"></i></li>
-					<li>用户信息</li>
+					<li>作业信息</li>
 				</ul>
 			</div>
 			<h3 class="page-title">
-				用户信息 <small>查看所有用户</small>
+				作业信息 <small>查看所有作业</small>
 			</h3>
 			<!-- END PAGE HEADER-->
-			<!-- BEGIN DASHBOARD STATS -->
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat green-haze">
-						<div class="visual">
-							<i class="fa fa-shopping-cart"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
-							</div>
-							<div class="desc">
-								 管理员人数
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat blue-madison">
-						<div class="visual">
-							<i class="fa fa-comments"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
-							</div>
-							<div class="desc">
-								 教师人数
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat red-intense">
-						<div class="visual">
-							<i class="fa fa-bar-chart-o"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
-							</div>
-							<div class="desc">
-								 学生人数
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat purple-plum">
-						<div class="visual">
-							<i class="fa fa-globe"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 1
-							</div>
-							<div class="desc">
-								 超级管理员人数
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- END DASHBOARD STATS -->
+			
 		</div>
 	</div>
 </div>
