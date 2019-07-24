@@ -1,21 +1,28 @@
 package com.xaut.mapper;
 
 import com.xaut.entity.Course;
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 /**
- * Created by 旺旺
- * 2019/7/20 1:59
  * 课程相关接口
  */
 @Repository
 public interface CourseMapper {
 
-    /**
-     * 新增课程
-     * @param course
-     * @return
-     * @throws Exception
-     */
+	/**
+	 * 新增课程
+	 * @param course
+	 * @return
+	 * @throws Exception
+	 */
     public int addCourse(Course course) throws Exception;
+    
+	/**
+	 * 查找教师所开的课程信息
+	 * @param 老师的职工号tno
+	 * @return
+	 */
+    public List<Course> findCourseByTeacherTno(String tno);
 }

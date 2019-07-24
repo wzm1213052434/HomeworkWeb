@@ -4,9 +4,12 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+/*
+ * API接口测试
+ */
 public class TeacherControllerTest {
 	@Test
-	public void readExceltest() {
+	public void readExcelTest() {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		TeacherController teacherController = act.getBean(TeacherController.class);

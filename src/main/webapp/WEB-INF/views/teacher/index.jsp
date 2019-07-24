@@ -12,16 +12,16 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta content="教师端课程页面" name="description" />
     <meta content="xiaoMing" name="author" />
-    <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
+    <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet"
         type="text/css" />
-    <link href="../../../assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/global/css/components.css" rel="stylesheet" type="text/css" />
-    <link href="../../../assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css" />
-    <link id="style_color" href="../../../assets/admin/layout2/css/themes/default.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="../../../assets/global/img/webIcon.ico" />
+    <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
+    <link href="assets/global/css/components.css" rel="stylesheet" type="text/css" />
+    <link href="assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css" />
+    <link id="style_color" href="assets/admin/layout2/css/themes/default.css" rel="stylesheet" type="text/css" />
+    <link rel="shortcut icon" href="assets/global/img/webIcon.ico" />
     <style>
         .fileinput-button {
             position: relative;
@@ -48,7 +48,7 @@
             <!-- BEGIN LOGO -->
             <div class="page-logo">
                 <a href="#">
-                    <img src="../../../assets/admin/layout/img/logo-school.png" alt="logo" class="logo-default"
+                    <img src="assets/admin/layout/img/logo-school.png" alt="logo" class="logo-default"
                         style="height:4em;width: 10em;margin-top: -0.1em;" />
                 </a>
                 <div class="menu-toggler sidebar-toggler ">
@@ -89,10 +89,10 @@
                         <li class="dropdown dropdown-user">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
-                                <img alt="" class="img-circle hide1" src="../../../assets/global/img/user.png" />
+                                <img alt="" class="img-circle hide1" src="assets/global/img/user.png" />
                                 <span class="username username-hide-on-mobile" id="userNameSpan"> 
 								<%User user=(User)request.getSession().getAttribute("user"); %>
-								<%=user.getUsername()%>
+								<%=user.getUserName()%>
 								</span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
@@ -227,41 +227,29 @@
         </div>
         <!-- END 底部栏 -->
     </div>
-    <script src="../../../assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
     <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-    <script src="../../../assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
+    <script src="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"
         type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
     <!-- END CORE PLUGINS -->
     <!-- BEGIN PAGE LEVEL PLUGINS 就是一些页面特有部件的js-->
-    <script type="text/javascript" src="../../../assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
-    <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
-    <script src="../../../assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
-    <script src="../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
-    <script src="../../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
+    <script type="text/javascript" src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js"></script>
+    <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+    <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+    <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
+    <script src="assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+    <script src="assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+    <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        //模拟的后端数据
-        var datas=[
-            {
-                name:'课程1',
-                href:'course.html'
-            },
-            {
-                name:'课程2',
-                href:'course.html'
-            }
-        ]
-
         //页面内容初始化请求
         var ajaxForUserInfo = () =>{
             let userId = sessionStorage.getItem("userName");
@@ -284,19 +272,20 @@
             var lessonList = $('#lessonList');
             let userId = sessionStorage.getItem("userName");
             $.ajax({
-                url:'获取老师信息的接口',
-                type:'POST',
-                async:true,
+                url:'/HomeWorkWeb/course/findCourseByTeacherTno',
+                type:'GET',
+                async:false,
+                traditional : true,
                 data:{
                     teacherId:userId
                 },
+                dataType : 'JSON',
                 beforeSend: function () {
                     console.log("正在进行，请稍候");
                 },
-                success: function (responseStr) {
-                    for(var j=0;j<datas.length;j++){
-                        var newNode=$('<a class="list-group-item list-group-item-info">'+datas[j].name+'</a>');
-                        newNode.attr('href',datas[j].href);
+                success: function (data) {
+                    for(var j=0;j<data.data.length;j++){
+                        var newNode=$('<a class="list-group-item list-group-item-info" href="course.html">'+data.data[j].cName+"  "+data.data[j].time+'</a>');     
                         lessonList.append(newNode);
                     }
                 }

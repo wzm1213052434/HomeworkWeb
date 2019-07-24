@@ -8,6 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.xaut.entity.User;
 
+/*
+ * 单元测试
+ */
 public class UserMapperTest {
 	/**
 	 * 测试通过用户id查找用户对象

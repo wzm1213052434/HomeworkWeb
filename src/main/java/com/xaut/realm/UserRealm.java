@@ -67,7 +67,7 @@ public class UserRealm extends AuthorizingRealm {
         if(user.getPassWord() == null) {
         	throw new IncorrectCredentialsException(); //密码错误
         }
-        if("1".equals(user.getIsLocked())) {
+        if("1".equals(user.getLocked())) {
             throw new LockedAccountException(); //帐号锁定
         }
         

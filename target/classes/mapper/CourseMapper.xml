@@ -21,4 +21,11 @@
 		 course.tablename,
 		 course.updatetime)
 	</insert>
+	
+	<!-- 查找老师的所有课程信息 -->
+	<select id="findCourseByTeacherTno" resultType="Course" parameterType="String">
+		select *
+		from db_course
+		where db_course.tno = #{tno};
+	</select>
 </mapper>

@@ -3,99 +3,90 @@ package com.xaut.entity;
 import java.util.Date;
 
 /**
- * Created by 旺旺
- * 2019/7/20 1:33
  * 作业类
  */
 public class Work {
 
     /* 作业号(主键) */
-    private String id;
+    private String wno;
 
     /* 课程号 */
-    private String courseId;
+    private String cno;
 
     /* 作业名 */
-    private String name;
+    private String wName;
 
     /* 作业描述 */
-    private String description;
+    private String desc;
 
-    /* 创建时间 */
-    private Date createTime;
+    /* 开始时间 */
+    private Date start_time;
 
+    /* 结束时间 */
+    private Date end_time;
+    
     /* 更新时间 */
     private Date updateTime;
 
-    /* 结束时间 */
-    private Date overTime;
+	public String getWno() {
+		return wno;
+	}
 
-    public String getId() {
-        return id;
-    }
+	public void setWno(String wno) {
+		this.wno = wno;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getCno() {
+		return cno;
+	}
 
-    public String getCourseId() {
-        return courseId;
-    }
+	public void setCno(String cno) {
+		this.cno = cno;
+	}
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
-    }
+	public String getwName() {
+		return wName;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setwName(String wName) {
+		this.wName = wName;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getDesc() {
+		return desc;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public Date getStart_time() {
+		return start_time;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public void setStart_time(Date start_time) {
+		this.start_time = start_time;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public Date getEnd_time() {
+		return end_time;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public void setEnd_time(Date end_time) {
+		this.end_time = end_time;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public Date getUpdateTime() {
+		return updateTime;
+	}
 
-    public Date getOverTime() {
-        return overTime;
-    }
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 
-    public void setOverTime(Date overTime) {
-        this.overTime = overTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Work{" +
-                "id='" + id + '\'' +
-                ", courseId='" + courseId + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", overTime=" + overTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Work [wno=" + wno + ", cno=" + cno + ", wName=" + wName + ", desc=" + desc + ", start_time="
+				+ start_time + ", end_time=" + end_time + ", updateTime=" + updateTime + "]";
+	}
 }
