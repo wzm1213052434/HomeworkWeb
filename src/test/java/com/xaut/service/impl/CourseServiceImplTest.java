@@ -1,6 +1,8 @@
 package com.xaut.service.impl;
 
 import java.util.List;
+
+import com.xaut.util.ResponseBean;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,10 +22,11 @@ public class CourseServiceImplTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		CourseServiceImpl courseServiceImpl = act.getBean(CourseServiceImpl.class);
-		
-		List<Course> course = courseServiceImpl.findCourseByTeacherTno("104496");
-		for (Course c : course) {
-			System.out.println(c);
-		}
+
+
+		ResponseBean bean = courseServiceImpl.findCourseByTeacherTno("104496");
+
+		System.out.println(bean);
+
 	}
 }

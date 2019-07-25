@@ -3,6 +3,7 @@ package com.xaut.mapper;
 import com.xaut.entity.Course;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,8 +22,8 @@ public interface CourseMapper {
     
 	/**
 	 * 查找教师所开的课程信息
-	 * @param 老师的职工号tno
+	 * @param tno 教师职工号
 	 * @return
 	 */
-    public List<Course> findCourseByTeacherTno(String tno);
+    public List<Course> findCourseByTeacherTno(@Param("tno") String tno) throws Exception;
 }

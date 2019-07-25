@@ -1,7 +1,7 @@
 package com.xaut.util;
 
 /**
- * 将Java数据结构转化为JSON格式工具
+ * 结果封装类
  */
 public class ResponseBean {
 	/* 附加 */
