@@ -205,12 +205,13 @@
 		    <artifactId>poi-ooxml-schemas</artifactId>
 		    <version>3.17</version>
 		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+		<!-- JSON字符串与Java对象互转 -->
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib</artifactId>
+		    <version>2.4</version>
+		    <classifier>jdk15</classifier>
+		</dependency>
     </dependencies>
 	<build>
 		<finalName>HomeWorkWeb</finalName>
