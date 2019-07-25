@@ -6,7 +6,7 @@ import com.xaut.entity.Permission;
 import com.xaut.mapper.PermissionMapper;
 import com.xaut.service.PermissionService;
 
-@Service
+@Service("PermissionService")
 public class PermissionServiceImpl implements PermissionService {
 	@Autowired
 	private PermissionMapper permissionMapper;

@@ -29,10 +29,5 @@ public class CourseController {
 	public ResponseBean findCourseByTeacherTno(HttpServletRequest request,HttpServletResponse response) {
 		String tno = request.getParameter("teacherId").toString();
 		return courseService.findCourseByTeacherTno(tno); // 调用Service完成功能
-		//List<Course> course = courseServiceImpl.findCourseByTeacherTno(tno);
-		
-		//ResponseBean responseBean = new ResponseBean();
-		//responseBean.setData(course);
-		//return responseBean;
 	}
 }

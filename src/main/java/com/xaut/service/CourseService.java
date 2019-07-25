@@ -1,7 +1,5 @@
 package com.xaut.service;
 
-import java.util.List;
-import com.xaut.entity.Course;
 import com.xaut.util.ResponseBean;
 
 public interface CourseService {

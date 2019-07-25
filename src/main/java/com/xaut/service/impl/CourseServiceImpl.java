@@ -2,8 +2,6 @@ package com.xaut.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.xaut.controller.TeacherController;
 import com.xaut.service.CourseService;
 import com.xaut.util.ResponseBean;
 import org.slf4j.Logger;
@@ -22,15 +20,6 @@ public class CourseServiceImpl implements CourseService {
 
 	// 日志
 	private Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
-	
-//	/**
-//	 * 查找教师所开的课程信息
-//	 * @param 老师的职工号tno
-//	 * @return
-//	 */
-//    public List<Course> findCourseByTeacherTno(String tno){
-//    	return this.courseMapper.findCourseByTeacherTno(tno);
-//    }
 
 	/**
 	 * 查找教师所开的课程信息

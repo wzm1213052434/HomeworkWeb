@@ -1,18 +1,15 @@
-package com.xaut.service.impl;
-
-import java.util.List;
+package com.xaut.service;
 
 import com.xaut.util.ResponseBean;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.xaut.entity.Course;
 import com.xaut.service.impl.CourseServiceImpl;
 
 /*
  * 单元测试
  */
-public class CourseServiceImplTest {
+public class CourseServiceTest {
 
 	/**
 	 * 测试查找老师的所有课程信息
@@ -23,10 +20,8 @@ public class CourseServiceImplTest {
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		CourseServiceImpl courseServiceImpl = act.getBean(CourseServiceImpl.class);
 
-
-		ResponseBean bean = courseServiceImpl.findCourseByTeacherTno("104496");
+		ResponseBean bean = courseServiceImpl.findCourseByTeacherTno("123456");
 
 		System.out.println(bean);
-
 	}
 }

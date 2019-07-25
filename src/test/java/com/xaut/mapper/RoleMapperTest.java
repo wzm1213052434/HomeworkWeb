@@ -17,6 +17,7 @@ public class RoleMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		RoleMapper roleMapper = act.getBean(RoleMapper.class);
+		
 		Role role = roleMapper.findRoleById(1);
 		System.out.println(role);
 	}
