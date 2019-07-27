@@ -3,9 +3,8 @@ package com.xaut.util;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.jdbc.ScriptRunner;
 import org.springframework.stereotype.Component;
-
-
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -22,8 +21,9 @@ public final class SqlInitHandler {
     private static final String SQL_SCHEMA = "HomeWorkWeb-schema";
     private static final String SQL_DATA = "HomeWorkWeb-data";
 
-    /*
-     * 更新sql脚本 为 数据库数据
+    /**
+     * 功能：sql脚本 转为 数据库数据
+     * 注意：此方法sql脚本中不能出现除了分割sql执行语句的';'以外的其他任何的';'
      */
     public static void run() {
         try {
@@ -40,6 +40,9 @@ public final class SqlInitHandler {
             ScriptRunner runner = new ScriptRunner(connection);
             runner.setErrorLogWriter(null);
             runner.setLogWriter(null);
+            runner.setDelimiter(";"); //每条命令间的分隔符
+            runner.setStopOnError(true); //出现error时中断
+            Resources.setCharset(Charset.forName("UTF-8")); //设置字符集
 
             //4.写入sql脚本
             runner.runScript(Resources.getResourceAsReader("sql/" +SQL_SCHEMA+ ".sql"));

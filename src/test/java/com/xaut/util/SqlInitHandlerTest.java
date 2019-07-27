@@ -5,7 +5,7 @@ import org.junit.Test;
 public class SqlInitHandlerTest {
 
 	/**
-	 * 功能：更新sql脚本 为 数据库数据
+	 * 功能：sql脚本 转为 数据库数据
 	 */
     @Test
     public void init() {

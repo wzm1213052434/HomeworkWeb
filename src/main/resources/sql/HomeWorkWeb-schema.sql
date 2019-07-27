@@ -1,4 +1,4 @@
-/* create database HomeWorkWeb; */  
+-- create database HomeWorkWeb; 
 use HomeWorkWeb;
 
 SET NAMES utf8mb4;
