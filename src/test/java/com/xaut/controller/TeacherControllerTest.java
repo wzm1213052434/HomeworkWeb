@@ -14,6 +14,6 @@ public class TeacherControllerTest {
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		
 		TeacherController teacherController = act.getBean(TeacherController.class);
-		teacherController.readExcel("1563628557767(2017-2018-2)-09191430-104496-31dmc.xls");
+		teacherController.readExcel("(2017-2018-2)-09191430-104496-31dmc.xls");
 	}
 }

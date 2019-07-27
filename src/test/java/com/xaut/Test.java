@@ -8,13 +8,14 @@ import net.sf.json.JSONArray;
 
 public class Test {
 	public static void main(String[] args) {
-		//timeTest();
-		JSONTest();
+		timeTest();
+		//JSONTest();
 	}
 	
-	//测试获取时间戳
+	//测试时间
 	public static void timeTest() {
 		System.out.println(new Date().getTime());
+		System.out.println(new java.sql.Date(new Date().getTime()));
 	}
 	
 	//测试JSON的转化
