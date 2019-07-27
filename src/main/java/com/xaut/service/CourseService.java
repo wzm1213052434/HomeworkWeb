@@ -9,4 +9,10 @@ public interface CourseService {
 	 * @return
 	 */
     public ResponseBean findCourseByTeacherTno(String tno);
+
+	/**
+	 * 获取所有课程信息
+	 * @return
+	 */
+	ResponseBean getAllCourse();
 }

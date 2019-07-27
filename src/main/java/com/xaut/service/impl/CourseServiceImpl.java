@@ -2,6 +2,8 @@ package com.xaut.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import com.xaut.service.CourseService;
 import com.xaut.util.ResponseBean;
 import org.slf4j.Logger;
@@ -41,5 +43,23 @@ public class CourseServiceImpl implements CourseService {
 			return new ResponseBean(false, "查询教师所开课程信息异常");
 		}
 		return new ResponseBean(true, list, "查询教师所开课程信息成功");
+	}
+
+	/**
+	 * 获取所有课程信息
+	 * @return
+	 */
+	public ResponseBean getAllCourse() {
+		List<Map<String, Object>> list = null;
+		try {
+			list = this.courseMapper.getAllCourse();
+			if (list.size() == 0) {
+				return new ResponseBean(true, "无课程");
+			}
+		} catch (Exception e) {
+			logger.error("查询所有课程异常: " +e);
+			return new ResponseBean(false, "查询所有课程异常");
+		}
+		return new ResponseBean(true, list, "查询所有课程成功");
 	}
 }

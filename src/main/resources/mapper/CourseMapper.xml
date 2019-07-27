@@ -28,4 +28,8 @@
 		from db_course
 		where db_course.tno = #{tno};
 	</select>
+
+	<select id="getAllCourse" resultType="list">
+		select * from db_course
+	</select>
 </mapper>
