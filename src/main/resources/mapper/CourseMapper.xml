@@ -29,6 +29,7 @@
 		where db_course.tno = #{tno};
 	</select>
 
+	<!--查询所有课程信息-->
 	<select id="getAllCourse" resultType="map">
 		select * from db_course
 	</select>
