@@ -14,17 +14,21 @@ import org.springframework.stereotype.Repository;
 public interface CourseMapper {
 
 	/**
-	 * 新增课程
-	 * @param course
-	 * @return
-	 * @throws Exception
-	 */
-    public int addCourse(Course course) throws Exception;
+     * 功能：新增课程
+     * @param course
+     */
+    public void addCourse(Course course);
+    
+    /**
+     * 功能：删除课程
+     * @param cno
+     */
+    public void deleteCourse(String cno);
     
 	/**
 	 * 查找教师所开的课程信息
-	 * @param tno 教师职工号
-	 * @return
+	 * @param tno
+	 * @return 教师所开的课程集合
 	 */
     public List<Course> findCourseByTeacherTno(@Param("tno") String tno) throws Exception;
 

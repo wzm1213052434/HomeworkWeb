@@ -5,6 +5,6 @@
 	<mapper namespace="com.xaut.mapper.PermissionMapper">
 	<!-- 根据id查角色信息 -->
 	<select id="findPermissionById" resultType="Permission" parameterType="Integer">
-		select * from permission where id = #{id}
+		select * from db_permission where id = #{id}
 	</select>
 </mapper>

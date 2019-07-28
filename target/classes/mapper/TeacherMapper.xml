@@ -6,7 +6,7 @@
 
     <!-- 新增教师 -->
     <insert id="addTeacher" parameterType="com.xaut.entity.Teacher">
-		insert into teacher
+		insert into db_teacher
 		(id, name, college, updatetime)
 		values
 		(student.id,

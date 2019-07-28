@@ -6,11 +6,10 @@ import java.util.Date;
  * 用户类
  */
 public class User {
-
-    /* 主键 */
-    private String id;
-
-    /* 用户名 */
+	/* 用户编号 */
+	private String id;
+	
+    /* 用户账号 */
     private String userName;
 
     /* 密码 */
