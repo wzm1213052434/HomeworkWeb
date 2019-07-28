@@ -2,7 +2,9 @@ package com.xaut.mapper;
 
 import com.xaut.entity.Course;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -21,8 +23,15 @@ public interface CourseMapper {
     
 	/**
 	 * 查找教师所开的课程信息
-	 * @param 老师的职工号tno
+	 * @param tno 教师职工号
 	 * @return
 	 */
-    public List<Course> findCourseByTeacherTno(String tno);
+    public List<Course> findCourseByTeacherTno(@Param("tno") String tno) throws Exception;
+
+	/**
+	 * 获取所有课程
+	 * @return
+	 * @throws Exception
+	 */
+    public List<Map<String, Object>> getAllCourse() throws Exception;
 }

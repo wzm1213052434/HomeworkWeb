@@ -1,15 +1,15 @@
 package com.xaut.controller;
 
-import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.xaut.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.xaut.entity.Course;
-import com.xaut.service.impl.CourseServiceImpl;
 import com.xaut.util.ResponseBean;
 
 @RequestMapping(value = "/course")
@@ -17,7 +17,7 @@ import com.xaut.util.ResponseBean;
 public class CourseController {
 
 	@Autowired
-	private CourseServiceImpl courseServiceImpl;
+	private CourseService courseService;
 	
 	/**
 	 * 功能：查找教师所开的课程信息
@@ -28,11 +28,6 @@ public class CourseController {
 	@ResponseBody
 	public ResponseBean findCourseByTeacherTno(HttpServletRequest request,HttpServletResponse response) {
 		String tno = request.getParameter("teacherId").toString();
-
-		List<Course> course = courseServiceImpl.findCourseByTeacherTno(tno);
-		
-		ResponseBean responseBean = new ResponseBean();
-		responseBean.setData(course);
-		return responseBean;
+		return courseService.findCourseByTeacherTno(tno); // 调用Service完成功能
 	}
 }

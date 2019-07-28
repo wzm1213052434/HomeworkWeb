@@ -2,7 +2,7 @@ package com.xaut.service.impl;
 
 import org.springframework.stereotype.Service;
 
-@Service
+@Service("WorkService")
 public class WorkServiceImpl {
 
 }

@@ -6,7 +6,7 @@ import com.xaut.entity.Role;
 import com.xaut.mapper.RoleMapper;
 import com.xaut.service.RoleService;
 
-@Service
+@Service("RoleService")
 public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private RoleMapper roleMapper;

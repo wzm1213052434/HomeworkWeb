@@ -299,7 +299,7 @@
                 formData.append("file", $("#file")[0].files[0]);
                 formData.append("name", name);
                 $.ajax({
-                    url: 'teacher/upload',
+                    url: '/HomeWorkWeb/teacher/upload',
                     type: 'POST',
                     async: false,
                     data: formData,

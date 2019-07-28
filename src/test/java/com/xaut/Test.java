@@ -7,8 +7,10 @@ public class Test {
 		timeTest();
 	}
 	
-	//测试获取时间戳
+	/**
+	 * 测试：Java时间类型 和 mysql时间类型
+	 */
 	public static void timeTest() {
-		System.out.println(new Date().getTime());
+		System.out.println(new java.sql.Date(new Date().getTime()));
 	}
 }

@@ -7,7 +7,7 @@ import com.xaut.entity.User;
 import com.xaut.mapper.UserMapper;
 import com.xaut.service.UserService;
 
-@Service
+@Service("UserService")
 public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper userMapper;

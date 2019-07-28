@@ -20,6 +20,7 @@ public class UserMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		UserMapper useMapper = act.getBean(UserMapper.class);
+		
 		User user = useMapper.findUserById(1);
 		System.out.println("用户为："+user);
 	}
@@ -32,6 +33,7 @@ public class UserMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		UserMapper useMapper = act.getBean(UserMapper.class);
+		
 		User user = useMapper.findUserByUsername("superadmin");
 		System.out.println("用户为："+user);
 	}
@@ -44,6 +46,7 @@ public class UserMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		UserMapper useMapper = act.getBean(UserMapper.class);
+		
 		List<String> list = useMapper.findRolesByUsername("superadmin");
 		for (String string : list) {
 			System.out.println("角色为："+string);
@@ -58,6 +61,7 @@ public class UserMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		UserMapper useMapper = act.getBean(UserMapper.class);
+		
 		List<String> list = useMapper.findPermissionsByUsername("123456");
 		for (String string : list) {
 			System.out.println("权限为："+string);

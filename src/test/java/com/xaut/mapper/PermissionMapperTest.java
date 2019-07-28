@@ -17,6 +17,7 @@ public class PermissionMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		PermissionMapper permissionMapper = act.getBean(PermissionMapper.class);
+		
 		Permission permission = permissionMapper.findPermissionById(1);
 		System.out.println(permission);
 	}
