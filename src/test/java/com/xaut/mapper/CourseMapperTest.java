@@ -18,6 +18,7 @@ public class CourseMapperTest {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 		CourseMapper courseMapper = act.getBean(CourseMapper.class);
+		
 		try {
 			List<Course> course = courseMapper.findCourseByTeacherTno("104496");
 			for (Course c : course) {

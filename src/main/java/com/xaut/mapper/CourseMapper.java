@@ -33,5 +33,5 @@ public interface CourseMapper {
 	 * @return
 	 * @throws Exception
 	 */
-	List<Map<String, Object>> getAllCourse() throws Exception;
+    public List<Map<String, Object>> getAllCourse() throws Exception;
 }

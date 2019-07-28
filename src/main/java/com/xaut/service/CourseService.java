@@ -14,5 +14,5 @@ public interface CourseService {
 	 * 获取所有课程信息
 	 * @return
 	 */
-	ResponseBean getAllCourse();
+    public ResponseBean getAllCourse();
 }

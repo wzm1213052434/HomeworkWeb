@@ -4,7 +4,7 @@ import com.xaut.util.ResponseBean;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.xaut.service.impl.CourseServiceImpl;
+import com.xaut.service.CourseService;
 
 /*
  * 单元测试
@@ -18,10 +18,9 @@ public class CourseServiceTest {
 	public void findCourseByTeacherTnoTest() {
 		@SuppressWarnings("resource")
 		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
-		CourseServiceImpl courseServiceImpl = act.getBean(CourseServiceImpl.class);
+		CourseService courseService = act.getBean(CourseService.class);
 
-		ResponseBean bean = courseServiceImpl.findCourseByTeacherTno("123456");
-
+		ResponseBean bean = courseService.findCourseByTeacherTno("123456");
 		System.out.println(bean);
 	}
 }
