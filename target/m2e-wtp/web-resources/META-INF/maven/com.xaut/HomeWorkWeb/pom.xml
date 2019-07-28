@@ -212,6 +212,17 @@
 		    <version>2.4</version>
 		    <classifier>jdk15</classifier>
 		</dependency>
+		<!-- JSON字符串的格式化输出 -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>fastjson</artifactId>
+		    <version>1.2.58</version>
+		</dependency>
     </dependencies>
 	<build>
 		<finalName>HomeWorkWeb</finalName>
