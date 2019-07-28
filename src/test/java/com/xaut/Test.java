@@ -13,5 +13,4 @@ public class Test {
 	public static void timeTest() {
 		System.out.println(new java.sql.Date(new Date().getTime()));
 	}
-
 }
