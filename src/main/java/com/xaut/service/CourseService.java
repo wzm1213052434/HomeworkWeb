@@ -11,8 +11,11 @@ public interface CourseService {
     public ResponseBean findCourseByTeacherTno(String tno);
 
 	/**
-	 * 获取所有课程信息
+	 * 根据课程名分页获取课程
+	 * @param courseName
+	 * @param page
+	 * @param rows
 	 * @return
 	 */
-    public ResponseBean getAllCourse();
+    public ResponseBean getAllCourse(String courseName, Integer page, Integer rows);
 }

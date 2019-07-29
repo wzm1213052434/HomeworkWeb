@@ -33,9 +33,14 @@ public interface CourseMapper {
     public List<Course> findCourseByTeacherTno(@Param("tno") String tno) throws Exception;
 
 	/**
-	 * 获取所有课程
+	 * 根据课程名分页获取课程
+	 * @param courseName
+	 * @param page
+	 * @param rows
 	 * @return
 	 * @throws Exception
 	 */
-    public List<Map<String, Object>> getAllCourse() throws Exception;
+    public List<Map<String, Object>> getAllCourse(@Param("courseName") String courseName,
+												  @Param("page") Integer page,
+												  @Param("rows") Integer rows) throws Exception;
 }

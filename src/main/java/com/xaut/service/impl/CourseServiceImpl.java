@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xaut.service.CourseService;
+import com.xaut.util.CommonString;
 import com.xaut.util.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,20 +47,31 @@ public class CourseServiceImpl implements CourseService {
 	}
 
 	/**
-	 * 获取所有课程信息
+	 * 根据课程名分页获取课程
+	 * @param courseName
+	 * @param page
+	 * @param rows
 	 * @return
 	 */
-	public ResponseBean getAllCourse() {
+	public ResponseBean getAllCourse(String courseName, Integer page, Integer rows) {
+		if (StringUtils.isEmpty(courseName)) {
+			return new ResponseBean(false, "课程名不能为空");
+		}
+		if (page == 0 || rows == 0) { // page和rows为0时,为其设置默认值
+			page = Integer.parseInt(CommonString.ONE);
+			rows = Integer.parseInt(CommonString.TEN);
+		}
+		page = (rows * page) - rows; // 为SQL limit参数提供参数
 		List<Map<String, Object>> list = null;
 		try {
-			list = this.courseMapper.getAllCourse();
+			list = this.courseMapper.getAllCourse(courseName, page, rows);
 			if (list.size() == 0) {
 				return new ResponseBean(true, "无课程");
 			}
 		} catch (Exception e) {
-			logger.error("查询所有课程异常: " +e);
-			return new ResponseBean(false, "查询所有课程异常");
+			logger.error("分页查询课程异常: " +e);
+			return new ResponseBean(false, "分页查询课程异常");
 		}
-		return new ResponseBean(true, list, "查询所有课程成功");
+		return new ResponseBean(true, list, "分页查询课程成功");
 	}
 }
