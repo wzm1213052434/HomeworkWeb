@@ -4,25 +4,34 @@ import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.xaut.entity.User;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /*
  * 单元测试
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
 public class UserMapperTest {
 	
-	ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
-	UserMapper useMapper = act.getBean(UserMapper.class);
+//	ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
+//	UserMapper useMapper = act.getBean(UserMapper.class);
+
+	@Autowired
+	private UserMapper userMapper;
 	
 	/**
 	 * 测试：通过用户账号查找用户对象
 	 */
 	@Test
 	public void findUserByUsernameTest() {
-		User user = useMapper.findUserByUsername("superadmin");
+		User user = userMapper.findUserByUsername("superadmin");
 		System.out.println("用户为："+user);
 	}
 	
@@ -31,7 +40,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void findRolesByUsernameTest() {
-		List<String> list = useMapper.findRolesByUsername("superadmin");
+		List<String> list = userMapper.findRolesByUsername("superadmin");
 		for (String string : list) {
 			System.out.println("角色为："+string);
 		}
@@ -42,7 +51,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void findPermissionsByUsernameTest() {
-		List<String> list = useMapper.findPermissionsByUsername("123456");
+		List<String> list = userMapper.findPermissionsByUsername("123456");
 		for (String string : list) {
 			System.out.println("权限为："+string);
 		}
@@ -53,7 +62,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void deleteUserTest() {
-		useMapper.deleteUser("111111");
+		userMapper.deleteUser("111111");
 		System.out.println("删除用户成功");
 	}
 	
@@ -69,8 +78,8 @@ public class UserMapperTest {
 		user.setSalt("123456");
 		user.setLocked("0");
 		user.setUpdateTime(new java.sql.Date(new Date().getTime()));
-		
-		useMapper.addUser(user);
+
+		userMapper.addUser(user);
 		System.out.println("新增用户成功");
 	}
 	
@@ -79,7 +88,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void findUserIDByUsernameTest() {
-		System.out.println("用户ID为：" + useMapper.findUserIDByUsername("104496"));
+		System.out.println("用户ID为：" + userMapper.findUserIDByUsername("104496"));
 	}
 	
 	/**
@@ -87,7 +96,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void addRoleForUserTest() {
-		useMapper.addRoleForUser("7","4",new java.sql.Date(new Date().getTime()).toString());
+		userMapper.addRoleForUser("7","4",new java.sql.Date(new Date().getTime()).toString());
 		System.out.println("用户增加角色成功");
 	}
 	
@@ -96,7 +105,7 @@ public class UserMapperTest {
 	 */
 	@Test
 	public void deteleRoleByUIDTest() {
-		useMapper.deteleRoleByUID("7","4");
+		userMapper.deteleRoleByUID("7","4");
 		System.out.println("删除用户角色成功");
 	}
 }
