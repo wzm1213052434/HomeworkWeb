@@ -43,4 +43,11 @@ public interface CourseMapper {
     public List<Map<String, Object>> getAllCourse(@Param("courseName") String courseName,
 												  @Param("startPage") Integer startPage,
 												  @Param("rows") Integer rows) throws Exception;
+
+    /**
+     * 为分页查询课程提供总数
+     * @return
+     * @throws Exception
+     */
+    public int countCourse() throws Exception;
 }

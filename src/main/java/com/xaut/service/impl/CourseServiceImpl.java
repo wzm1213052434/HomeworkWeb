@@ -63,7 +63,9 @@ public class CourseServiceImpl implements CourseService {
 		}
 		int startPage = (rows * page) - rows; // 为SQL limit参数提供参数,startPage为起始页
 		List<Map<String, Object>> list = null;
+		String courseTotal = null;
 		try {
+			courseTotal = Integer.toString(this.courseMapper.countCourse()); // 课程总数
 			list = this.courseMapper.getAllCourse(courseName, startPage, rows);
 			if (list.size() == 0) {
 				return new ResponseBean(true, "无课程");
@@ -72,6 +74,6 @@ public class CourseServiceImpl implements CourseService {
 			logger.error("分页查询课程异常: " +e);
 			return new ResponseBean(false, "分页查询课程异常");
 		}
-		return new ResponseBean(true, list, "分页查询课程成功");
+		return new ResponseBean(true, list, courseTotal);
 	}
 }

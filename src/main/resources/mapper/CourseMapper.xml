@@ -39,4 +39,9 @@
 			limit #{startPage},#{rows}
 		</where>
 	</select>
+
+	<!--为分页查询课程提供总数-->
+	<select id="countCourse" resultType="int">
+		select count(*) from db_course
+	</select>
 </mapper>
