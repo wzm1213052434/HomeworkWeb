@@ -2,6 +2,9 @@ package com.xaut.mapper;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -64,4 +67,22 @@ public class CourseMapperTest {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * 测试: 根据课程名分页获取课程
+	 */
+	@Test
+	public void getAllCourse() {
+		try {
+			List<Map<String, Object>> list = this.courseMapper.getAllCourse("软",
+					0,
+					3); // startPage(起始页)
+			Assert.assertNotNull(list);
+			System.out.println("分页查询课程信息成功");
+			System.out.println(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

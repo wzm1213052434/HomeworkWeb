@@ -36,7 +36,7 @@
 			<if test="courseName != null and courseName != ''">
 				and db_course.cname like '%${courseName}%'
 			</if>
-			limit #{page},#{rows}
+			limit #{startPage},#{rows}
 		</where>
 	</select>
 </mapper>

@@ -61,10 +61,10 @@ public class CourseServiceImpl implements CourseService {
 			page = Integer.parseInt(CommonString.ONE);
 			rows = Integer.parseInt(CommonString.TEN);
 		}
-		page = (rows * page) - rows; // 为SQL limit参数提供参数
+		int startPage = (rows * page) - rows; // 为SQL limit参数提供参数,startPage为起始页
 		List<Map<String, Object>> list = null;
 		try {
-			list = this.courseMapper.getAllCourse(courseName, page, rows);
+			list = this.courseMapper.getAllCourse(courseName, startPage, rows);
 			if (list.size() == 0) {
 				return new ResponseBean(true, "无课程");
 			}
