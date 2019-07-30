@@ -1,9 +1,7 @@
 package com.xaut.mapper;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
-
 import com.xaut.entity.User;
 
 public interface UserMapper {

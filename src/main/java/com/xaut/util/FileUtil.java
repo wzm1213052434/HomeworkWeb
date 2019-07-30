@@ -126,7 +126,7 @@ public class FileUtil {
 			teacher.setTno(cno_tno[4]); //老师教工号
 			teacher.setUpdateTime(new java.sql.Date(new Date().getTime())); //最后更新时间
 			
-			course.setCno(cno_tno[3]); //课程号
+			course.setCno(course_cno); //课程号
 			course.setTno(cno_tno[4]); //课程教职工号 
 			course.setcName(line1[7]); //课程名称
 			course.setYear(line1[1]); //学年

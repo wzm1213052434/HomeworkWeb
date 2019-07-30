@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	
+	<mapper namespace="com.xaut.mapper.WorkMapper">
+	
+	<!-- 教师新增作业 -->
+	<insert id="addWork" parameterType="com.xaut.entity.Work">
+		insert into db_work(wno,cno,wname,description,start_time,end_time,updatetime,remark1,remark2)
+		select #{wno},#{cno},#{wName},#{desc},#{start_time},#{end_time},#{updateTime},'预留','预留'
+		from DUAL
+		where not exists(
+			select * from db_work
+		    where db_work.wno = #{wno}
+		)
+	</insert>	
+	
+	<!-- 教师删除作业 -->
+	<delete id="deteteWork" parameterType="String">
+		delete
+		from db_work
+		where db_work.wno = #{wno};
+	</delete>
+</mapper>

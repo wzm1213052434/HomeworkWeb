@@ -29,8 +29,14 @@
 		where db_course.tno = #{tno};
 	</select>
 
-	<!--查询所有课程信息-->
-	<select id="getAllCourse" resultType="map">
+	<!--根据课程名分页查询课程信息-->
+	<select id="getAllCourse" resultType="map" parameterType="String">
 		select * from db_course
+		<where>
+			<if test="courseName != null and courseName != ''">
+				and db_course.cname like '%${courseName}%'
+			</if>
+			limit #{startPage},#{rows}
+		</where>
 	</select>
 </mapper>

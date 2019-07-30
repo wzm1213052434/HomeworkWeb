@@ -74,9 +74,7 @@ public class CourseMapperTest {
 	@Test
 	public void getAllCourse() {
 		try {
-			List<Map<String, Object>> list = this.courseMapper.getAllCourse("软",
-					0,
-					3); // startPage(起始页)
+			List<Map<String, Object>> list = this.courseMapper.getAllCourse("软",0,3); // startPage(起始页)
 			Assert.assertNotNull(list);
 			System.out.println("分页查询课程信息成功");
 			System.out.println(list);

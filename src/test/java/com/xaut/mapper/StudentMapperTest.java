@@ -61,7 +61,37 @@ public class StudentMapperTest {
 	 */
 	@Test
 	public void studentDeleteCourseTest() {
-		studentMapper.studentDeleteCourse("3160662001","(2017-2018-2)-09191430-104492-4");
+		studentMapper.studentUndoCourse("3160662001","(2017-2018-2)-09191430-104492-4");
 		System.out.println("学生退课成功");
+	}
+	
+	/**
+	 * 测试：学生选作业
+	 */
+	@Test
+	public void studentSelectWorkTest() {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("sno","3160662002");
+		map.put("wno","(2017-2018-2)-09191430-104496-3-1");
+		map.put("subTime","2019-05-23");
+		map.put("times","1");
+		map.put("correctionStatus","0");
+		map.put("state",null);
+		map.put("comment","再接再厉");
+		map.put("evaluate","做的很差");
+		map.put("score","65");
+		map.put("updateTime",new java.sql.Date(new Date().getTime()));
+		
+		studentMapper.studentSelectWork(map);
+		System.out.println("学生选作业成功");
+	}
+	
+	/**
+	 * 测试：学生根据作业号退选作业
+	 */
+	@Test
+	public void studentUndoWorkTest() {
+		studentMapper.studentUndoWork("3160662002", "(2017-2018-2)-09191430-104496-3-1");
+		System.out.println("学生退选作业成功");
 	}
 }

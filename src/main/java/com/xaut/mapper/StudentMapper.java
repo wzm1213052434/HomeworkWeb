@@ -12,26 +12,39 @@ import org.springframework.stereotype.Repository;
 public interface StudentMapper {
 
     /**
-     * 功能：新增学生
+     *	功能：新增学生
      * @param student
      */
     public void addStudent(Student student);
     
     /**
-     * 功能：删除学生
+     *	功能：删除学生
      * @param sno
      */
     public void deleteStudent(String sno);
     
     /**
-     * 功能：学生选课
+     *	功能：学生选课
      * @param sno cno state score updatetime
      */
     public void studentSelectCourse(Map<String, Object> map);
     
     /**
-     * 学生退课
+     *	功能：学生退课
      * @param sno cno
      */
-    public void studentDeleteCourse(@Param("sno") String sno,@Param("cno") String cno);
+    public void studentUndoCourse(@Param("sno") String sno,@Param("cno") String cno);
+    
+    /**
+     *	功能：学生选作业
+     * @param map
+     */
+    public void studentSelectWork(Map<String, Object> map);
+    
+    /**
+     *	功能：学生根据作业号退选作业
+     * @param cno
+     * @param wno
+     */
+    public void studentUndoWork(@Param("sno") String sno,@Param("wno") String wno);
 }

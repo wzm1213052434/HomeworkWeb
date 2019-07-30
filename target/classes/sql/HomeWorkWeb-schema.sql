@@ -70,7 +70,7 @@ CREATE TABLE `db_work`  (
   `wno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业号',
   `cno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '课程号',
   `wname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业名',
-  `desc` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业描述',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业描述',
   `start_time` datetime NOT NULL COMMENT '发布时间',
   `end_time` datetime NOT NULL COMMENT '结束时间',
   `updatetime` datetime NOT NULL COMMENT '更新时间',
