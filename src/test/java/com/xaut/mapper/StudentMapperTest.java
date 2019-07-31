@@ -2,11 +2,18 @@ package com.xaut.mapper;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+import com.xaut.util.HandleJSON;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Student;
+
+import javax.crypto.spec.OAEPParameterSpec;
 
 /*
  * 单元测试
@@ -94,4 +101,18 @@ public class StudentMapperTest {
 		studentMapper.studentUndoWork("3160662002", "(2017-2018-2)-09191430-104496-3-1");
 		System.out.println("学生退选作业成功");
 	}
+
+	/**
+	 * 根据课程号查询学生
+	 */
+    @Test
+    public void getStudentByCourse() {
+    	try {
+			List<Map<String, Object>> result = this.studentMapper.getStudentByCourse("(2017-2018-2)-09191430-104492-4");
+			Assert.assertNotNull(result);
+			System.out.println("测试根据课程号查询学生通过");
+		} catch (Exception e) {
+			System.out.println("测试根据课程号查询学生异常");
+		}
+    }
 }

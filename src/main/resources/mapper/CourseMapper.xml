@@ -32,12 +32,11 @@
 	<!--根据课程名分页查询课程信息-->
 	<select id="getAllCourse" resultType="map" parameterType="String">
 		select * from db_course
-		<where>
+		where 1 = 1
 			<if test="courseName != null and courseName != ''">
 				and db_course.cname like '%${courseName}%'
 			</if>
 			limit #{startPage},#{rows}
-		</where>
 	</select>
 
 	<!--为分页查询课程提供总数-->

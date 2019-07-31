@@ -57,4 +57,22 @@
 		from db_studwork
 		where db_studwork.sno = #{sno} and db_studwork.wno = #{wno};
     </delete>
+	
+	<!--根据课程号查询学生-->
+	<select id="getStudentByCourse" parameterType="String" resultType="map">
+		select
+			s.sno,
+			s.sname,
+			s.mailbox,
+			s.depart,
+			s.updatetime,
+		 	s.remark1,
+		 	s.remark2
+		FROM
+			db_student s
+		LEFT JOIN db_studcour ON s.sno = db_studcour.sno
+		WHERE
+			1 = 1
+		and db_studcour.cno = #{cno}
+	</select>
 </mapper>

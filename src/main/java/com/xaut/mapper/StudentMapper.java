@@ -1,6 +1,8 @@
 package com.xaut.mapper;
 
 import com.xaut.entity.Student;
+
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -47,4 +49,12 @@ public interface StudentMapper {
      * @param wno
      */
     public void studentUndoWork(@Param("sno") String sno,@Param("wno") String wno);
+
+    /**
+     * 功能：根据课程号查询学生
+     * @param cno
+     * @return
+     * @throws Exception
+     */
+    public List<Map<String, Object>> getStudentByCourse(@Param("cno") String cno) throws Exception;
 }
