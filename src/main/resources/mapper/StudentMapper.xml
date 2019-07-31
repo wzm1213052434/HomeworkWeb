@@ -58,7 +58,7 @@
 		where db_studwork.sno = #{sno} and db_studwork.wno = #{wno};
     </delete>
 	
-	<!--根据课程号查询学生-->
+	<!--根据课程号分页查询学生-->
 	<select id="getStudentByCourse" parameterType="String" resultType="map">
 		select
 			s.sno,
@@ -73,6 +73,17 @@
 		LEFT JOIN db_studcour ON s.sno = db_studcour.sno
 		WHERE
 			1 = 1
+			<if test="cno != null and cno != ''">
+				and db_studcour.cno = #{cno}
+			</if>
+		limit #{startPage},#{rows}
+	</select>
+
+	<!--根据课程号分页查询学生时提供总数-->
+	<select id="countStudent" parameterType="String" resultType="int">
+		select count(*) from db_student s
+		left join db_studcour ON s.sno = db_studcour.sno
+		where 1 = 1
 		and db_studcour.cno = #{cno}
 	</select>
 </mapper>

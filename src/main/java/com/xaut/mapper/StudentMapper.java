@@ -51,10 +51,20 @@ public interface StudentMapper {
     public void studentUndoWork(@Param("sno") String sno,@Param("wno") String wno);
 
     /**
-     * 功能：根据课程号查询学生
+     * 功能：根据课程号分页查询学生
      * @param cno
      * @return
      * @throws Exception
      */
-    public List<Map<String, Object>> getStudentByCourse(@Param("cno") String cno) throws Exception;
+    public List<Map<String, Object>> getStudentByCourse(@Param("cno") String cno,
+                                                        @Param("startPage") Integer startPage,
+                                                        @Param("rows") Integer rows) throws Exception;
+
+    /**
+     * 功能：根据课程号分页查询学生时提供总数
+     * @param cno
+     * @return
+     * @throws Exception
+     */
+    public int countStudent(@Param("cno") String cno) throws Exception;
 }

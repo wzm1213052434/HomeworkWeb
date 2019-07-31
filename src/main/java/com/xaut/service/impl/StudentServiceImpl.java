@@ -1,6 +1,7 @@
 package com.xaut.service.impl;
 
 import com.xaut.mapper.StudentMapper;
+import com.xaut.util.CommonString;
 import com.xaut.util.ResponseBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,17 +27,24 @@ public class StudentServiceImpl implements StudentService {
     private StudentMapper studentMapper;
 
     /**
-     * 根据课程号查询学生
+     * 根据课程号分页查询学生
      * @param cno
      * @return
      */
-    public ResponseBean getStudentByCourse(String cno) {
+    public ResponseBean getStudentByCourse(String cno, Integer page, Integer rows) {
         if (StringUtils.isEmpty(cno)) {
             return new ResponseBean(false, "课程号不能为空");
         }
+        if (page == 0 || rows == 0) { // page和rows为0时,为其设置默认值
+            page = Integer.parseInt(CommonString.ONE);
+            rows = Integer.parseInt(CommonString.TEN);
+        }
+        int startPage = (rows * page) - rows;
         List<Map<String, Object>> list = null;
+        String total = null;
         try {
-            list = this.studentMapper.getStudentByCourse(cno);
+            total = Integer.toString(this.studentMapper.countStudent(cno)); // 总数
+            list = this.studentMapper.getStudentByCourse(cno, startPage, rows);
             if (list.size() == 0) {
                 return new ResponseBean(false, "该课程无学生选择");
             }
@@ -44,6 +52,6 @@ public class StudentServiceImpl implements StudentService {
             logger.error("根据课程号查询学生异常: " +e);
             return new ResponseBean(false, "根据课程号查询学生异常");
         }
-        return new ResponseBean(true, list, "根据课程号查询学生成功");
+        return new ResponseBean(true, list, total);
     }
 }

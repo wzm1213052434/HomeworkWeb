@@ -108,7 +108,7 @@ public class StudentMapperTest {
     @Test
     public void getStudentByCourse() {
     	try {
-			List<Map<String, Object>> result = this.studentMapper.getStudentByCourse("(2017-2018-2)-09191430-104492-4");
+			List<Map<String, Object>> result = this.studentMapper.getStudentByCourse("(2017-2018-2)-09191430-104492-4", 1,1);
 			Assert.assertNotNull(result);
 			System.out.println("测试根据课程号查询学生通过");
 		} catch (Exception e) {

@@ -69,7 +69,7 @@ public class StudentController {
 	}
 
 	/**
-	 * 根据课程号查询学生
+	 * 根据课程号分页查询学生
 	 * @param request
 	 * @return
 	 */
@@ -77,6 +77,8 @@ public class StudentController {
 	@ResponseBody
 	public ResponseBean getStudentByCno(HttpServletRequest request) {
 		String cno = request.getParameter("cno");
-		return studentService.getStudentByCourse(cno);
+		Integer page = Integer.parseInt(request.getParameter("page"));
+		Integer rows = Integer.parseInt(request.getParameter("rows"));
+		return studentService.getStudentByCourse(cno, page, rows);
 	}
 }

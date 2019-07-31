@@ -8,10 +8,12 @@ import com.xaut.util.ResponseBean;
 public interface StudentService {
 
     /**
-     * 根据课程号查询学生
+     * 根据课程号分页查询学生
      * @param cno
+     * @param page
+     * @param rows
      * @return
      */
-    ResponseBean getStudentByCourse(String cno);
+    ResponseBean getStudentByCourse(String cno, Integer page, Integer rows);
 
 }
