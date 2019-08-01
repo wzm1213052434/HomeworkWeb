@@ -76,7 +76,10 @@
 			<if test="cno != null and cno != ''">
 				and db_studcour.cno = #{cno}
 			</if>
-		limit #{startPage},#{rows}
+		    <if test="isPage == true">
+				limit #{startPage},#{rows}
+			</if>
+
 	</select>
 
 	<!--根据课程号分页查询学生时提供总数-->

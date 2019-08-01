@@ -14,6 +14,6 @@ public interface StudentService {
      * @param rows
      * @return
      */
-    ResponseBean getStudentByCourse(String cno, Integer page, Integer rows);
+    ResponseBean getStudentByCourse(String cno, Integer page, Integer rows, Boolean isPage);
 
 }

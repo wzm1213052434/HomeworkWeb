@@ -31,7 +31,7 @@ public class StudentServiceImpl implements StudentService {
      * @param cno
      * @return
      */
-    public ResponseBean getStudentByCourse(String cno, Integer page, Integer rows) {
+    public ResponseBean getStudentByCourse(String cno, Integer page, Integer rows, Boolean isPage) {
         if (StringUtils.isEmpty(cno)) {
             return new ResponseBean(false, "课程号不能为空");
         }
@@ -44,7 +44,7 @@ public class StudentServiceImpl implements StudentService {
         String total = null;
         try {
             total = Integer.toString(this.studentMapper.countStudent(cno)); // 总数
-            list = this.studentMapper.getStudentByCourse(cno, startPage, rows);
+            list = this.studentMapper.getStudentByCourse(cno, startPage, rows, isPage);
             if (list.size() == 0) {
                 return new ResponseBean(false, "该课程无学生选择");
             }

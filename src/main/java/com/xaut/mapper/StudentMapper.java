@@ -58,7 +58,8 @@ public interface StudentMapper {
      */
     public List<Map<String, Object>> getStudentByCourse(@Param("cno") String cno,
                                                         @Param("startPage") Integer startPage,
-                                                        @Param("rows") Integer rows) throws Exception;
+                                                        @Param("rows") Integer rows,
+                                                        @Param("isPage") Boolean isPage) throws Exception;
 
     /**
      * 功能：根据课程号分页查询学生时提供总数
