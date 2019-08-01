@@ -21,4 +21,11 @@
 		from db_work
 		where db_work.wno = #{wno};
 	</delete>
+	
+	<!-- 根据课程号查看发布作业次数 -->
+	<select id="findWorkTimesByCno" parameterType="String" resultType="int">
+		select count(*)
+		from db_work
+		where db_work.cno = #{cno}
+	</select>
 </mapper>

@@ -118,9 +118,9 @@ DROP TABLE IF EXISTS `db_studwork`;
 CREATE TABLE `db_studwork`  (
   `sno` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '学生学号',
   `wno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业号',
-  `subtime` datetime NOT NULL COMMENT '提交时间',
+  `subtime` datetime NULL COMMENT '提交时间',
   `times` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '可提交次数',
-  `correctionstatus` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '批改状态',
+  `correctionstatus` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '批改状态',
   `state` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '重新提交过程状态',
   `comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评语',
   `evaluate` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',

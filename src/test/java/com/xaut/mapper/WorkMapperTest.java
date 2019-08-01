@@ -47,4 +47,12 @@ public class WorkMapperTest {
 		workMapper.deteteWork("(2017-2018-2)-09191430-104496-3-5");
 		System.out.println("教师删除作业成功");
 	}
+	
+	/**
+	 * 测试：根据课程号查看发布作业次数
+	 */
+	@Test
+	public void findWorkTimesByCnoTest() {
+		System.out.println("发布作业次数：" + workMapper.findWorkTimesByCno("(2017-2018-2)-09191430-104496-3"));
+	}
 }

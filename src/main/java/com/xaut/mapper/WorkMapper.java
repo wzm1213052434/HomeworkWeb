@@ -16,4 +16,11 @@ public interface WorkMapper {
 	 * @param wno
 	 */
 	public void deteteWork(String wno);
+	
+	/**
+	 * 功能：根据课程号查看发布作业次数
+	 * @param cno
+	 * @return
+	 */
+	public int findWorkTimesByCno(String cno);
 }

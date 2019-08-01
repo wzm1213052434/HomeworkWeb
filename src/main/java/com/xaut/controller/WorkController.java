@@ -16,14 +16,14 @@ import com.xaut.service.WorkService;
 @RequestMapping(value = "/work")
 public class WorkController {
 	@Autowired
-	private WorkService workService;
+	private WorkService workService; 
 	
 	/**
 	 * 功能：教师发布作业
 	 * 参数 request
-	 * 返回值 true | false
+	 * 返回值 map
 	 */
-	@RequestMapping(value = "/publishWork",method=RequestMethod.GET)
+	@RequestMapping(value = "/publishWork",method=RequestMethod.POST)
 	public Map<String, Object> publishWork(HttpServletRequest request) {
 		//1.前端获取参数
 		String start_time = request.getParameter("beginDate").toString();
@@ -31,12 +31,12 @@ public class WorkController {
 		String wName = request.getParameter("workName").toString();
 		String description = request.getParameter("content").toString();
 		String courseName_courseCno = request.getParameter("itemText").toString();
-		//String courseName = courseName_courseCno.split(",")[0];
 		String courseCno = courseName_courseCno.split(",")[1];
 		
 		//2.得到work对象
 		Work work = new Work();
-		work.setWno(courseCno + "");	//作业号 = 课程号 + 序号
+		//作业号 = "课程号-序号"(序号:本课程发布作业的次数+1,查作业表得来)
+		work.setWno(courseCno + "-" + (workService.findWorkTimesByCno(courseCno)+1));
 		work.setCno(courseCno);	//课程号
 		work.setwName(wName);	//作业名
 		work.setDesc(description);	//作业描述
