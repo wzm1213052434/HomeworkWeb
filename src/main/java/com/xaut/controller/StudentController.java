@@ -79,6 +79,7 @@ public class StudentController {
 		String cno = request.getParameter("cno");
 		Integer page = Integer.parseInt(request.getParameter("page"));
 		Integer rows = Integer.parseInt(request.getParameter("rows"));
-		return studentService.getStudentByCourse(cno, page, rows);
+		Boolean isPage = Boolean.valueOf(request.getParameter("isPage"));
+		return studentService.getStudentByCourse(cno, page, rows, isPage);
 	}
 }
