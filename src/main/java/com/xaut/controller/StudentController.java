@@ -79,7 +79,7 @@ public class StudentController {
 		String cno = request.getParameter("cno");
 		Integer page = Integer.parseInt(request.getParameter("page"));
 		Integer rows = Integer.parseInt(request.getParameter("rows"));
-		Boolean isPage = Boolean.valueOf(request.getParameter("isPage"));
+		Boolean isPage = Boolean.valueOf(request.getParameter("isPage")); // 控制是否分页,true为分页
 		return studentService.getStudentByCourse(cno, page, rows, isPage);
 	}
 }
