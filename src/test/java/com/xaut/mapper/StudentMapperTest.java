@@ -4,16 +4,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.alibaba.fastjson.JSON;
-import com.xaut.util.HandleJSON;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.xaut.entity.Student;
-
-import javax.crypto.spec.OAEPParameterSpec;
 
 /*
  * 单元测试

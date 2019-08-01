@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.xaut.mapper.CourseMapper">
 
@@ -32,11 +32,15 @@
 	<!--根据课程名分页查询课程信息-->
 	<select id="getAllCourse" resultType="map" parameterType="String">
 		select * from db_course
-		<where>
+		where 1 = 1
 			<if test="courseName != null and courseName != ''">
 				and db_course.cname like '%${courseName}%'
 			</if>
 			limit #{startPage},#{rows}
-		</where>
+	</select>
+
+	<!--为分页查询课程提供总数-->
+	<select id="countCourse" resultType="int">
+		select count(*) from db_course
 	</select>
 </mapper>
