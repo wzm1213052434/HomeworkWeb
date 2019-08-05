@@ -299,7 +299,7 @@
                 formData.append("file", $("#file")[0].files[0]);
                 formData.append("name", name);
                 $.ajax({
-                    url: '/HomeWorkWeb/teacher/upload',
+                    url: '/HomeWorkWeb/teacher/to_upload',
                     type: 'POST',
                     async: false,
                     data: formData,
@@ -311,7 +311,7 @@
                         console.log("正在进行，请稍候");
                     },
                     success: function (responseStr) {
-                        if (responseStr == "01") {
+                        if (responseStr.message == "成功") {
                             alert("导入成功");
                         } else {
                             alert("导入失败");

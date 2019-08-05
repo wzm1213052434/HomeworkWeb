@@ -13,28 +13,21 @@ public class UserServiceImpl implements UserService{
 	private UserMapper userMapper;
 	
 	/**
-	 * 通过用户id查找用户对象
-	 */
-	public User findUserById(Integer id) {
-		return this.userMapper.findUserById(id);
-	}
-	
-	/**
-     * 通过用户名查找用户对象
+     * 通过用户账号查找用户对象
      */
 	public User findUserByUsername(String username) {
 		return this.userMapper.findUserByUsername(username);
 	}
 	
 	/**
-     * 根据用户名查找其角色
+     * 根据用户账号查找其角色
      */
 	public List<String> findRolesByUsername(String username){
 		return this.userMapper.findRolesByUsername(username);
 	}
 	
 	/**
-     * 根据用户名查找其权限
+     * 根据用户账号查找其权限
      */
 	public List<String> findPermissionsByUsername(String username){
 		return this.userMapper.findPermissionsByUsername(username);

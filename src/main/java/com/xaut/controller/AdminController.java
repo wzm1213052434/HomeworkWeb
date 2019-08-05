@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequestMapping(value = "/admin")
 @Controller
 public class AdminController {
@@ -24,12 +26,16 @@ public class AdminController {
 	}
 
 	/**
-	 * 查询所有课程
+	 * 根据课程名分页获取课程
+	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/lookCourse", method = {RequestMethod.GET})
     @ResponseBody
-	public ResponseBean lookCourse() {
-		return courseService.getAllCourse();
+	public ResponseBean lookCourse(HttpServletRequest request) {
+		String courseName = request.getParameter("cname"); // 课程名
+		Integer page = Integer.parseInt(request.getParameter("page")); // 页码
+		Integer rows = Integer.parseInt(request.getParameter("rows")); // 每页记录数
+		return courseService.getAllCourse(courseName, page, rows);
 	}
 }

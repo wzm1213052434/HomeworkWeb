@@ -70,7 +70,7 @@ CREATE TABLE `db_work`  (
   `wno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业号',
   `cno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '课程号',
   `wname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业名',
-  `desc` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业描述',
+  `description` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '作业描述',
   `start_time` datetime NOT NULL COMMENT '发布时间',
   `end_time` datetime NOT NULL COMMENT '结束时间',
   `updatetime` datetime NOT NULL COMMENT '更新时间',
@@ -118,9 +118,9 @@ DROP TABLE IF EXISTS `db_studwork`;
 CREATE TABLE `db_studwork`  (
   `sno` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '学生学号',
   `wno` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '作业号',
-  `subtime` datetime NOT NULL COMMENT '提交时间',
+  `subtime` datetime NULL COMMENT '提交时间',
   `times` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '可提交次数',
-  `correctionstatus` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '批改状态',
+  `correctionstatus` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '批改状态',
   `state` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '重新提交过程状态',
   `comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评语',
   `evaluate` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -143,7 +143,7 @@ CREATE TABLE `users`  (
   `flag` bigint(2) NOT NULL COMMENT '账号类型',
   `salt` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '盐',
   `locked` tinyint(1) NULL DEFAULT 0 COMMENT '是否锁定',
-  `createtime` datetime NOT NULL COMMENT '更新时间',
+  `updatetime` datetime NOT NULL COMMENT '更新时间',
   `remark1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
   `remark2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
   PRIMARY KEY (`id`) USING BTREE
@@ -156,7 +156,7 @@ CREATE TABLE `role`  (
   `rname` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色名称',
   `sn` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '角色标识符',
   `available` tinyint(1) NULL DEFAULT 1 COMMENT '是否可用',
-  `createtime` datetime NOT NULL COMMENT '更新时间',
+  `updatetime` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
@@ -176,7 +176,7 @@ DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles`  (
   `uid` bigint(20) NOT NULL COMMENT 'uid',
   `rid` bigint(20) NOT NULL COMMENT 'rid',
-  `createtime` datetime NOT NULL COMMENT '更新时间',
+  `updatetime` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`uid`, `rid`) USING BTREE,
   INDEX `rid`(`rid`) USING BTREE,
   CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `roles_permissions`;
 CREATE TABLE `roles_permissions`  (
   `rid` bigint(20) NOT NULL COMMENT 'rid',
   `pid` bigint(20) NOT NULL COMMENT 'pid',
-  `createtime` datetime NOT NULL COMMENT '更新时间',
+  `updatetime` datetime NOT NULL COMMENT '更新时间',
   PRIMARY KEY (`rid`, `pid`) USING BTREE,
   INDEX `pid`(`pid`) USING BTREE,
   CONSTRAINT `roles_permissions_ibfk_1` FOREIGN KEY (`rid`) REFERENCES `role` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,

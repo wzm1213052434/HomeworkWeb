@@ -1,19 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.xaut.mapper.StudentMapper">
 
-    <!-- 根据id(学号)新增学生 -->
+    <!-- 新增学生 -->
     <insert id="addStudent" parameterType="com.xaut.entity.Student">
-		insert into student
-		(id, name, major, mail, updatetime, sex)
-		values
-		(student.id,
-		 student.name,
-		 student.major,
-		 student.mail,
-		 student.updatetime,
-		 student.sex)
+		insert into db_student(sno,sname,depart,mailbox,updatetime,remark1,remark2)
+		select #{sno},#{sName},#{depart},#{mailbox},#{updateTime},"预留","预留"
+		from DUAL
+		where not exists(
+			select sno from db_student
+		    where db_student.sno = #{sno}
+		)
 	</insert>
+	
+	<!-- 删除学生 -->
+	<delete id="deleteStudent" parameterType="String">
+        delete
+		from db_student
+		where db_student.sno = #{sno};
+    </delete>
+    
+    <!-- 学生选课 -->
+    <insert id="studentSelectCourse" parameterType="java.util.Map">
+    	insert into db_studcour(sno,cno,state,score,updatetime,remark1,remark2)
+		select #{sno},#{cno},#{state},#{score},#{updateTime},'预留','预留'
+		from DUAL
+		where not exists(
+			select * from db_studcour
+		    where db_studcour.sno = #{sno} and db_studcour.cno = #{cno}
+		)
+    </insert>
+    
+    <!-- 学生退课 -->
+    <delete id="studentUndoCourse">
+    	delete
+		from db_studcour
+		where db_studcour.sno = #{sno} and db_studcour.cno = #{cno}
+    </delete>
+    
+    <!-- 学生选作业 -->
+    <insert id="studentSelectWork" parameterType="java.util.Map">
+    	insert into db_studwork(sno,wno,subtime,times,correctionstatus,state,comment,evaluate,score,updatetime,remark1,remark2)
+		select #{sno},#{wno},#{subTime},#{times},#{correctionStatus},#{state},#{comment},#{evaluate},#{score},#{updateTime},'预留','预留'
+		from DUAL
+		where not exists(
+			select * from db_studwork
+		    where db_studwork.sno = #{sno} and db_studwork.wno = #{wno}
+		)
+    </insert>
+    
+    <!-- 学生根据作业号退选作业 -->
+    <delete id="studentUndoWork">
+    	delete
+		from db_studwork
+		where db_studwork.sno = #{sno} and db_studwork.wno = #{wno};
+    </delete>
+	
+	<!--根据课程号分页查询学生-->
+	<select id="getStudentByCourse" parameterType="String" resultType="map">
+		select
+			s.sno,
+			s.sname,
+			s.mailbox,
+			s.depart,
+			s.updatetime,
+		 	s.remark1,
+		 	s.remark2
+		FROM
+			db_student s
+		LEFT JOIN db_studcour ON s.sno = db_studcour.sno
+		WHERE
+			1 = 1
+			<if test="cno != null and cno != ''">
+				and db_studcour.cno = #{cno}
+			</if>
+		    <if test="isPage == true">
+				limit #{startPage},#{rows}
+			</if>
+
+	</select>
+
+	<!--根据课程号分页查询学生时提供总数-->
+	<select id="countStudent" parameterType="String" resultType="int">
+		select count(*) from db_student s
+		left join db_studcour ON s.sno = db_studcour.sno
+		where 1 = 1
+		and db_studcour.cno = #{cno}
+	</select>
 </mapper>

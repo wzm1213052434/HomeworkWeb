@@ -9,15 +9,15 @@ import com.xaut.entity.Role;
  * 单元测试
  */
 public class RoleMapperTest {
+	
+	ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
+	RoleMapper roleMapper = act.getBean(RoleMapper.class);
+	
 	/**
-	 * 测试ID查找角色信息
+	 * 测试：ID查找角色信息
 	 */
 	@Test
 	public void findRoleByIdTest() {
-		@SuppressWarnings("resource")
-		ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
-		RoleMapper roleMapper = act.getBean(RoleMapper.class);
-		
 		Role role = roleMapper.findRoleById(1);
 		System.out.println(role);
 	}
