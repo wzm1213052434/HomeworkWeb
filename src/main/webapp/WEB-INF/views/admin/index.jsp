@@ -125,7 +125,7 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="#">
+							<a href="findMyself">
 								<i class="icon-user"></i> 
 								个人信息 
 							</a>
@@ -191,13 +191,13 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 增删用户</a>
+							<a href="findstudent"><i class="icon-user-follow"></i>学生管理</a>
 						</li>
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 更改用户密码</a>
+							<a href="findteacher"><i class="icon-user-follow"></i>教师管理</a>
 						</li>
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 更改用户权限</a>
+							<a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a>
 						</li>
 					</ul>
 				</li>
@@ -209,7 +209,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#"><i class="icon-notebook"></i> 您的信息</a>
+							<a href="findMyself"><i class="icon-notebook"></i> 您的信息</a>
 						</li>
 						<li>
 							<a href="login"><i class="icon-key"></i> 退出登入</a>
@@ -235,70 +235,73 @@
 				用户信息 <small>查看所有用户</small>
 			</h3>
 			<!-- END PAGE HEADER-->
-			<!-- BEGIN DASHBOARD STATS -->
-			<div class="row">
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat green-haze">
-						<div class="visual">
-							<i class="fa fa-shopping-cart"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
+			<div style="border-style:dashed;padding:25px 10px 5px 10px;border-color:gray;margin:5px 0 15px 0;">
+				<!-- 显示总人数部分-开始 -->
+				<div class="row">
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="dashboard-stat green-haze">
+							<div class="visual">
+								<i class="fa fa-shopping-cart"></i>
 							</div>
-							<div class="desc">
-								 管理员人数
+							<div class="details">
+								<div class="number">
+									 0
+								</div>
+								<div class="desc">
+									 管理员人数
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="dashboard-stat blue-madison">
+							<div class="visual">
+								<i class="fa fa-comments"></i>
+							</div>
+							<div class="details">
+								<div class="number">
+									 0
+								</div>
+								<div class="desc">
+									 教师人数
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="dashboard-stat red-intense">
+							<div class="visual">
+								<i class="fa fa-bar-chart-o"></i>
+							</div>
+							<div class="details">
+								<div class="number">
+									 0
+								</div>
+								<div class="desc">
+									 学生人数
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+						<div class="dashboard-stat purple-plum">
+							<div class="visual">
+								<i class="fa fa-globe"></i>
+							</div>
+							<div class="details">
+								<div class="number">
+									 1
+								</div>
+								<div class="desc">
+									 超级管理员人数
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat blue-madison">
-						<div class="visual">
-							<i class="fa fa-comments"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
-							</div>
-							<div class="desc">
-								 教师人数
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat red-intense">
-						<div class="visual">
-							<i class="fa fa-bar-chart-o"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 0
-							</div>
-							<div class="desc">
-								 学生人数
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat purple-plum">
-						<div class="visual">
-							<i class="fa fa-globe"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 1
-							</div>
-							<div class="desc">
-								 超级管理员人数
-							</div>
-						</div>
-					</div>
-				</div>
+				<!-- 显示总人数部分-结束 -->
 			</div>
-			<!-- END DASHBOARD STATS -->
+			<!-- 内容附加处 -->
 		</div>
 	</div>
 </div>

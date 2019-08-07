@@ -8,7 +8,7 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="admin" name="description"/>
 <meta content="HeQin" name="author"/>
-<title>作业信息</title>
+<title>管理员页面</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
@@ -125,7 +125,7 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="#">
+							<a href="findMyself">
 								<i class="icon-user"></i> 
 								个人信息 
 							</a>
@@ -170,7 +170,7 @@
 					</a>
 					<ul class="sub-menu	">
 						<li>
-							<a href="lookindex"><i class="icon-bar-chart"></i> 用户信息</a>
+							<a href="lookIndex"><i class="icon-bar-chart"></i> 用户信息</a>
 						</li>
 						<li>
 							<a href="lookCourse"><i class="icon-bar-chart"></i> 课程信息</a>
@@ -191,13 +191,13 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 增删用户</a>
+							<a href="findstudent"><i class="icon-user-follow"></i>学生管理</a>
 						</li>
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 更改用户密码</a>
+							<a href="findteacher"><i class="icon-user-follow"></i>教师管理</a>
 						</li>
 						<li>
-							<a href="#"><i class="icon-user-follow"></i> 更改用户权限</a>
+							<a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a>
 						</li>
 					</ul>
 				</li>
@@ -209,7 +209,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="#"><i class="icon-notebook"></i> 您的信息</a>
+							<a href="findMyself"><i class="icon-notebook"></i> 您的信息</a>
 						</li>
 						<li>
 							<a href="login"><i class="icon-key"></i> 退出登入</a>
@@ -235,6 +235,78 @@
 				作业信息 <small>查看所有作业</small>
 			</h3>
 			<!-- END PAGE HEADER-->
+			<!-- 显示表格部分-开始 -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="portlet box green">
+						<div class="portlet-title">
+							<div class="caption"><i class="fa fa-comments"></i>作业信息总览</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse"></a>
+								<a href="javascript:;" class="reload"></a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<div id="sample_editable_1_filter" class="dataTables_filter">
+										<form>
+											<input type="search" class="form-control input-big input-inline" placeholder="按作业号查询" aria-controls="sample_editable_1">
+											<button type="submit" class="form-control input-inline">查询</button>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="table-scrollable">
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th style="width:10%;">作业号</th>
+											<th style="width:10%;">课程号</th>
+											<th style="width:15%;">作业名</th>
+											<th style="width:40%;">作业描述</th>
+											<th style="width:10%;">发布时间</th>
+											<th style="width:10%;">结束时间</th>
+											<th style="width:5%;">操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>123456789</td>
+											<td>123456789</td>
+											<td>123456789</td>
+											<td>叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦叽里呱啦</td>
+											<td>19980101</td>
+											<td>29981231</td>
+											<td><a class="edit" href="javascript:;">删除</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-sm-5 pull-right">
+									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+										<ul class="pagination">
+											<li class="prev disabled">
+												<a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
+											</li>
+											<li><a href="#">first</a></li>
+											<li class="active"><a>---</a></li>
+											<li class="active"><a>now</a></li>
+											<li class="active"><a>---</a></li>
+											<li><a href="#">last</a></li>
+											<li class="next">
+												<a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 显示表格部分-结束-->
 			
 		</div>
 	</div>
