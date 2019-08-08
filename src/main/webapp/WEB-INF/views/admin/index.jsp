@@ -235,8 +235,8 @@
 				用户信息 <small>查看所有用户</small>
 			</h3>
 			<!-- END PAGE HEADER-->
+			<!-- 显示总人数部分-开始 -->
 			<div style="border-style:dashed;padding:25px 10px 5px 10px;border-color:gray;margin:5px 0 15px 0;">
-				<!-- 显示总人数部分-开始 -->
 				<div class="row">
 					<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 						<div class="dashboard-stat green-haze">
@@ -299,9 +299,185 @@
 						</div>
 					</div>
 				</div>
-				<!-- 显示总人数部分-结束 -->
 			</div>
+			<!-- 显示总人数部分-结束 -->
+			<!-- 显示详细信息部分  开始 -->
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-hoki box">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-comments"></i>教师信息统计
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse"></a>
+								<a href="javascript:;" class="reload"></a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5">
+									<div class="col-md-6 name">
+										 教师用户人数：
+									</div>
+									<div class="col-md-6 value">
+										 **** 位
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="col-md-8 name">
+										 教师用户所属学院有：
+									</div>
+									<div class="col-md-4 value">
+										 **** 类
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5 name">
+									信息按学院划分：
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-3">
+									<div class="col-md-6 name">****学院:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********学院:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********学院:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********学院:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5 name">信息按使用状态划分：</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-4">
+									<div class="col-md-6 name">账号正常用户人数:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-4">
+									<div class="col-md-6 name">账号冻结用户人数:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 col-sm-12">
+					<div class="portlet blue-hoki box">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-comments"></i>学生信息统计
+							</div>
+							<div class="tools">
+								<a href="javascript:;" class="collapse"></a>
+								<a href="javascript:;" class="reload"></a>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5">
+									<div class="col-md-6 name">
+										 学生用户人数：
+									</div>
+									<div class="col-md-6 value">
+										 **** 位
+									</div>
+								</div>
+								<div class="col-md-5">
+									<div class="col-md-8 name">
+										 学生用户所属专业有：
+									</div>
+									<div class="col-md-4 value">
+										 **** 类
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5 name">
+									信息按专业划分：
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-3">
+									<div class="col-md-6 name">****专业:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********专业:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********专业:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-3">
+									<div class="col-md-6 name">********专业:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<hr color="black"/>
+								</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-5 name">信息按使用状态划分：</div>
+							</div>
+							<div class="row static-info">
+								<div class="col-md-4">
+									<div class="col-md-6 name">账号正常用户人数:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+								<div class="col-md-4">
+									<div class="col-md-6 name">账号冻结用户人数:</div>
+									<div class="col-md-6 value">** 人</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 显示详细信息部分  开始 -->
+			
 			<!-- 内容附加处 -->
+
 		</div>
 	</div>
 </div>
@@ -334,6 +510,9 @@
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
 <script src="assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/flot/jquery.flot.pie.min.js"></script>
+<script src="assets/global/plugins/flot/jquery.flot.stack.min.js"></script>
+<script src="assets/global/plugins/flot/jquery.flot.crosshair.min.js"></script>
 <script src="assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
@@ -351,13 +530,14 @@
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/charts-flotcharts.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    
    Metronic.init(); // init metronic core componets
    Layout.init(); // init layout
    QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
+   Demo.init(); // init demo features
    Index.init();   
    Index.initDashboardDaterange();
    Index.initJQVMAP(); // init index page's custom scripts
@@ -366,6 +546,10 @@ Demo.init(); // init demo features
    Index.initChat();
    Index.initMiniCharts();
    Tasks.initDashboardWidget();
+   ChartsFlotcharts.init();
+   ChartsFlotcharts.initCharts();
+   ChartsFlotcharts.initPieCharts();
+   ChartsFlotcharts.initBarCharts();
 });
 </script>
 </body>
