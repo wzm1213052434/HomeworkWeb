@@ -9,7 +9,6 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta content="教师端课程页面" name="description" />
     <meta content="xiaoMing" name="author" />
-
     <!-- BEGIN GLOBAL MANDATORY STYLES 页面标准通用css-->
     <link href="../../../assets/global/fonts/2.css" rel="stylesheet" type="text/css">
     <link href="../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -193,6 +192,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-md-2" style="text-align:center;">作业名</label>
+                                    <div class="col-md-3">
+                                        <div class="input-icon right">
+                                            <input type="text" class="form-control" name="username1" id="homeworkName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-md-2"  style="text-align:center;">开始日期</label>
                                     <div class="col-md-3">
                                         <div class="input-group input-medium date date-picker" data-date-format="dd-mm-yyyy" data-date-start-date="+0d">
@@ -220,7 +227,6 @@
                                         <textarea class="wysihtml5 form-control" rows="6" id="content"></textarea>
                                     </div>
                                 </div>
-
                                 <div class="form-actions">
                                     <div class="row">
                                         <div class="col-md-offset-2 col-md-10">
@@ -312,47 +318,47 @@
     <script>
         var lesson = [];
         //获取课程函数
-        var lessons = function(){
+        var lessons = function() {
             let userId = sessionStorage.getItem("userName");
             $.ajax({
-                url:'',
+                url:'/HomeWorkWeb/course/findCourseByTeacherTno',
                 type:"GET",
                 async: false,
                 data:{
                     teacherId: userId
                 },
-                success:function(responseStr){
+                success:function(responseStr) {
                      //往数组里面放课程名
                      for(var i in responseStr){
-                         lesson.push(i.name);
+                         lesson.push(i.data);
                      }
                 }
             })
         }
 
         //向下拉菜单放课程
-        var pushLessons = function(){
+        var pushLessons = function() {
             lessons();
             let html = "";
             for(let j = 0; j < lesson.length; j++){
-                html += "<option>"+lesson[j]+"</option>";
+                html += "<option>"+lesson[j].data[j].cName + "  " + lesson[j].data[j].time+"</option>";
             }
             $("#ddl").html(html);
         }
 
         //作业提交函数
         var publish = function() {
-            $("#submit").click(function(){
-                var deadLine = $("#deadLine").val();
-                var content = $("#content").val();
-                var beginDate = $("#beginDate").val();
-                var itemText = $("#ddl option:selected").text();
-                alert(content);
-                if(!deadLine){
+            $("#submit").click( function() {
+                let deadLine = $("#deadLine").val();
+                let content = $("#content").val();
+                let beginDate = $("#beginDate").val();
+                let itemText = $("#ddl option:selected").text();
+                let homeworkName = $("#homeworkName").val();
+                if(!deadLine) {
                     alert("请输入作业截止日期");
                     return ;
                 }
-                if(!beginDate){
+                if(!beginDate) {
                     alert("请输入作业开始日期");
                     return ;
                 }
@@ -360,28 +366,33 @@
                     alert("请选择课程");
                     return ;
                 }
-                if(!content){
+                if(!content) {
                     alert("请输入作业内容");
                     return ;
+                }
+                if (!homeworkName) {
+                    alert("请输入作业名");
+                    return;
                 }
                 $.ajax({
                     url:"",
                     type: 'POST',
                     async: false,
-                    data:{
+                    data: {
                         deadLine:deadLine,
+                        homeworkName: homeworkName,
                         content:content,
                         beginDate:beginDate,
                         itemText:itemText
                     },
-                    success:function(responseStr){
-
+                    success: function(responseStr) {
+						alert("成功");
                     }
                 })
             })
         }
 
-        jQuery(document).ready(function () {
+        jQuery(document).ready( function () {
             // initiate layout and plugins
             Metronic.init(); //核心组件初始化
             Layout.init(); //布局初始化

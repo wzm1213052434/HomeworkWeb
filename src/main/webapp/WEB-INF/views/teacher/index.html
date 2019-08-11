@@ -3,7 +3,6 @@
 <%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8" />
     <title>教师端 | 课程信息</title>
@@ -22,6 +21,22 @@
     <link href="../../../assets/admin/layout2/css/layout.css" rel="stylesheet" type="text/css" />
     <link id="style_color" href="../../../assets/admin/layout2/css/themes/default.css" rel="stylesheet" type="text/css" />
     <link rel="shortcut icon" href="../../../assets/global/img/webIcon.ico" />
+    <style>
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fileinput-button input {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+        }
+    </style>
 </head>
 
 <body class="page-boxed page-header-fixed page-container-bg-solid page-sidebar-closed-hide-logo ">
@@ -74,10 +89,10 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                                 data-close-others="true">
                                 <img alt="" class="img-circle hide1" src="../../../assets/global/img/user.png" />
-                                <span class="username username-hide-on-mobile" id="userNameSpan">
-                                    <%User user=(User)request.getSession().getAttribute("user"); %>
-                                    <%=user.getUserName()%>
-                                </span>
+                                <span class="username username-hide-on-mobile" id="userNameSpan"> 
+								<%User user=(User)request.getSession().getAttribute("user"); %>
+								<%=user.getUsername()%>
+								</span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu">
@@ -106,23 +121,23 @@
             <div class="page-sidebar-wrapper">
                 <div class="page-sidebar navbar-collapse collapse">
                     <!-- BEGIN 侧边菜单栏 -->
-                    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu" data-auto-scroll="true"
-                        data-slide-speed="200">
+                    <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu"
+                        data-auto-scroll="true" data-slide-speed="200">
                         <li class="start ">
-                            <a href="#">
+                            <a href="javascript:;">
                                 <i class="icon-book-open"></i>
                                 <span class="title">课程信息</span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="publishHomework.html">
                                 <i class="icon-note"></i>
                                 <span class="title">发布作业</span>
                                 <span class="arrow "></span>
                             </a>
                         </li>
                         <li>
-                            <a href="javascript:;">
+                            <a href="readHomework.html">
                                 <i class="icon-check"></i>
                                 <span class="title">批阅作业</span>
                                 <span class="arrow "></span>
@@ -147,7 +162,7 @@
                         <ul class="page-breadcrumb">
                             <li>
                                 <i class="fa fa-home"></i>
-                                <a href="teacher.html">批阅作业</a>
+                                <a href="teacher.html">课程信息</a>
                                 <i class="fa fa-angle-right"></i>
                             </li>
                         </ul>
@@ -160,13 +175,43 @@
                                 <i class="fa fa-cogs font-green-sharp"></i>
                                 <span class="caption-subject font-green-sharp bold uppercase">课程</span>
                             </div>
+                            <div class="tools">
+                                <a class="btn btn-sm green" data-toggle="modal" href="#large">
+                                    新增课程 <i class="fa fa-edit"></i>
+                                </a>
+                            </div>
                         </div>
                         <div class="portlet-body">
                             <div class="list-group" id="lessonList">
                             </div>
                         </div>
-                        
                     </div>
+                    <!--新增课程模态框-->
+                    <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" data-width="850">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h3 class="modal-title"><strong>新增课程</strong></h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="courseName"><strong>课程名称</strong></label>
+                                <input id="courseName" class="form-control" type="text" data-tabindex="1">
+                            </div>
+                            <div class="form-group">
+                                <span class="btn btn-success fileinput-button">
+                                    <span>学生名单上传</span>
+                                    <input type="file" accept=".xls" id="file">
+                                </span>
+                                <div class="showFileName"></div>
+                                <div class="fileerrorTip"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn btn-default">关闭</button>
+                            <button type="button" id="upload" class="btn btn-primary">提交</button>
+                        </div>
+                    </div>
+                    <!--新增课程模态框结束-->
                     <!-- END 主页面内容-->
                 </div>
             </div>
@@ -204,46 +249,84 @@
     <script src="../../../assets/admin/pages/scripts/ui-extended-modals.js"></script>
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
-        //页面内容初始化请求
-        var ajaxForUserInfo = () => {
-            let userId = sessionStorage.getItem("userName");
-            $.ajax({
-                url: '获取用户名的接口',
-                type: 'POST',
-                async: false,
-                data: {
-                    teacherId: userId
-                },
-                success: function (responseStr) {
-                    let userNameSpan = document.getElementById("userNameSpan");
-                    userNameSpan.value = responseStr.datas.name;
-                }
-            })
-        }
-
+        //模拟的后端数据
+        var datas=[
+            {
+                name:'课程1',
+                href:'course.html'
+            },
+            {
+                name:'课程2',
+                href:'course.html'
+            }
+        ]
 
         var ajaxForLessons = function () {
             var lessonList = $('#lessonList');
             let userId = sessionStorage.getItem("userName");
             $.ajax({
-                url: '/HomeWorkWeb/course/findCourseByTeacherTno',
-                type: 'GET',
-                async: false,
-                traditional: true,
-                data: {
-                    teacherId: userId
+                url:'获取老师信息的接口',
+                type:'POST',
+                async:true,
+                data:{
+                    teacherId:userId
                 },
-                dataType: 'JSON',
                 beforeSend: function () {
                     console.log("正在进行，请稍候");
                 },
-                success: function (data) {
-                    for (var j = 0; j < data.data.length; j++) {
-                        var newNode = $('<a class="list-group-item list-group-item-info" href="./readEveryStudent.html">' + data.data[j].cName + "  " + data.data[j].time + '</a>');
+                success: function (responseStr) {
+                    for(var j=0;j<datas.length;j++){
+                        var newNode=$('<a class="list-group-item list-group-item-info">'+datas[j].name+'</a>');
+                        newNode.attr('href',datas[j].href);
                         lessonList.append(newNode);
                     }
                 }
             })
+        }
+        //文件上传函数
+        var fileUpload = function () {
+            $("#upload").click(function () {
+                var formData = new FormData();
+                var name = $("#file").val();
+                formData.append("file", $("#file")[0].files[0]);
+                formData.append("name", name);
+                $.ajax({
+                    url: 'teacher/upload',
+                    type: 'POST',
+                    async: false,
+                    data: formData,
+                    // 告诉jQuery不要去处理发送的数据
+                    processData: false,
+                    // 告诉jQuery不要去设置Content-Type请求头
+                    contentType: false,
+                    beforeSend: function () {
+                        console.log("正在进行，请稍候");
+                    },
+                    success: function (responseStr) {
+                        if (responseStr == "01") {
+                            alert("导入成功");
+                        } else {
+                            alert("导入失败");
+                        }
+                    }
+                });
+            })
+        }
+        //判断上传文件类型
+        var judgeTheType = function () {
+            $(".fileinput-button").on("change", "input[type='file']", function () {
+                var filePath = $(this).val();
+                if (filePath.indexOf("xls") != -1) {
+                    $(".fileerrorTip").html("").hide();
+                    var arr = filePath.split('\\');
+                    var fileName = arr[arr.length - 1];
+                    $(".showFileName").html("<strong>" + fileName + "</strong>");
+                } else {
+                    $(".showFileName").html("");
+                    $(".fileerrorTip").html("<strong>您上传文件类型有误！</strong>").show();
+                    return false
+                }
+            });
         }
 
         jQuery(document).ready(function () {
@@ -252,8 +335,15 @@
             Layout.init(); //布局初始化
             Demo.init(); // init demo features
             UIExtendedModals.init();//模态框函数
-            //ajaxForLessons();
-            //ajaxForUserInfo();
+            judgeTheType();
+            fileUpload();
+            ajaxForLessons();
+            var lessonList = $('#lessonList');
+            for (var j = 0; j < datas.length; j++) {
+                var newNode = $('<a class="list-group-item list-group-item-info">' + datas[j].name + '</a>');
+                newNode.attr('href', datas[j].href);
+                lessonList.append(newNode);
+            }
         });
     </script>
     <!-- END JAVASCRIPTS -->
