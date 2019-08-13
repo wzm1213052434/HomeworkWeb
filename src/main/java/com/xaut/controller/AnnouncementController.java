@@ -40,4 +40,13 @@ public class AnnouncementController {
         PageInfo<Announcement> pageInfo = announcementService.findAllAnnouncementByPage(announcement, currentPage, pageSize);
 		return new HandleJSON().to_JSON(pageInfo);
 	}
+	
+	/**
+	 * 向学生已选课程跳转
+	 * @return
+	 */
+	@RequestMapping(value = "/gotoCourseChoosed", method = {RequestMethod.GET})
+	public String gotoCourseChoosed() {
+		return "student/courseChoosed";
+	}
 }

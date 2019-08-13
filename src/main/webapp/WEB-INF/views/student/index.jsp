@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
+<base href="<%=basePath%>">
 <meta charset="utf-8"/>
 <title>学生主页</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -48,7 +53,7 @@
 		
 		<!-- 开始LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
+			<a href="javascript:;">
 			<img src="assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -207,7 +212,7 @@
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				
 				<li class="start active ">
-					<a href="index.html">
+					<a href="javascript:;">
 					<i class="icon-home"></i>
 					<span class="title">公告管理</span>
 					</a>
@@ -221,7 +226,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="courseChoosed.html">
+							<a href="${pageContext.request.contextPath}/announcement/gotoCourseChoosed">
 							<i class="icon-home"></i>
 							已选课程</a>
 						</li>
@@ -397,6 +402,13 @@
 <!-- 开始自定义JS -->
 <script>
 /**
+ * 重定向到自己
+ */
+function gotoIndex(forwardUrl,gotoUrl,currentPage,pageSize){
+	window.location.href = forwardUrl + "?gotoUrl=" + gotoUrl + "&currentPage=" + currentPage + "&pageSize=" + pageSize;
+}
+
+/**
  * 解析上个页面带来的所有参数
  */
  function parseUrl(){
@@ -417,14 +429,16 @@
 /**
  * 展示公告列表
  */
+var default_currentPage = 1; //默认当前页
+var default_pageSize = 1; //默认页大小
 function showAnnouncement(){
 	//1.获得前端参数
 	var data = parseUrl();//解析所有参数
 	var currentPage;
 	var pageSize;
 	if(data == null){ //如果没有携带参数，给默认值
-		currentPage = 1;
-		pageSize = 7;
+		currentPage = default_currentPage;
+		pageSize = default_pageSize;
 	}
 	else{
 		currentPage = data['currentPage'];
@@ -460,33 +474,31 @@ function showAnnouncement(){
     		//2.2.显示分页
     		var page_div = $("#btn-arrow-link");
     		var page = "";
-    		page += '<a href="index.jsp">首页</a>';
-    		
+    		page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',1,' + response.pageSize + ')">首页&nbsp;&nbsp;</a>';
     		if(response.currentPage == 1){ //当前是第一页，不能点击上一页
-    			page += '<a href="javascript:;">上一页</a>';
+    			page += '<a href="javascript:;">上一页&nbsp;&nbsp;</a>';
     		}
     		else{
-    			page += '<a href="index.jsp?currentPage=' + (response.currentPage-1) + '&pageSize=' + (response.pageSize) + '">上一页</a>';
+    			page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (response.currentPage-1) + ',' + response.pageSize + ')">上一页&nbsp;&nbsp;</a>';
     		}
-    		
     		for(var i=response.start; i<response.start+response.pageNo; i++){
     			if(i == response.currentPage)
     			{
-    				page += '<a href="#" style="color:red">' + i + '</a>';
+    				//page += '<a href="index.jsp?currentPage=' + (i) + '&pageSize=' + (response.pageSize) + '" style="color:red">' + i + '</a>';
+    				page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (i) + ',' + response.pageSize + ')" style="color:red">' + i + '&nbsp;&nbsp;</a>';
     			}
     			else{
-    				page += '<a href="#">' + i + '</a>';
+    				page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a>';
     			}
     		}
-    		
     		if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击下一页
-    			page += '<a href="javascript:;">下一页</a>';
+    			page += '<a href="javascript:;">下一页&nbsp;&nbsp;</a>';
     		}
     		else{
-    			page += '<a href="index.jsp?currentPage=' + (response.currentPage+1) + '&pageSize=' + (response.pageSize) + '">下一页</a>';
+    			page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (response.currentPage+1) + ',' + response.pageSize + ')">下一页&nbsp;&nbsp;</a>';
     		}
-    		
-    		page += '<a href="index.jsp?currentPage=' + (response.totalPage) + '&pageSize=' + (response.pageSize) + '">末页</a>';
+    		page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + response.totalPage + ',' + response.pageSize + ')">末页&nbsp;&nbsp;</a>';
+    		page += '共' + response.totalPage + '页';
     		
     		page_div.append(page);
         }

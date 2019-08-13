@@ -1,7 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
+<base href="<%=basePath%>">
 <meta charset="utf-8"/>
 <title>学生主页</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -220,7 +226,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="course.html">
+							<a href="javascript:;">
 							<i class="icon-home"></i>
 							已选课程</a>
 						</li>

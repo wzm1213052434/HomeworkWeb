@@ -40,7 +40,7 @@ public class PageInfo<T> {
         else { //总页数6 > 页码位数5,总页数分开显示
         	this.start = ((this.currentPage - 1)/pageNo)*5 + 1;
         	
-        	if(this.totalPage%pageNo !=0 && this.currentPage==this.totalPage) { //最后一页,且页码未满：[11,12,13],[11,12,13,14]
+        	if(this.totalPage%pageNo !=0 && this.currentPage>this.totalPage-this.totalPage%pageNo) { //最后一页,且页码未满：[11,12,13],[11,12,13,14]
         		this.pageNo = this.totalPage % pageNo;
         	}
         	else { //每次展示5页:[1,2,3,4,5] [6,7,8,9,10]

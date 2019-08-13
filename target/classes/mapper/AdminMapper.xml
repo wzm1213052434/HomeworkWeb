@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xaut.mapper.AdminMapper">
+
+    <!--整体信息(查询各种角色的人数)-->
+    <select id="findAllUser" parameterType="String" resultType="int">
+        SELECT count(*) #{roleName} FROM users where 1 = 1 and users.flag = #{userFlag}
+    </select>
+
+    <!--分组获取教师用户所在的学院和各学院人数-->
+    <select id="groupTeacherInfo" resultType="map">
+        SELECT
+          db_teacher.company companyName, COUNT(*) teacherNum
+        FROM db_teacher
+        GROUP BY db_teacher.company
+    </select>
+
+    <!--分组获取学生用户所在的专业和各专业人数-->
+    <select id="groupStudentInfo" resultType="map">
+        SELECT
+            db_student.depart majorName,
+            COUNT( * ) studentNum
+        FROM db_student
+        GROUP BY db_student.depart
+    </select>
+
+    <!--获取不同角色的账号锁定状态-->
+    <select id="getAccountStatus" parameterType="String" resultType="int">
+        select count(*)
+        from users u
+        where 1 = 1
+        <if test="roleFlag != null and roleFlag != ''">
+            and u.flag = #{roleFlag}
+        </if>
+        <if test="isLocked != null and isLocked != ''">
+            and u.locked = #{isLocked}
+        </if>
+
+    </select>
+</mapper>
