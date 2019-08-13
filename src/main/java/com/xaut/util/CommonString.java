@@ -12,5 +12,11 @@ public class CommonString {
     public static final String ZERO = "0";
     public static final String ONE = "1";
     public static final String TEN = "10";
+    public static final String ADMIN_FLAG = "1"; // 管理员角色
+    public static final String SUPER_ADMIN_FLAG = "2"; // 超级管理员角色
+    public static final String STUDENT_FLAG = "3"; // 学生角色
+    public static final String TEACHER_FLAG = "4"; // 教师角色
+    public static final String LOCKED = "1"; // 账号锁定状态
+    public static final String UN_LOCKED = "0"; // 账号未锁定状态
 
 }

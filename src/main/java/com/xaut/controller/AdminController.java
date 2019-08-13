@@ -1,5 +1,6 @@
 package com.xaut.controller;
 
+import com.xaut.service.AdminService;
 import com.xaut.service.CourseService;
 import com.xaut.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class AdminController {
 
 	@Autowired
 	private CourseService courseService;
+
+	@Autowired
+	private AdminService adminService;
 
 	/**
 	 * 管理员主页
@@ -37,5 +41,15 @@ public class AdminController {
 		Integer page = Integer.parseInt(request.getParameter("page")); // 页码
 		Integer rows = Integer.parseInt(request.getParameter("rows")); // 每页记录数
 		return courseService.getAllCourse(courseName, page, rows);
+	}
+
+	/**
+	 * 获取用户群体的统计信息
+	 * @return
+	 */
+	@RequestMapping(value = "/lookIndex", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean lookIndex() {
+		return adminService.getUserGroupInfo();
 	}
 }
