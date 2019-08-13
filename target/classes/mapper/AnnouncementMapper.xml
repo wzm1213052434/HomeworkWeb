@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.xaut.mapper.AnnouncementMapper">	
+	<!-- 查询所有公告(先根据'是否已读'升序,再根据'发布时间'降序) -->
+	<select id="getAllAnnouncement" resultType="com.xaut.entity.Announcement">
+		select * from db_announcement order by isread,occurtime desc;
+	</select>
+
+	<!-- 查询所有公告总记录数 -->
+	<select id="countAllAnnouncement" resultType="int">
+		select count(*) from db_announcement;
+	</select>
+	
+	<!-- 查询新公告记录数 -->
+	<select id="countNewAnnouncement" resultType="int">
+		select count(*) from db_announcement where isread = '0';
+	</select>
+</mapper>

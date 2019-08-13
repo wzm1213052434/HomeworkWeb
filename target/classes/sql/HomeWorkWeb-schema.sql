@@ -90,7 +90,7 @@ CREATE TABLE `db_announcement`  (
   `desc` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '公告描述',
   `occurtime` datetime NOT NULL COMMENT '发布时间',
   `updatetime` datetime NOT NULL COMMENT '更新时间',
-  `remark1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
+  `isread` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '此公告是否已读',
   `remark2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
   PRIMARY KEY (`ano`) USING BTREE,
   INDEX `cno`(`cno`) USING BTREE,
