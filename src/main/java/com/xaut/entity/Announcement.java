@@ -20,6 +20,9 @@ public class Announcement {
 	
 	/* 更新时间 */
 	private Date updateTime;
+	
+	/* 此公告是否已读 */
+	private boolean isRead;
 
 	public String getAno() {
 		return ano;
@@ -68,10 +71,18 @@ public class Announcement {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+	
+	public boolean getIsRead() {
+		return isRead;
+	}
+
+	public void setIsRead(boolean isRead) {
+		this.isRead = isRead;
+	}
 
 	@Override
 	public String toString() {
 		return "Announcement [ano=" + ano + ", cno=" + cno + ", aName=" + aName + ", desc=" + desc + ", occurTime="
-				+ occurTime + ", updateTime=" + updateTime + "]";
+				+ occurTime + ", updateTime=" + updateTime + ", isRead=" + isRead + "]";
 	}
 }
