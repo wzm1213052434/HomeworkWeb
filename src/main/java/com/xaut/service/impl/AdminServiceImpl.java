@@ -74,6 +74,6 @@ public class AdminServiceImpl implements AdminService {
             logger.error("获取用户群体的统计信息异常: ", e);
             return new ResponseBean(false, "获取用户群体的统计信息异常");
         }
-        return new ResponseBean(true, resultMap,"获取用户群体的统计信息");
+        return new ResponseBean(true, resultMap,"获取用户群体的统计信息成功");
     }
 }
