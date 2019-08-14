@@ -21,7 +21,15 @@ public class AnnouncementController {
 	private AnnouncementService announcementService;
 	
 	/**
-	 * 根据课程名分页获取课程
+	 * 跳转到学生主页(公告管理)
+	 */
+	@RequestMapping(value = "/index",method = {RequestMethod.GET})
+	public String gotoStudentIndex() {
+		return "forward:/WEB-INF/views/student/index.jsp";
+	}
+	
+	/**
+	 * 分页显示公告信息
 	 * @param request
 	 * @return
 	 */
@@ -39,14 +47,5 @@ public class AnnouncementController {
         //3.返回结果
         PageInfo<Announcement> pageInfo = announcementService.findAllAnnouncementByPage(announcement, currentPage, pageSize);
 		return new HandleJSON().to_JSON(pageInfo);
-	}
-	
-	/**
-	 * 向学生已选课程跳转
-	 * @return
-	 */
-	@RequestMapping(value = "/gotoCourseChoosed", method = {RequestMethod.GET})
-	public String gotoCourseChoosed() {
-		return "student/courseChoosed";
 	}
 }

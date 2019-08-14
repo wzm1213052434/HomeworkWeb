@@ -1,7 +1,6 @@
 package com.xaut.service.impl;
 
 import com.xaut.mapper.AdminMapper;
-import com.xaut.mapper.UserMapper;
 import com.xaut.service.AdminService;
 import com.xaut.util.CommonString;
 import com.xaut.util.ResponseBean;
@@ -9,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

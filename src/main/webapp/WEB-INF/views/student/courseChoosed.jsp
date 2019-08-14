@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="com.xaut.entity.User"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+<%User user=(User)request.getSession().getAttribute("user");%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8"/>
-<title>学生主页</title>
+<title>已选课程</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="" name="description"/>
@@ -53,7 +55,7 @@
 		
 		<!-- 开始LOGO -->
 		<div class="page-logo">
-			<a href="index.html">
+			<a href="announcement/index">
 			<img src="assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -160,7 +162,8 @@
 					<li class="dropdown dropdown-user dropdown-dark">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<span class="username username-hide-on-mobile">
-						Nick </span>
+							<%=user.getUserName()%>
+						</span>
 						<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
 						<img alt="" class="img-circle" src="assets/admin/layout4/img/avatar9.jpg"/>
 						</a>
@@ -212,7 +215,7 @@
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				
 				<li class="start">
-					<a href="index.html">
+					<a href="announcement/index">
 					<i class="icon-home"></i>
 					<span class="title">公告管理</span>
 					</a>
@@ -226,7 +229,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li class="active">
-							<a href="javascript:;">
+							<a href="student/courseChoosed">
 							<i class="icon-home"></i>
 							已选课程</a>
 						</li>
@@ -241,11 +244,11 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="layout_sidebar_reversed.html">
+							<a href="student/workChoosed">
 							<span class="badge badge-warning">new</span>已选作业</a>
 						</li>
 						<li>
-							<a href="layout_sidebar_fixed.html">
+							<a href="student/workHistory">
 							作业提交历史</a>
 						</li>
 					</ul>
@@ -259,11 +262,11 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="ui_general.html">
+							<a href="student/commentByMe">
 							我的历史评论</a>
 						</li>
 						<li>
-							<a href="ui_buttons.html">
+							<a href="student/commentAboutMe">
 							关于我的评论</a>
 						</li>
 					</ul>
@@ -277,18 +280,18 @@
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="components_pickers.html">
+							<a href="student/teacherChoosed">
 							已选课程教师</a>
 						</li>
 						<li>
-							<a href="components_context_menu.html">
+							<a href="student/teacherOfCollege">
 							本院教师</a>
 						</li>
 					</ul>
 				</li>
 				
 				<li class="tooltips" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-					<a href="angularjs" target="_blank">
+					<a href="student/aboutUs">
 					<i class="icon-paper-plane"></i>
 					<span class="title">
 					联系我们</span>
@@ -820,8 +823,8 @@
 <!-- 3.开始页脚 -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		2014 &copy; Metronic by keenthemes.
-		<a href="http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes" title="Purchase Metronic just for 27$ and get lifetime updates for free" target="_blank">Purchase Metronic!</a>
+		2019-2020 &copy; 西安理工大学计算机学院计科专业著
+		<a href="http://www.xaut.edu.cn/" target="_blank">西安理工大学</a>
 	</div>
 	<div class="scroll-to-top">
 		<i class="icon-arrow-up"></i>
@@ -867,10 +870,7 @@
 jQuery(document).ready(function() {    
 	Metronic.init(); // 初始化核心组件
 	Layout.init(); // 初始化布局
-	Demo.init(); // 初始化演示功能
-	QuickSidebar.init(); // 初始化快速侧边栏
-	Index.init(); // 初始化索引页
-	Tasks.initDashboardWidget(); // init tash dashboard widget  
+	QuickSidebar.init(); // 初始化快速侧边栏 
 });
 </script>
 <!-- 结束自定义JS -->

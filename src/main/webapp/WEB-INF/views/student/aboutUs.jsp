@@ -11,7 +11,7 @@
 <head>
 <base href="<%=basePath%>">
 <meta charset="utf-8"/>
-<title>学生主页</title>
+<title>关于我们</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="" name="description"/>
@@ -214,7 +214,7 @@
 			<!-- 开始侧边栏菜单 -->
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				
-				<li class="start active">
+				<li class="start">
 					<a href="announcement/index">
 					<i class="icon-home"></i>
 					<span class="title">公告管理</span>
@@ -225,7 +225,7 @@
 					<a href="javascript:;">
 					<i class="icon-basket"></i>
 					<span class="title">课程管理</span>
-					<span class="arrow "></span>
+					<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
@@ -290,7 +290,7 @@
 					</ul>
 				</li>
 				
-				<li class="tooltips" data-container="body" data-placement="right" data-html="true">
+				<li class="tooltips active" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
 					<a href="student/aboutUs">
 					<i class="icon-paper-plane"></i>
 					<span class="title">
@@ -311,43 +311,15 @@
 			<div class="page-head">
 				<!-- 开始页标题 -->
 				<div class="page-title">
-					<h1>公告管理 <small>所有公告</small></h1>
+					<h1>Dashboard <small>statistics</small></h1>
 				</div>
 				<!-- 结束页标题 -->
 			</div>
 			<!-- 结束页首 -->
-
+			
 			<!-- 开始页面内容内部 -->
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
-					<!-- 开始组件-->
-					<div class="portlet light tasks-widget">
-						<div class="portlet-title">
-							<div class="caption caption-md">
-								<i class="icon-bar-chart theme-font-color hide"></i>
-								<span class="caption-subject theme-font-color bold uppercase">最新公告</span>
-								<span class="caption-helper">16 个</span>
-							</div>
-						</div>
-						
-						<div class="portlet-body">
-							<div class="task-content">
-								<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-									<!-- 开始公告列表 -->
-									<ul class="task-list" id="task-list">
-										<!-- 说明：此处由JS动态插入 -->
-									</ul>
-									<!-- 结束公告列表 -->
-								</div>
-							</div>
-							<div class="task-footer">
-								<div id="btn-arrow-link" class="btn-arrow-link">
-									<!-- 此处内容由JS显示分页内容 -->
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- 结束组件-->
 				</div>
 			</div>
 			<!-- 结束页内容内部 -->
@@ -404,118 +376,10 @@
 <!-- 结束页级脚本 -->
 <!-- 开始自定义JS -->
 <script>
-/**
- * 重定向到自己
- */
-function gotoIndex(forwardUrl,gotoUrl,currentPage,pageSize){
-	window.location.href = forwardUrl + "?gotoUrl=" + gotoUrl + "&currentPage=" + currentPage + "&pageSize=" + pageSize;
-}
-
-/**
- * 解析上个页面带来的所有参数
- */
- function parseUrl(){
-     var url = location.href;
-     var i = url.indexOf('?');
-     if(i == -1)
-    	 return;
-     var querystr = url.substr(i+1);
-     var arr1 = querystr.split('&');
-     var arr2 = new Object();
-     for(i in arr1){
-         var ta = arr1[i].split('=');
-         arr2[ta[0]] = ta[1];
-     }
-     return arr2;
- };
- 
-/**
- * 展示公告列表
- */
-var default_currentPage = 1; //默认当前页
-var default_pageSize = 1; //默认页大小
-function showAnnouncement(){
-	//1.获得前端参数
-	var data = parseUrl();//解析所有参数
-	var currentPage;
-	var pageSize;
-	if(data == null){ //如果没有携带参数，给默认值
-		currentPage = default_currentPage;
-		pageSize = default_pageSize;
-	}
-	else{
-		currentPage = data['currentPage'];
-		pageSize = data['pageSize'];
-	}
-	
-	//2.使用Ajax调用接口
-	$.ajax({
-        url: '/HomeWorkWeb/announcement/findAllAnnouncementByPage',
-        type: 'GET',
-        async: false,
-        data: {
-        	currentPage: currentPage,
-        	pageSize: pageSize,
-        },
-        success: function (response) {
-        	//2.1.显示公告
-        	var ann_ul = $("#task-list");
-    		for(var i=0; i<response.list.length; i++){
-    			var ann_li = "";
-    			//拼接公告
-    			ann_li += '<li><div class="task-title"><span class="task-title-sp">' + response.list[i].aName + '</span>';
-    			if(response.list[i].isRead == false){
-    				ann_li += '<span class="label label-sm label-danger">new</span>';
-    			}
-    			ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '&nbsp;&nbsp;</small><a href="#">查看&nbsp;&nbsp;</a><a href="#">标记已读</a></div>';
-    			ann_li += '</div></li>';
-    			
-    			//添加公告到列表中
-    			ann_ul.append(ann_li);
-    		}
-    		
-    		//2.2.显示分页
-    		var page_div = $("#btn-arrow-link");
-    		var page = "";
-    		page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',1,' + response.pageSize + ')">首页&nbsp;&nbsp;</a>';
-    		if(response.currentPage == 1){ //当前是第一页，不能点击上一页
-    			page += '<a href="javascript:;">上一页&nbsp;&nbsp;</a>';
-    		}
-    		else{
-    			page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (response.currentPage-1) + ',' + response.pageSize + ')">上一页&nbsp;&nbsp;</a>';
-    		}
-    		for(var i=response.start; i<response.start+response.pageNo; i++){
-    			if(i == response.currentPage)
-    			{
-    				//page += '<a href="index.jsp?currentPage=' + (i) + '&pageSize=' + (response.pageSize) + '" style="color:red">' + i + '</a>';
-    				page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (i) + ',' + response.pageSize + ')" style="color:red">' + i + '&nbsp;&nbsp;</a>';
-    			}
-    			else{
-    				page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a>';
-    			}
-    		}
-    		if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击下一页
-    			page += '<a href="javascript:;">下一页&nbsp;&nbsp;</a>';
-    		}
-    		else{
-    			page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + (response.currentPage+1) + ',' + response.pageSize + ')">下一页&nbsp;&nbsp;</a>';
-    		}
-    		page += '<a href="javascript:void(0);" onclick="gotoIndex(\'<%=basePath%>forward.jsp\',\'WEB-INF/views/student/index.jsp\',' + response.totalPage + ',' + response.pageSize + ')">末页&nbsp;&nbsp;</a>';
-    		page += '共' + response.totalPage + '页';
-    		
-    		page_div.append(page);
-        }
-	})
-};
-
-/**
- * 加载完成后初始化页面
- */
-$(document).ready(function() {
+jQuery(document).ready(function() {    
 	Metronic.init(); // 初始化核心组件
 	Layout.init(); // 初始化布局
-	QuickSidebar.init(); // 初始化快速侧边栏
-	showAnnouncement();	//展示公告列表
+	QuickSidebar.init(); // 初始化快速侧边栏 
 });
 </script>
 <!-- 结束自定义JS -->
