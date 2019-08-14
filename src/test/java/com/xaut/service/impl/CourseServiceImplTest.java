@@ -1,5 +1,6 @@
 package com.xaut.service.impl;
 
+import java.io.File;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.alibaba.fastjson.JSON;
 import com.xaut.util.HandleJSON;
 import com.xaut.util.ResponseBean;
+import com.xaut.util.JsonUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
@@ -28,6 +30,17 @@ public class CourseServiceImplTest {
 		String jsonString = JSON.toJSONString(bean); //将JSON对象	转化为	JSON字符串
 		System.out.println(new HandleJSON().print_JSON(jsonString)); //将JSON字符串格式化输出
 		System.out.println("测试查询教师课程信息通过");
+		
+		//将Json数据	写到	本地json文件
+		JsonUtil jsonUtil = new JsonUtil();
+		File file = null;
+		try {
+			file = jsonUtil.createFile("mockJSON","findCourseByTeacherTno.json");
+			jsonUtil.writeFile(new HandleJSON().print_JSON(jsonString),file);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("写入json成功");
 	}
 
     /**
