@@ -1,21 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="com.xaut.entity.User"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-<%User user=(User)request.getSession().getAttribute("user");%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
-<base href="<%=basePath%>">
 <meta charset="utf-8"/>
 <title>已选课程</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="" name="description"/>
 <meta content="" name="author"/>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" defer="defer">
+function addBasePath(){
+	var curWwwPath = window.document.location.href;
+	var pathName = window.document.location.pathname;
+	var pos = curWwwPath.indexOf(pathName);
+	var localhostPaht = curWwwPath.substring(0,pos);
+	var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+	var realPath = localhostPaht + projectName;
+	var basePath = realPath + '/';
+	console.log(basePath);
+	var $base = '<base href="' + basePath + '">';
+	$('head').prepend($base); //在头部添加
+}
+addBasePath();
+</script>
 <!-- 0.最先：引入CSS -->
 <!-- 开始全局强制样式 -->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
@@ -161,8 +169,8 @@
 					<!-- 开始用户登录下拉列表 -->
 					<li class="dropdown dropdown-user dropdown-dark">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<span class="username username-hide-on-mobile">
-							<%=user.getUserName()%>
+						<span id="userName" class="username username-hide-on-mobile">
+							<!-- 此处展示用户名 -->
 						</span>
 						<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
 						<img alt="" class="img-circle" src="assets/admin/layout4/img/avatar9.jpg"/>
@@ -867,10 +875,36 @@
 <!-- 结束页级脚本 -->
 <!-- 开始自定义JS -->
 <script>
+/**
+ * function:展示用户名
+ */
+function showUserName(){
+	 var userName = sessionStorage.getItem('userName');
+	 console.log(userName);
+	 
+	 $.ajax({
+	        url: '/HomeWorkWeb/student/findStudentNameByUsername',
+	        type: 'GET',
+	        async: false,
+	        data: {
+	        	userName: userName,
+	        },
+	        success: function (response) {
+	        	console.log(typeof response);
+	        	$('#userName').html(response);
+	        }
+		})
+};
+
+/**
+ * function：也面加载完成调用
+ */
 jQuery(document).ready(function() {    
 	Metronic.init(); // 初始化核心组件
 	Layout.init(); // 初始化布局
-	QuickSidebar.init(); // 初始化快速侧边栏 
+	QuickSidebar.init(); // 初始化快速侧边栏
+	
+	showUserName(); //初始化用户名
 });
 </script>
 <!-- 结束自定义JS -->

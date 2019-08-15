@@ -12,7 +12,7 @@ public class JsonUtilTest {
 	@Test
 	public void JsonTest() {
 		//1.测试创建文件
-		String dirPath = "mockJSON"; //项目根目录HomeworkWeb下
+		String dirPath = "src/main/webapp/mockJSON"; //项目根目录HomeworkWeb下
 		String fileName = "test.txt";
 		File file = null;
 		try {

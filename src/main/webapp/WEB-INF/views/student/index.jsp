@@ -515,6 +515,9 @@ $(document).ready(function() {
 	Metronic.init(); // 初始化核心组件
 	Layout.init(); // 初始化布局
 	QuickSidebar.init(); // 初始化快速侧边栏
+	
+	sessionStorage.setItem('userName',sessionStorage.getItem('userName'));
+	
 	showAnnouncement();	//展示公告列表
 });
 </script>

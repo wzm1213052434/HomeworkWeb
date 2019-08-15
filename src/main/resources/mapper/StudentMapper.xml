@@ -89,4 +89,18 @@
 		where 1 = 1
 		and db_studcour.cno = #{cno}
 	</select>
+	
+	<!-- 根据学生账号获得学生姓名 -->
+	<select id="getStudentNameByUsername" parameterType="String" resultType="String">
+		select sname
+		from db_student
+		where sno = #{username};
+	</select>
+	
+	<!-- 根据学生账号获得学生所选课程 -->
+	<select id="getCourseByUsername" parameterType="String" resultType="com.xaut.entity.Course">
+		select c.cno,c.tno,c.cname,c.year,c.term,c.time,c.place,c.state,c.tablename,c.updatetime
+		from db_studcour,db_course c
+		where db_studcour.sno = #{username} and db_studcour.cno = c.cno;
+	</select>
 </mapper>

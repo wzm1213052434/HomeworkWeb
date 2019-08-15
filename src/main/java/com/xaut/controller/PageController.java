@@ -16,7 +16,8 @@ public class PageController {
 	 */
 	@RequestMapping(value="/{page}",method= RequestMethod.GET)
     public String page(@PathVariable("page") String page){
-        return page;
+        System.out.println("====" + page + "====");
+		return page;
     }
 	
 	/**
@@ -26,6 +27,7 @@ public class PageController {
 	 */
 	@RequestMapping(value="/{type}/{page}",method=RequestMethod.GET)
     public String page(@PathVariable("type") String type,@PathVariable("page") String page){
+		System.out.println("====" + type + "/" + page + "====");
 		return type + "/" + page;
     }
 }

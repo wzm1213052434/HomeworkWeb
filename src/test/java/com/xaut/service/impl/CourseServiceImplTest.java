@@ -36,7 +36,7 @@ public class CourseServiceImplTest {
 		File file = null;
 		String method = Thread.currentThread().getStackTrace()[1].getMethodName(); //获得当前方法名
 		try {
-			file = jsonUtil.createFile("mockJSON",method+".txt");
+			file = jsonUtil.createFile("src/main/webapp/mockJSON",method+".txt");
 			jsonUtil.writeFile(new HandleJSON().print_JSON(jsonString),file);
 		}catch(Exception e) {
 			e.printStackTrace();

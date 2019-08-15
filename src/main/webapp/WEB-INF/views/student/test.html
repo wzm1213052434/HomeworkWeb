@@ -3,29 +3,78 @@
 <head>
 	<meta charset="UTF-8">
 	<title>读取本地文件</title>
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript" defer="defer">
+		/**
+		 * function：项目在服务器运行时需要添加的项目基地址<base href="basePath">
+		 * description：所有资源的根目录就是项目名
+		 */
+		function addBasePath(){
+			//1.得到项目根路径：http://localhost:8080/myproject/
+			var curWwwPath = window.document.location.href;
+			var pathName = window.document.location.pathname;
+			var pos = curWwwPath.indexOf(pathName);
+			var localhostPaht = curWwwPath.substring(0,pos);
+			var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+			var realPath = localhostPaht + projectName;
+			var basePath = realPath + '/';
+			console.log(basePath);
+			
+			//2.添加根路径到html的base标签中
+			var $base = '<base href="' + basePath + '">';
+			$('head').prepend($base); //在头部添加
+		}
+		 
+		/**
+		 * description：服务器运行时真实数据
+		 * 1.调用此方法添加基地址
+		 * 2.修改：js/css路径相对【项目名】
+		 * 3.修改：处理数据的代码	移动到	相应的Ajax的成功回调函数中
+		 */
+		addBasePath();
+	</script>
+	<link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 	<div>现在开始读取</div>
 	<div id="json"></div>
 </body>
 <script>
-function addJsonResources(jsonpath){
+/**
+ * function：为项目添加本地资源<script type="text/javascript" src="jsonPath?callback=jsonp">
+ * description：添加资源后就可以进行读取文件了
+ */
+function addJsonResources(jsonPath){
 	var script = document.createElement("script");
 	script.type = "text/javascript";
-	script.src = jsonpath + "?callback=jsonp";
-	document.getElementsByTagName("head")[0].appendChild(script);
+	script.src = jsonPath + "?callback=jsonp";
+	document.getElementsByTagName("head")[0].appendChild(script); //在尾部添加
 }
+ 
+ /**
+  * function：读取出的本地文件内容
+  * description：可以在此处处理数据，由addJsonResources()自动调用
+  */
 function jsonp(result){
 	console.log("数据类型：" + typeof result);
 	console.log("数据如下：",result);
 	
-	//这里处理html
+	//这里向html添加数据
 	var div = document.getElementById("json");
 	div.innerHTML = result.message;
 }
-
-window.onload = function (){
-	addJsonResources("E://1_eclipse//HomeworkWeb//mockJSON//findCourseByTeacherTnoTest.txt");
+ 
+/**
+ * function：页面加载完成后调用
+ */
+window.onload = function(){
+	/**
+	 * description：本地运行时模拟数据
+	 * 1.调用此方法添加资源
+	 * 2.js/css路径相对【当前】
+	 * 3.在jsonp()中处理数据
+	 */
+	//addJsonResources("../../../mockJSON/findCourseByTeacherTnoTest.txt");
 }
 </script>
 </html>

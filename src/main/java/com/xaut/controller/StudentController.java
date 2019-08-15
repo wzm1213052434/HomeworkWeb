@@ -46,4 +46,28 @@ public class StudentController {
 		Boolean isPage = Boolean.valueOf(request.getParameter("isPage")); // 控制是否分页,true为分页
 		return studentService.getStudentByCourse(cno, page, rows, isPage);
 	}
+	
+	/**
+	 * function：根据学生账号获得学生姓名
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/findStudentNameByUsername", method = {RequestMethod.GET})
+	@ResponseBody
+	public String findStudentNameByUsername(HttpServletRequest request) {
+		String userName = request.getParameter("userName");
+		return studentService.findStudentNameByUsername(userName);
+	}
+	
+	/**
+	 * function:根据学生账号获得学生所选课程
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/findCourseByUsername", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean findCourseByUsername(HttpServletRequest request) {
+		String userName = request.getParameter("userName");
+		return studentService.findCourseByUsername(userName);
+	}
 }
