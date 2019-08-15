@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>读取本地文件</title>
+</head>
+<body>
+	<input type="file" id="files"/>
+</body>
+<script type="text/javascript" src="111.txt"></script>
+<script>
+	//1.方式一：使用file控件
+	
+	//1.1 监听file控件选择上传文件
+	var inputElement = document.getElementById("files");
+    inputElement.addEventListener("change", handleFiles, false);
+	
+	//1.2 读取本地文件
+	function handleFiles() {
+		var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
+		var name = selectedFile.name;//读取选中文件的文件名
+		var size = selectedFile.size;//读取选中文件的大小
+		console.log("文件名:"+name+"	大小："+size);
+       
+		var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
+        reader.readAsText(selectedFile);//读取文件的内容
+ 
+		reader.onload = function(){
+            console.log("读取结果：\n", this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
+ 
+            console.log("读取结果转为JSON：");
+            var json = JSON.parse(this.result);
+            console.log(json);
+		};
+	}
+	
+	//2.方式二：使用jsonp(111.json文件：jsonp(json格式数据))
+	
+	//2.1 加载文件资源
+	function addJsonResources(jsonpath){
+		var script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = jsonpath + "?callback=jsonp";
+		document.getElementsByTagName("head")[0].appendChild(script);
+	}
+	
+	//2.2 读取文件
+	addJsonResources("222.txt");
+	function jsonp(result){
+		console.log(result);
+    }
+	
+	//3.方式三：使用原声js(111.txt文件：data = 'json格式数据')
+	
+	//3.1 加载文件资源(放在前面)
+	
+	//3.2 读取文件
+	function readJson(){
+		var myData = JSON.parse(data);
+		console.log(myData);
+	}
+	readJson();
+</script>
+</html>
