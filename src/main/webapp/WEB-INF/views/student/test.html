@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>读取本地文件</title>
+</head>
+<body>
+	<div id="json"></div>
+</body>
+<script>
+function addJsonResources(jsonpath){
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src = jsonpath + "?callback=jsonp";
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+function jsonp(result){
+	console.log("数据类型：" + typeof result);
+	console.log("数据如下：",result);
+	
+	//这里处理html
+	var div = document.getElementById("json");
+	div.innerHTML = result.message;
+}
+
+window.onload = function (){
+	addJsonResources("E://1_eclipse//HomeworkWeb//mockJSON//findCourseByTeacherTnoTest.txt");
+}
+</script>
+</html>

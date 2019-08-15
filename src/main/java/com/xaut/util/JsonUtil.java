@@ -38,6 +38,8 @@ public class JsonUtil {
 	 * @param 内容 文件
 	 */
 	public void writeFile(String content,File file) {
+		content = "jsonp(" + content + ")"; //此处为了前端方便读出
+		
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(file);

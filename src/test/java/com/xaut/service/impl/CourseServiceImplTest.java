@@ -19,6 +19,7 @@ public class CourseServiceImplTest {
     private CourseServiceImpl service;
 
     HandleJSON handleJSON = new HandleJSON();
+    JsonUtil jsonUtil = new JsonUtil();
 
     /**
      * 测试: 查找教师所开的课程信息
@@ -32,10 +33,10 @@ public class CourseServiceImplTest {
 		System.out.println("测试查询教师课程信息通过");
 		
 		//将Json数据	写到	本地json文件
-		JsonUtil jsonUtil = new JsonUtil();
 		File file = null;
+		String method = Thread.currentThread().getStackTrace()[1].getMethodName(); //获得当前方法名
 		try {
-			file = jsonUtil.createFile("mockJSON","findCourseByTeacherTno.json");
+			file = jsonUtil.createFile("mockJSON",method+".txt");
 			jsonUtil.writeFile(new HandleJSON().print_JSON(jsonString),file);
 		}catch(Exception e) {
 			e.printStackTrace();

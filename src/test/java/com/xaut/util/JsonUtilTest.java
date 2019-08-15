@@ -3,7 +3,7 @@ package com.xaut.util;
 import java.io.File;
 import org.junit.Test;
 
-public class TxtUtilTest {
+public class JsonUtilTest {
 	JsonUtil jsonUtil = new JsonUtil();
 	
 	/**
@@ -13,7 +13,7 @@ public class TxtUtilTest {
 	public void JsonTest() {
 		//1.测试创建文件
 		String dirPath = "mockJSON"; //项目根目录HomeworkWeb下
-		String fileName = "test.json";
+		String fileName = "test.txt";
 		File file = null;
 		try {
 			file = jsonUtil.createFile(dirPath,fileName);
