@@ -21,11 +21,11 @@ public class AnnouncementController {
 	private AnnouncementService announcementService;
 	
 	/**
-	 * 跳转到学生主页(公告管理)
+	 * function：重定向到学生主页(公告管理)
 	 */
 	@RequestMapping(value = "/index",method = {RequestMethod.GET})
 	public String gotoStudentIndex() {
-		return "forward:/WEB-INF/views/student/index.jsp";
+		return "forward:/WEB-INF/views/student/index.html";
 	}
 	
 	/**

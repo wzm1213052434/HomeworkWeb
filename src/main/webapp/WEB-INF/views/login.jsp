@@ -58,7 +58,7 @@
 	type="text/css" />
 
 <!-- END THEME STYLES -->
-<link rel="shortcut icon" href="assets/app/img/favicon.ico" />
+<link rel="shortcut icon" href="app/img/favicon.ico" />
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->

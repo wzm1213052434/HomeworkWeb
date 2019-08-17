@@ -23,6 +23,19 @@ public class UserController {
 	 */
 	@RequestMapping(value="/login",method=RequestMethod.GET)
     public String toLogin() {
+		/** 此处用来判断是否已经登录
+		Subject subject = SecurityUtils.getSubject();
+		if(subject.isAuthenticated() || subject.isRemembered()) {
+			if(subject.hasRole("admin") || subject.hasRole("superadmin")) {
+	        	return "admin/index";
+	        } else if(subject.hasRole("student")) {
+	        	return "student/index";
+	        } else if(subject.hasRole("teacher")) {
+	        	return "teacher/index";
+	        }
+		}
+		*/
+		
 		return "login";
 	}
 	
@@ -36,6 +49,8 @@ public class UserController {
      	//身份验证
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUserName(),user.getPassWord());
         try {
+        	
+        	//token.setRememberMe(user.isRememberMe());
             subject.login(token);
         } catch (UnknownAccountException e) {
         	model.addAttribute("error", "账号不存在");
@@ -79,5 +94,19 @@ public class UserController {
     @ResponseBody
     public String delete() throws  Exception{
         return "delete users";
+    }
+    
+    /**
+     * function：用户退出登录
+     * @return
+     */
+    @RequestMapping(value="/logout",method=RequestMethod.GET)  
+    public String logout(){
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {  
+            subject.logout();  
+        }
+        System.out.println("您已退出登录");
+        return "login";
     }
 }
