@@ -47,7 +47,7 @@ public class AdminController {
 	 * 获取用户群体的统计信息
 	 * @return
 	 */
-	@RequestMapping(value = "/lookIndex", method = {RequestMethod.GET})
+	@RequestMapping(value = "/lookIndexMsg", method = {RequestMethod.GET})
 	@ResponseBody
 	public ResponseBean lookIndex() {
 		return adminService.getUserGroupInfo();
