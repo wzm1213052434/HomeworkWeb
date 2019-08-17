@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -25,6 +27,15 @@ public class TeacherController {
 	@RequestMapping(value = "/index")
 	public String successLogin() {
 		return "teacher/index";
+	}
+	
+	/**
+	 * function:teacher目录下万能的页面跳转
+	 * @param teacher目录下的jsp/html的名称
+	 */
+	@RequestMapping(value="/{pageUrl}",method= RequestMethod.GET)
+	public String page(@PathVariable("pageUrl") String pageUrl){
+		return "teacher/" + pageUrl;
 	}
 	
 	/**
