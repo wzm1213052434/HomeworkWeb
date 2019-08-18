@@ -25,13 +25,6 @@
 <title>学生主页</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<script type="text/javascript">
-	/**
-	* desc:服务器运行时
-	*1.加上这句话访问后端接口的根路径：<base href="http://localhost:8080/HomeWorkWeb/">
-	*2.修改路径：(44处)
-	*/
-</script>
 <!-- 0.最先：引入CSS -->
 <!-- 开始全局强制样式 -->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
@@ -71,7 +64,7 @@
 		
 		<!-- 开始LOGO -->
 		<div class="page-logo">
-			<a href="/HomeWorkWeb/announcement/index">
+			<a href="/HomeWorkWeb/student/index">
 				<img src="assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
@@ -203,7 +196,7 @@
 							</li>
 							
 							<li>
-								<a href="javascript:void(0)" onclick="/HomeWorkWeb/logout">
+								<a href="/HomeWorkWeb/logout">
 									<i class="icon-key"></i>
 									退出登录
 								</a>
@@ -333,6 +326,7 @@
 				<!-- 结束页标题 -->
 			</div>
 			<!-- 结束页首 -->
+			
 			<!-- 开始页面内容内部 -->
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
@@ -342,7 +336,9 @@
 							<div class="caption caption-md">
 								<i class="icon-bar-chart theme-font-color hide"></i>
 								<span class="caption-subject theme-font-color bold uppercase">最新公告</span>
-								<span class="caption-helper">16 个</span>
+								<span id="newAnnouncementCount" class="caption-helper">
+									<!-- 此处由最新公告填写 -->
+								</span>
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -384,6 +380,12 @@
 	</div>
 </div>
 <!-- 3.结束页脚 -->
+
+
+<a href="javascript:;" onclick="toRead('123')">abc</a>
+
+
+
 
 <!-- 9999.最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -501,12 +503,18 @@ function showAnnouncement(){
     			var ann_li = "";
     			//拼接公告
     			ann_li += '<li><div class="task-title"><span class="task-title-sp">' + response.list[i].aName + '</span>';
-    			if(response.list[i].isRead == false){
+    			if(response.list[i].isRead == false){ //未读公告
     				ann_li += '<span class="label label-sm label-danger">new</span>';
+    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
+    				ann_li += '<a href="javascript:;" onclick="toRead(this,\'' + response.list[i].ano + '\')">&nbsp;&nbsp;标记已读</a></div>';
     			}
-    			ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '&nbsp;&nbsp;</small><a href="javascript:void(0);">查看&nbsp;&nbsp;</a><a href="javascript:void(0);">标记已读</a></div>';
+    			else { //已读公告
+    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;已读</a></div>';
+    			}
     			ann_li += '</div></li>';
-    			
     			//添加公告到列表中
     			ann_ul.append(ann_li);
     		}
@@ -524,7 +532,6 @@ function showAnnouncement(){
     		for(var i=response.start; i<response.start+response.pageNo; i++){
     			if(i == response.currentPage)
     			{
-    				//page += '<a href="index.jsp?currentPage=' + (i) + '&pageSize=' + (response.pageSize) + '" style="color:red">' + i + '</a>';
     				page += '<a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (i) + ',' + response.pageSize + ')" style="color:red">' + i + '&nbsp;&nbsp;</a>';
     			}
     			else{
@@ -549,6 +556,7 @@ function showAnnouncement(){
  * function:切换导航栏内容
  */
 function loadPage(url) {
+	 console.log(url);
 	$("#right").load(url);
 }
 
@@ -578,6 +586,50 @@ $(document).ready(function () {
 });
 
 /**
+ * function:展示最新公告数
+ */
+function showNewAnnouncementCount(){
+	$.ajax({
+        url: '/HomeWorkWeb/announcement/countNewAnnouncement',
+        type: 'GET',
+        async: false,
+        data: {},
+        success: function (response) {
+        	$("#newAnnouncementCount").text(response + "个")
+        }
+	})
+}
+
+/**
+ * function：标记已读
+ */
+function toRead(obj,ano){
+	//1.将html中: 标记已读改为已读,并且禁止鼠标点击,去掉new
+	$(obj).removeAttr('onclick');
+	$(obj).text("  已读");
+	$(obj).parent().parent().find("span").eq(1).remove();
+	
+	//2.将数据库公告改为已读
+	console.log(ano);
+	$.ajax({
+        url: '/HomeWorkWeb/announcement/announcementIsRead',
+        type: 'GET',
+        async: false,
+        data: {
+        	ano: ano,
+        },
+        success: function (response) {
+        	if(response == true)
+        	{
+        		alert("标记成功");
+        	}else{
+        		alert("标记失败");
+        	}        		
+        }
+	})
+}
+
+/**
  * 加载完成后初始化页面
  */
 $(document).ready(function() {
@@ -585,7 +637,8 @@ $(document).ready(function() {
 	Layout.init(); // 初始化布局
 	QuickSidebar.init(); // 初始化快速侧边栏
 	
-	showUserName(); //初始化用户名	
+	showUserName(); //初始化用户名
+	showNewAnnouncementCount(); //展示最新公告数
 	showAnnouncement();	//展示公告列表
 });
 </script>

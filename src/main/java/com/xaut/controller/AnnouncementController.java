@@ -29,6 +29,16 @@ public class AnnouncementController {
 	}
 	
 	/**
+	 * 功能：查询新公告记录数
+	 * @return
+	 */
+	@RequestMapping(value = "/countNewAnnouncement",method = {RequestMethod.GET})
+	@ResponseBody
+	public int countNewAnnouncement() {
+		return announcementService.countNewAnnouncement();
+	}
+	
+	/**
 	 * 分页显示公告信息
 	 * @param request
 	 * @return
@@ -47,5 +57,27 @@ public class AnnouncementController {
         //3.返回结果
         PageInfo<Announcement> pageInfo = announcementService.findAllAnnouncementByPage(announcement, currentPage, pageSize);
 		return new HandleJSON().to_JSON(pageInfo);
+	}
+	
+	/**
+	 * 功能：设置公告为已读
+	 * @return
+	 */
+	@RequestMapping(value = "/announcementIsRead",method = {RequestMethod.GET})
+	@ResponseBody
+	public boolean announcementIsRead(HttpServletRequest request) {
+		System.out.println("======================");
+		
+		String ano = request.getParameter("ano");
+		Announcement announcement = new Announcement();
+		announcement.setAno(ano);
+		announcement.setIsRead(true); //设置为已读
+		
+		try {
+			announcementService.updateAnnouncement(announcement);
+		} catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 }
