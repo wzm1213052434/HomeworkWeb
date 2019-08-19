@@ -23,9 +23,10 @@ public interface StudentService {
     String findStudentNameByUsername(String username);
     
     /**
-     * function:根据学生账号获得学生所选课程
+     * function：获得学生所选课程概况
      * @param username
+     * @param isClassEnd
      * @return
      */
-    ResponseBean findCourseByUsername(String username);
+    ResponseBean getCourseSurvey(String username,String isClassEnd);
 }

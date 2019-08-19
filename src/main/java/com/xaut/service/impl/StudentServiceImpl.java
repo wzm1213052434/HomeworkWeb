@@ -1,18 +1,17 @@
 package com.xaut.service.impl;
 
-import com.xaut.entity.Course;
-import com.xaut.mapper.StudentMapper;
-import com.xaut.util.CommonString;
-import com.xaut.util.ResponseBean;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.xaut.service.StudentService;
 import org.springframework.util.StringUtils;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.xaut.mapper.StudentMapper;
+import com.xaut.service.StudentService;
+import com.xaut.util.CommonString;
+import com.xaut.util.ResponseBean;
 
 /**
  * 学生相关业务实现
@@ -65,23 +64,31 @@ public class StudentServiceImpl implements StudentService {
     }
     
     /**
-     * function:根据学生账号获得学生所选课程
+     * function：获得学生所选课程概况
      * @param username
+     * @param isClassEnd
      * @return
      */
-    public ResponseBean findCourseByUsername(String username){
-    	if (StringUtils.isEmpty(username)) {
-			return new ResponseBean(false, "学生账号为空");
+    public ResponseBean getCourseSurvey(String username,String isClassEnd){
+    	if (StringUtils.isEmpty(username) || StringUtils.isEmpty(isClassEnd)) {
+			return new ResponseBean(false, "参数为空");
 		}
-		List<Course> list = new ArrayList<Course>();
+    	
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		try {
-			list = this.studentMapper.getCourseByUsername(username);
+			list = this.studentMapper.getCourseSurvey(username, isClassEnd);
 			if (list.size() == 0) {
-				return new ResponseBean(true, list, "该学生暂未选课程");
+				if(isClassEnd.equals("0")) {
+					return new ResponseBean(true, list, "该学生未结课程为空");
+				}
+				else if(isClassEnd.equals("1")) {
+					return new ResponseBean(true, list, "该学生已结课程为空");
+				}
 			}
 		} catch (Exception e) {
-			return new ResponseBean(false, "查询学生所选课程异常");
+			return new ResponseBean(false, "获得学生所选课程概况异常");
 		}
-		return new ResponseBean(true, list, "查询学生所选课程成功");
+		
+		return new ResponseBean(true, list, "获得学生所选课程概况成功");
     }
 }

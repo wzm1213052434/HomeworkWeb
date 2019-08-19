@@ -8,7 +8,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.alibaba.fastjson.JSON;
 import com.xaut.entity.Student;
+import com.xaut.util.HandleJSON;
 
 /*
  * 单元测试
@@ -49,9 +52,9 @@ public class StudentMapperTest {
 	@Test
 	public void studentSelectCourseTest() {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("sno","3160662001");
+		map.put("sno","3160662002");
 		map.put("cno","(2017-2018-2)-09191430-104492-4");
-		map.put("state","1");
+		map.put("isCanSubmit","1");
 		map.put("updateTime",new java.sql.Date(new Date().getTime()));
 		
 		studentMapper.studentSelectCourse(map);
@@ -63,7 +66,7 @@ public class StudentMapperTest {
 	 */
 	@Test
 	public void studentDeleteCourseTest() {
-		studentMapper.studentUndoCourse("3160662001","(2017-2018-2)-09191430-104492-4");
+		studentMapper.studentUndoCourse("3160662002","(2017-2018-2)-09191430-104492-4");
 		System.out.println("学生退课成功");
 	}
 	
@@ -109,5 +112,17 @@ public class StudentMapperTest {
 		} catch (Exception e) {
 			System.out.println("测试根据课程号查询学生异常");
 		}
+    }
+    
+    /**
+     * 测试：获得学生所选课程概况
+     */
+    @Test
+    public void getCourseSurveyTest() {
+    	List<Map<String, Object>> result = this.studentMapper.getCourseSurvey("0000123456", "0");
+    	
+    	//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
     }
 }

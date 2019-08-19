@@ -70,14 +70,17 @@ public class StudentController {
 	}
 	
 	/**
-	 * function:根据学生账号获得学生所选课程
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/findCourseByUsername", method = {RequestMethod.GET})
+     * function：获得学生所选课程概况
+     * @param username
+     * @param isClassEnd
+     * @return
+     */
+	@RequestMapping(value = "/getCourseSurvey", method = {RequestMethod.GET})
 	@ResponseBody
-	public ResponseBean findCourseByUsername(HttpServletRequest request) {
+	public ResponseBean getCourseSurvey(HttpServletRequest request) {
 		String userName = request.getParameter("userName");
-		return studentService.findCourseByUsername(userName);
+		String isClassEnd = request.getParameter("isClassEnd");
+		
+		return studentService.getCourseSurvey(userName, isClassEnd);
 	}
 }

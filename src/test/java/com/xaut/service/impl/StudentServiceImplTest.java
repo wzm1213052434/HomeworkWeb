@@ -28,14 +28,14 @@ public class StudentServiceImplTest {
 	}
 	
 	/**
-	 * test：根据学生账号获得学生所选课程
+	 * test：获得学生所选课程概况
 	 */
 	@Test
-	public void findCourseByUsernameTest() {
-		ResponseBean bean = this.studentService.findCourseByUsername("0000123456");
+	public void getCourseSurveyTest() {
+		ResponseBean bean = this.studentService.getCourseSurvey("0000123456","0");
 		
 		String jsonString = JSON.toJSONString(bean); //将JSON对象	转化为	JSON字符串
 		System.out.println(handleJSON.print_JSON(jsonString)); //将JSON字符串格式化输出
-		System.out.println("测试学生所选课程通过");
+		System.out.println("测试获得学生所选课程概况通过");
 	}
 }
