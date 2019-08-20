@@ -2,13 +2,14 @@ package com.xaut.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.xaut.service.StudentService;
-import com.xaut.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.xaut.service.StudentService;
+import com.xaut.util.ResponseBean;
 
 @RequestMapping(value = "/student")
 @Controller
@@ -17,17 +18,26 @@ public class StudentController {
 	private StudentService studentService;
 	
 	/**
-	 * 学生主页
+	 * 功能：学生主页
 	 */
-	@RequestMapping(value = "/index")
-	public String successLogin() {
+	@RequestMapping(value="/index",method= RequestMethod.GET)
+	public String index(){
 		return "student/index";
+	}
+	
+	/**
+	 * function:student目录下万能的页面跳转
+	 * @param student目录下的jsp/html的名称
+	 */
+	@RequestMapping(value="/{pageUrl}",method= RequestMethod.GET)
+	public String page(@PathVariable("pageUrl") String pageUrl){
+		return "student/" + pageUrl;
 	}
 	
 	/**
 	 * 功能：学生上传作业
 	 */
-	@RequestMapping(value = "/workUpload")
+	@RequestMapping(value = "/workUpload", method = {RequestMethod.GET})
 	@ResponseBody
 	public void workUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	}
@@ -60,14 +70,17 @@ public class StudentController {
 	}
 	
 	/**
-	 * function:根据学生账号获得学生所选课程
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/findCourseByUsername", method = {RequestMethod.GET})
+     * function：获得学生所选课程概况
+     * @param username
+     * @param isClassEnd
+     * @return
+     */
+	@RequestMapping(value = "/getCourseSurvey", method = {RequestMethod.GET})
 	@ResponseBody
-	public ResponseBean findCourseByUsername(HttpServletRequest request) {
+	public ResponseBean getCourseSurvey(HttpServletRequest request) {
 		String userName = request.getParameter("userName");
-		return studentService.findCourseByUsername(userName);
+		String isClassEnd = request.getParameter("isClassEnd");
+		
+		return studentService.getCourseSurvey(userName, isClassEnd);
 	}
 }

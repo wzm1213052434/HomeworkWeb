@@ -6,8 +6,8 @@
 
     <!-- 新增课程 -->
     <insert id="addCourse" parameterType="com.xaut.entity.Course">
-    	insert into db_course(cno,tno,cname,year,term,time,place,state,tablename,updatetime,remark1,remark2)
-		select #{cno},#{tno},#{cName},#{year},#{term},#{time},#{place},#{state},#{tableName},#{updateTime},'预留','预留'
+    	insert into db_course(cno,tno,cname,year,term,time,place,isclassend,tablename,updatetime,remark1,remark2)
+		select #{cno},#{tno},#{cName},#{year},#{term},#{time},#{place},#{isClassEnd},#{tableName},#{updateTime},'预留','预留'
 		from DUAL
 		where not exists(
 			select cno from db_course

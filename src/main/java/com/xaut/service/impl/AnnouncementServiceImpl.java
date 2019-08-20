@@ -2,6 +2,8 @@ package com.xaut.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.xaut.entity.Announcement;
@@ -53,5 +55,20 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 	 */
 	public int countAllAnnouncement() {
 		return announcementMapper.countAllAnnouncement();
+	}
+	
+	/**
+	 * 功能：查询新公告记录数
+	 * @return
+	 */
+	public int countNewAnnouncement() {
+		return announcementMapper.countNewAnnouncement();
+	}
+	
+	/**
+	 * function：动态sql更新公告
+	 */
+	public void updateAnnouncement(@Param("announcement") Announcement announcement) {
+		announcementMapper.updateAnnouncement(announcement);
 	}
 }

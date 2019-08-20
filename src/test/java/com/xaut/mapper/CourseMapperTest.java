@@ -23,7 +23,7 @@ public class CourseMapperTest {
 	 * 测试：新增课程
 	 */
 	@Test
-	public void addStudentTest() {
+	public void addCourseTest() {
 		Course course = new Course();
 		course.setCno("(2017-2018-2)-09191430-104496-7");
 		course.setTno("123456");
@@ -32,7 +32,7 @@ public class CourseMapperTest {
 		course.setTerm("1");
 		course.setTime("周二第1,2节{第1-12周}；周五第7,8节{第1-12周}");
 		course.setPlace("曲江10-217；曲江10-217");
-		course.setState("0");
+		course.setIsClassEnd("0");
 		course.setTableName("(2017-2018-2)-09191430-104496-31dmc.xls");
 		course.setUpdateTime(new java.sql.Date(new Date().getTime()));
 		
@@ -82,5 +82,4 @@ public class CourseMapperTest {
 			e.printStackTrace();
 		}
 	}
-
 }

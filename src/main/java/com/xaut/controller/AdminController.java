@@ -5,6 +5,7 @@ import com.xaut.service.CourseService;
 import com.xaut.util.ResponseBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,6 +28,15 @@ public class AdminController {
 	@RequestMapping(value = "/index")
 	public String successLogin() {
 		return "admin/index";
+	}
+	
+	/**
+	 * function:admin目录下万能的页面跳转
+	 * @param admin目录下的jsp/html的名称
+	 */
+	@RequestMapping(value="/{pageUrl}",method= RequestMethod.GET)
+	public String page(@PathVariable("pageUrl") String pageUrl){
+		return "admin/" + pageUrl;
 	}
 
 	/**

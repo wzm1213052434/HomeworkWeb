@@ -1,6 +1,7 @@
 package com.xaut.mapper;
 
 import java.util.List;
+
 import com.xaut.entity.Announcement;
 
 /**
@@ -22,7 +23,11 @@ public interface AnnouncementMapper {
 	/**
 	 * 功能：查询新公告记录数
 	 * @return
-	 * @throws Exception
 	 */
 	int countNewAnnouncement();
+	
+	/**
+	 * function：动态sql更新公告
+	 */
+	void updateAnnouncement(Announcement announcement);
 }

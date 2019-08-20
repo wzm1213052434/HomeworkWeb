@@ -1,11 +1,10 @@
 package com.xaut.mapper;
 
-import com.xaut.entity.Course;
-import com.xaut.entity.Student;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import com.xaut.entity.Student;
 
 /**
  * 学生相关接口
@@ -77,9 +76,9 @@ public interface StudentMapper {
     String getStudentNameByUsername(@Param("username") String username);
     
     /**
-     * function:根据学生账号获得学生所选课程
-     * @param username
-     * @return
+     * function:获得学生所选课程概况
+     * @param 学生账号 结课/未结课
+     * @return (结/未结)课程名	开课学期	开课学年	开课老师	老师学院	此课程作业数
      */
-    List<Course> getCourseByUsername(@Param("username") String username);
+    List<Map<String, Object>> getCourseSurvey(@Param("username") String username,@Param("isClassEnd") String isClassEnd);
 }

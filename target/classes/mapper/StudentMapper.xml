@@ -24,8 +24,8 @@
     
     <!-- 学生选课 -->
     <insert id="studentSelectCourse" parameterType="java.util.Map">
-    	insert into db_studcour(sno,cno,state,score,updatetime,remark1,remark2)
-		select #{sno},#{cno},#{state},#{score},#{updateTime},'预留','预留'
+    	insert into db_studcour(sno,cno,iscansubmit,score,updatetime,remark1,remark2)
+		select #{sno},#{cno},#{isCanSubmit},#{score},#{updateTime},'预留','预留'
 		from DUAL
 		where not exists(
 			select * from db_studcour
@@ -42,8 +42,8 @@
     
     <!-- 学生选作业 -->
     <insert id="studentSelectWork" parameterType="java.util.Map">
-    	insert into db_studwork(sno,wno,subtime,times,correctionstatus,state,comment,evaluate,score,updatetime,remark1,remark2)
-		select #{sno},#{wno},#{subTime},#{times},#{correctionStatus},#{state},#{comment},#{evaluate},#{score},#{updateTime},'预留','预留'
+    	insert into db_studwork(sno,wno,studentworkname,subtime,times,iscorrect,comment,score,updatetime,remark1,remark2)
+		select #{sno},#{wno},#{studentWorkName},#{subTime},#{times},#{isCorrect},#{comment},#{score},#{updateTime},'预留','预留'
 		from DUAL
 		where not exists(
 			select * from db_studwork
@@ -97,10 +97,11 @@
 		where sno = #{username};
 	</select>
 	
-	<!-- 根据学生账号获得学生所选课程 -->
-	<select id="getCourseByUsername" parameterType="String" resultType="com.xaut.entity.Course">
-		select c.cno,c.tno,c.cname,c.year,c.term,c.time,c.place,c.state,c.tablename,c.updatetime
-		from db_studcour,db_course c
-		where db_studcour.sno = #{username} and db_studcour.cno = c.cno;
+	<!-- 获得学生所选课程概况 -->
+	<select id="getCourseSurvey" parameterType="String" resultType="java.util.Map">
+		select c.cname '课程名',c.year '开课学年',c.term '开课学期',t.tname '开课老师',t.company '老师学院',count(*) '此课程作业数'
+		from db_studcour sc,db_course c,db_teacher t,db_work w
+		where sc.sno = #{username} and sc.cno = c.cno and c.isclassend = #{isClassEnd} and c.tno = t.tno and c.cno = w.cno
+		group by w.cno;
 	</select>
 </mapper>

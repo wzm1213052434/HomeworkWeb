@@ -52,12 +52,11 @@ public class WorkServiceImpl implements WorkService{
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("sno",one_map.get("sno"));	//学号
 			map.put("wno",work.getWno());	//作业号
+			map.put("studentWorkName",null);	//默认学生提交作业名null
 			map.put("subTime",null);	//默认提交时间null
 			map.put("times","3");	//默认提交次数为3
-			map.put("correctionStatus",null);	//默认批改状态为null
-			map.put("state",null);	//默认申请重新提交状态为null
+			map.put("isCorrect",null);	//默认批改状态为null
 			map.put("comment",null);	//学生看的评语为null
-			map.put("evaluate",null);	//老师看的评价为null
 			map.put("score",null);	//默认成绩为null
 			map.put("updateTime",new java.sql.Date(new Date().getTime()));
 			

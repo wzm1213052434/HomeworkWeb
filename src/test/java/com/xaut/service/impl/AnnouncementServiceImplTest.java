@@ -50,4 +50,19 @@ public class AnnouncementServiceImplTest {
 			System.out.println(handleJSON.print_JSON(jsonString));
 		}
 	}
+	
+	/**
+	 * 测试：动态sql更新公告
+	 */
+	@Test
+	public void updateAnnouncementTest() {
+		Announcement announcement = new Announcement();
+		announcement.setAno("(2017-2018-2)-09191430-104492-4-1");
+		
+		//以下为可选
+		announcement.setIsRead(false);
+
+		announcementService.updateAnnouncement(announcement);
+		System.out.println("动态sql更新公告成功");
+	}
 }

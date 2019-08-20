@@ -134,7 +134,7 @@ public class FileUtil {
 			course.setTime(line2[5].replace(';', '；')); //上课时间
 			course.setPlace(line2[7].replace(';', '；')); //上课地点
 			course.setTableName(filename); //选课表名
-			course.setState("0"); //0为结课
+			course.setIsClassEnd("0"); //0为结课
 			course.setUpdateTime(new java.sql.Date(new Date().getTime())); //最后更新时间
 			
 			//4.读取>=第5行到Student中
@@ -210,7 +210,7 @@ public class FileUtil {
 			Map<String,Object> map = new HashMap<String,Object>();
 			map.put("sno",stu.getSno());
 			map.put("cno",course.getCno());
-			map.put("state","1");
+			map.put("isCanSubmit","1");
 			map.put("updateTime",new java.sql.Date(new Date().getTime()));
 			studentMapper.studentSelectCourse(map);
 		}

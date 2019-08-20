@@ -21,11 +21,21 @@ public class AnnouncementController {
 	private AnnouncementService announcementService;
 	
 	/**
-	 * 跳转到学生主页(公告管理)
+	 * function：重定向到学生主页(公告管理)
 	 */
 	@RequestMapping(value = "/index",method = {RequestMethod.GET})
 	public String gotoStudentIndex() {
-		return "forward:/WEB-INF/views/student/index.jsp";
+		return "forward:/WEB-INF/views/student/index.html";
+	}
+	
+	/**
+	 * 功能：查询新公告记录数
+	 * @return
+	 */
+	@RequestMapping(value = "/countNewAnnouncement",method = {RequestMethod.GET})
+	@ResponseBody
+	public int countNewAnnouncement() {
+		return announcementService.countNewAnnouncement();
 	}
 	
 	/**
@@ -47,5 +57,27 @@ public class AnnouncementController {
         //3.返回结果
         PageInfo<Announcement> pageInfo = announcementService.findAllAnnouncementByPage(announcement, currentPage, pageSize);
 		return new HandleJSON().to_JSON(pageInfo);
+	}
+	
+	/**
+	 * 功能：设置公告为已读
+	 * @return
+	 */
+	@RequestMapping(value = "/announcementIsRead",method = {RequestMethod.GET})
+	@ResponseBody
+	public boolean announcementIsRead(HttpServletRequest request) {
+		System.out.println("======================");
+		
+		String ano = request.getParameter("ano");
+		Announcement announcement = new Announcement();
+		announcement.setAno(ano);
+		announcement.setIsRead(true); //设置为已读
+		
+		try {
+			announcementService.updateAnnouncement(announcement);
+		} catch(Exception e) {
+			return false;
+		}
+		return true;
 	}
 }

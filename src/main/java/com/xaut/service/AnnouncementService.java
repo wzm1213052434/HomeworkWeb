@@ -1,6 +1,9 @@
 package com.xaut.service;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.xaut.entity.Announcement;
 import com.xaut.util.PageInfo;
 
@@ -24,4 +27,15 @@ public interface AnnouncementService {
 	 * @return
 	 */
 	int countAllAnnouncement();
+	
+	/**
+	 * 功能：查询新公告记录数
+	 * @return
+	 */
+	int countNewAnnouncement();
+	
+	/**
+	 * function：动态sql更新公告
+	 */
+	void updateAnnouncement(@Param("announcement") Announcement announcement);
 }

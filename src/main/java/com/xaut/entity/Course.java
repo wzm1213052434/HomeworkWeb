@@ -29,7 +29,7 @@ public class Course {
     private String place;
 
     /* 是否结课(0为未结课,1为已结课),默认为0 */
-    private String state;
+    private String isClassEnd;
 
     /* 选课表名 */
     private String tableName;
@@ -93,12 +93,12 @@ public class Course {
 		this.place = place;
 	}
 
-	public String getState() {
-		return state;
+	public String getIsClassEnd() {
+		return isClassEnd;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setIsClassEnd(String isClassEnd) {
+		this.isClassEnd = isClassEnd;
 	}
 
 	public String getTableName() {
@@ -120,7 +120,7 @@ public class Course {
 	@Override
 	public String toString() {
 		return "Course [cno=" + cno + ", tno=" + tno + ", cName=" + cName + ", year=" + year + ", term=" + term
-				+ ", time=" + time + ", place=" + place + ", state=" + state + ", tableName=" + tableName
+				+ ", time=" + time + ", place=" + place + ", isClassEnd=" + isClassEnd + ", tableName=" + tableName
 				+ ", updateTime=" + updateTime + "]";
 	}
 }

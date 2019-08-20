@@ -1,21 +1,30 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="com.xaut.entity.User"%>
-<%
-	String path = request.getContextPath();
-	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%>
-<%User user=(User)request.getSession().getAttribute("user");%>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
-<base href="<%=basePath%>">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" defer="defer">
+	function addBasePath(){
+		//1.得到项目根路径：http://localhost:8080/myproject/
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		var localhostPaht = curWwwPath.substring(0,pos);
+		var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+		var realPath = localhostPaht + projectName;
+		var basePath = realPath + '/';
+		console.log(basePath);
+		
+		//2.添加根路径到html的base标签中
+		var $base = '<base href="' + basePath + '">';
+		$('head').prepend($base); //在头部添加
+	}
+	addBasePath();
+</script>
 <meta charset="utf-8"/>
-<title>关于我们</title>
+<title>学生主页</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="" name="description"/>
-<meta content="" name="author"/>
 <!-- 0.最先：引入CSS -->
 <!-- 开始全局强制样式 -->
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
@@ -40,8 +49,8 @@
 <link href="assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="app/img/favicon.ico" rel="shortcut icon" />
 <!-- 结束主题样式 -->
-<link rel="shortcut icon" href="favicon.ico"/>
 </head>
 <!-- 结束head -->
 <!-- 开始body -->
@@ -55,8 +64,8 @@
 		
 		<!-- 开始LOGO -->
 		<div class="page-logo">
-			<a href="announcement/index">
-			<img src="assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
+			<a href="/HomeWorkWeb/student/index">
+				<img src="assets/admin/layout4/img/logo-light.png" alt="logo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler">
 				<!-- 文档说明：删除上面的“隐藏”以启用标题上的边栏切换按钮 -->
@@ -161,8 +170,8 @@
 					<!-- 开始用户登录下拉列表 -->
 					<li class="dropdown dropdown-user dropdown-dark">
 						<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-						<span class="username username-hide-on-mobile">
-							<%=user.getUserName()%>
+						<span id="userName" class="username username-hide-on-mobile">
+							<!-- 此处展示用户名 -->
 						</span>
 						<!-- DOC: Do not remove below empty space(&nbsp;) as its purposely used -->
 						<img alt="" class="img-circle" src="assets/admin/layout4/img/avatar9.jpg"/>
@@ -187,8 +196,10 @@
 							</li>
 							
 							<li>
-								<a href="login.html">
-								<i class="icon-key"></i> 退出登录 </a>
+								<a href="/HomeWorkWeb/logout">
+									<i class="icon-key"></i>
+									退出登录
+								</a>
 							</li>
 						</ul>
 					</li>
@@ -212,24 +223,23 @@
 	<div class="page-sidebar-wrapper">
 		<div class="page-sidebar navbar-collapse collapse">
 			<!-- 开始侧边栏菜单 -->
-			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-				
-				<li class="start">
-					<a href="announcement/index">
-					<i class="icon-home"></i>
-					<span class="title">公告管理</span>
+			<ul id="menulist" class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+				<li class="start active">
+					<a href="/HomeWorkWeb/announcement/index">
+						<i class="icon-home"></i>
+						<span class="title">公告管理</span>
 					</a>
 				</li>
 				
 				<li>
 					<a href="javascript:;">
-					<i class="icon-basket"></i>
-					<span class="title">课程管理</span>
-					<span class="arrow"></span>
+						<i class="icon-basket"></i>
+						<span class="title">课程管理</span>
+						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="student/courseChoosed">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/courseChoosed')">
 							<i class="icon-home"></i>
 							已选课程</a>
 						</li>
@@ -238,35 +248,39 @@
 				
 				<li>
 					<a href="javascript:;">
-					<i class="icon-rocket"></i>
-					<span class="title">作业管理</span>
-					<span class="arrow "></span>
+						<i class="icon-rocket"></i>
+						<span class="title">作业管理</span>
+						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="student/workChoosed">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/workChoosed')">
 							<span class="badge badge-warning">new</span>已选作业</a>
 						</li>
 						<li>
-							<a href="student/workHistory">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/workHistory')">
 							作业提交历史</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/OtherPublishWork')">
+							他人公布的作业</a>
 						</li>
 					</ul>
 				</li>
 				
 				<li>
 					<a href="javascript:;">
-					<i class="icon-diamond"></i>
-					<span class="title">评论管理</span>
-					<span class="arrow "></span>
+						<i class="icon-diamond"></i>
+						<span class="title">评论管理</span>
+						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="student/commentByMe">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/commentByMe')">
 							我的历史评论</a>
 						</li>
 						<li>
-							<a href="student/commentAboutMe">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/commentAboutMe')">
 							关于我的评论</a>
 						</li>
 					</ul>
@@ -274,27 +288,27 @@
 				
 				<li>
 					<a href="javascript:;">
-					<i class="icon-puzzle"></i>
-					<span class="title">我的老师</span>
-					<span class="arrow "></span>
+						<i class="icon-puzzle"></i>
+						<span class="title">我的老师</span>
+						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-							<a href="student/teacherChoosed">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/teacherChoosed')">
 							已选课程教师</a>
 						</li>
 						<li>
-							<a href="student/teacherOfCollege">
+							<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/teacherOfCollege')">
 							本院教师</a>
 						</li>
 					</ul>
 				</li>
 				
-				<li class="tooltips active" data-container="body" data-placement="right" data-html="true" data-original-title="AngularJS version demo">
-					<a href="student/aboutUs">
-					<i class="icon-paper-plane"></i>
-					<span class="title">
-					联系我们</span>
+				<li class="tooltips" data-container="body" data-placement="right" data-html="true">
+					<a href="javascript:void(0);" onclick="loadPage('/HomeWorkWeb/student/aboutUs')">
+						<i class="icon-paper-plane"></i>
+						<span class="title">
+						联系我们</span>
 					</a>
 				</li>
 			</ul>
@@ -305,13 +319,13 @@
 
 	<!-- 2.2开始内容 -->
 	<div class="page-content-wrapper">
-		<div class="page-content">
-		
+		<!-- ！！！！开始真实内容(可随时变化)！！！！ -->
+		<div class="page-content" id="right">
 			<!-- 开始页首 -->
 			<div class="page-head">
 				<!-- 开始页标题 -->
 				<div class="page-title">
-					<h1>Dashboard <small>statistics</small></h1>
+					<h1>公告管理&nbsp;&nbsp;<small>所有公告</small></h1>
 				</div>
 				<!-- 结束页标题 -->
 			</div>
@@ -320,10 +334,42 @@
 			<!-- 开始页面内容内部 -->
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
+					<!-- 开始组件-->
+					<div class="portlet light tasks-widget">
+						<div class="portlet-title">
+							<div class="caption caption-md">
+								<i class="icon-bar-chart theme-font-color hide"></i>
+								<span class="caption-subject theme-font-color bold uppercase">最新公告</span>
+								<span id="newAnnouncementCount" class="caption-helper">
+									<!-- 此处由最新公告填写 -->
+								</span>
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="task-content">
+								<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
+									<!-- 开始公告列表 -->
+									<ul class="task-list" id="task-list">
+										<!-- 说明：此处由JS动态插入 -->
+									</ul>
+									<!-- 结束公告列表 -->
+								</div>
+							</div>
+							<div class="task-footer">
+								<div class="btn-arrow-link">
+									<ul id="paging" class="pagination">
+										<!-- 此处内容由JS显示分页内容 -->
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 结束组件-->
 				</div>
 			</div>
 			<!-- 结束页内容内部 -->
 		</div>
+		<!-- ！！！！结束真实内容(可随时变化)！！！！ -->
 	</div>
 	<!-- 2.2结束内容 -->
 </div>
@@ -332,7 +378,7 @@
 <!-- 3.开始页脚 -->
 <div class="page-footer">
 	<div class="page-footer-inner">
-		2019-2020 &copy; 西安理工大学计算机学院计科专业著
+		2019-2020 &copy; 西安理工大学计算机学院和自动化学院著
 		<a href="http://www.xaut.edu.cn/" target="_blank">西安理工大学</a>
 	</div>
 	<div class="scroll-to-top">
@@ -340,6 +386,12 @@
 	</div>
 </div>
 <!-- 3.结束页脚 -->
+
+
+<a href="javascript:;" onclick="toRead('123')">abc</a>
+
+
+
 
 <!-- 9999.最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -376,10 +428,236 @@
 <!-- 结束页级脚本 -->
 <!-- 开始自定义JS -->
 <script>
-jQuery(document).ready(function() {    
+/**
+ * function:展示用户名
+ */
+function showUserName(){
+	 var userName = sessionStorage.getItem('userName');
+	 console.log(userName);
+	 
+	 $.ajax({
+	        url: '/HomeWorkWeb/student/findStudentNameByUsername',
+	        type: 'GET',
+	        async: false,
+	        data: {
+	        	userName: userName,
+	        },
+	        success: function (response) {
+	        	console.log(response);
+	        	$('#userName').html(response);
+	        }
+		})
+};
+
+/**
+ * 重定向到自己
+ */
+function gotoIndex(forwardUrl,gotoUrl,currentPage,pageSize){
+	window.location.href = forwardUrl + "?gotoUrl=" + gotoUrl + "&currentPage=" + currentPage + "&pageSize=" + pageSize;
+}
+
+/**
+ * 解析上个页面带来的所有参数
+ */
+ function parseUrl(){
+     var url = location.href;
+     var i = url.indexOf('?');
+     if(i == -1)
+    	 return;
+     var querystr = url.substr(i+1);
+     var arr1 = querystr.split('&');
+     var arr2 = new Object();
+     for(i in arr1){
+         var ta = arr1[i].split('=');
+         arr2[ta[0]] = ta[1];
+     }
+     return arr2;
+ };
+
+/**
+ * function:显示分页列表
+ */
+function showPage(response){
+	var page_li = '';
+	
+	//1.输出首页和上一页
+	page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',1,' + response.pageSize + ')">首页</a></li>';
+	if(response.currentPage == 1){ //当前是第一页，不能点击上一页
+		page_li += '<li><a href="javascript:;">&laquo;</a></li>';
+	}
+	else{
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage-1) + ',' + response.pageSize + ')">&laquo;</a></li>';
+	}
+	
+	//2.循环输出中间页码
+	for(var i=response.start; i<response.start+response.pageNo; i++){
+		if(i == response.currentPage){ //给当前页标记,进行区分
+			page_li += '<li class="active"><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+		}
+		else{
+			page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+		}
+	}
+	
+	//3.输出下一页和末页
+	if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击下一页
+		page_li += '<li><a href="javascript:;">&raquo;</a></li>';
+	}
+	else{
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage+1) + ',' + response.pageSize + ')">&raquo;</a></li>';
+	}
+	page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
+	
+	//4.输出总页数
+	page_li += '<li><a style="color:black">共' + response.totalPage + '页</a></li>';
+	$("#paging").html(page_li);
+}
+
+/**
+ * 展示公告列表
+ */
+var default_currentPage = 1; //默认当前页
+var default_pageSize = 7; //默认页大小
+function showAnnouncement(){
+	//1.获得前端参数
+	var data = parseUrl();//解析所有参数
+	var currentPage;
+	var pageSize;
+	if(data == null){ //如果没有携带参数，给默认值
+		currentPage = default_currentPage;
+		pageSize = default_pageSize;
+	}
+	else{
+		currentPage = data['currentPage'];
+		pageSize = data['pageSize'];
+	}
+	
+	//2.使用Ajax调用接口
+	$.ajax({
+        url: '/HomeWorkWeb/announcement/findAllAnnouncementByPage',
+        type: 'GET',
+        async: false,
+        data: {
+        	currentPage: currentPage,
+        	pageSize: pageSize,
+        },
+        success: function (response) {
+        	//2.1.显示公告
+        	var ann_ul = $("#task-list");
+    		for(var i=0; i<response.list.length; i++){
+    			var ann_li = "";
+    			//拼接公告
+    			ann_li += '<li><div class="task-title"><span class="task-title-sp">' + response.list[i].aName + '</span>';
+    			if(response.list[i].isRead == false){ //未读公告
+    				ann_li += '<span class="label label-sm label-danger">new</span>';
+    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
+    				ann_li += '<a href="javascript:;" onclick="toRead(this,\'' + response.list[i].ano + '\')">&nbsp;&nbsp;标记已读</a></div>';
+    			}
+    			else { //已读公告
+    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
+    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;已读</a></div>';
+    			}
+    			ann_li += '</div></li>';
+    			//添加公告到列表中
+    			ann_ul.append(ann_li);
+    		}
+    		
+    		//2.2.显示分页
+    		showPage(response);
+        }
+	})
+};
+
+/**
+ * function:切换导航栏内容
+ */
+function loadPage(url) {
+	 console.log(url);
+	$("#right").load(url);
+}
+
+/**
+ * function:左部导航栏操作
+ */
+$(document).ready(function () {
+	//点击一级目录
+	$('#menulist > li > a').click(function () {
+		$('#menulist > li').removeClass('active'); //去除所有一级标题
+		$('#menulist ul > li').removeClass('active'); //去除所有二级标题
+		$('#menulist > li').removeClass('open'); //为了关闭一级标题
+		$('#menulist li a span').removeClass('open'); //关闭所有二级标题箭头
+		
+		$('#menulist > li > ul').attr("style","display:none");
+		$(this).parent().addClass('active'); //选中本级标题
+	});
+	
+	//点击二级目录
+	$('#menulist ul li > a').click(function () {
+		$('#menulist > li').removeClass('active'); //去除所有一级标题
+		$('#menulist ul > li').removeClass('active'); //去除所有二级标题
+		
+		$(this).parent().addClass('active'); //选中本级标题
+		$(this).parent().parent().parent().addClass('active'); //选中一级标题
+	});
+});
+
+/**
+ * function:展示最新公告数
+ */
+function showNewAnnouncementCount(){
+	$.ajax({
+        url: '/HomeWorkWeb/announcement/countNewAnnouncement',
+        type: 'GET',
+        async: false,
+        data: {},
+        success: function (response) {
+        	$("#newAnnouncementCount").text(response + "个")
+        }
+	})
+}
+
+/**
+ * function：标记已读
+ */
+function toRead(obj,ano){
+	//1.将html中: 标记已读改为已读,并且禁止鼠标点击,去掉new
+	$(obj).removeAttr('onclick');
+	$(obj).text("  已读");
+	$(obj).parent().parent().find("span").eq(1).remove();
+	
+	//2.将数据库公告改为已读
+	console.log(ano);
+	$.ajax({
+        url: '/HomeWorkWeb/announcement/announcementIsRead',
+        type: 'GET',
+        async: false,
+        data: {
+        	ano: ano,
+        },
+        success: function (response) {
+        	if(response == true)
+        	{
+        		alert("标记成功");
+        	}else{
+        		alert("标记失败");
+        	}        		
+        }
+	})
+}
+
+/**
+ * 加载完成后初始化页面
+ */
+$(document).ready(function() {
 	Metronic.init(); // 初始化核心组件
 	Layout.init(); // 初始化布局
-	QuickSidebar.init(); // 初始化快速侧边栏 
+	QuickSidebar.init(); // 初始化快速侧边栏
+	
+	showUserName(); //初始化用户名
+	showNewAnnouncementCount(); //展示最新公告数
+	showAnnouncement();	//展示公告列表
 });
 </script>
 <!-- 结束自定义JS -->
