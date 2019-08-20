@@ -78,13 +78,12 @@ public class StudentMapperTest {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("sno","3160662002");
 		map.put("wno","(2017-2018-2)-09191430-104496-3-1");
-		map.put("subTime","2019-05-23");
-		map.put("times","1");
-		map.put("correctionStatus","0");
-		map.put("state",null);
-		map.put("comment","再接再厉");
-		map.put("evaluate","做的很差");
-		map.put("score","65");
+		map.put("studentWorkName",null);
+		map.put("subTime",null);
+		map.put("times","3");
+		map.put("isCorrect",null);
+		map.put("comment",null);
+		map.put("score",null);
 		map.put("updateTime",new java.sql.Date(new Date().getTime()));
 		
 		studentMapper.studentSelectWork(map);

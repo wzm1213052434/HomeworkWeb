@@ -33,54 +33,6 @@
 <!-- 结束主题样式 -->
 </head>
 <body>
-<!-- ！！！！开始真实内容(可随时变化)！！！！ -->
-<!-- 开始页首 -->
-<div class="page-head">
-	<!-- 开始页标题 -->
-	<div class="page-title">
-		<h1>公告管理&nbsp;&nbsp;<small>所有公告</small></h1>
-	</div>
-	<!-- 结束页标题 -->
-</div>
-<!-- 结束页首 -->
-
-<!-- 开始页面内容内部 -->
-<div class="row">
-	<div class="col-md-12 col-sm-12">
-		<!-- 开始组件-->
-		<div class="portlet light tasks-widget">
-			<div class="portlet-title">
-				<div class="caption caption-md">
-					<i class="icon-bar-chart theme-font-color hide"></i>
-					<span class="caption-subject theme-font-color bold uppercase">最新公告</span>
-					<span id="newAnnouncementCount" class="caption-helper">
-						<!-- 此处由最新公告填写 -->
-					</span>
-				</div>
-			</div>
-			<div class="portlet-body">
-				<div class="task-content">
-					<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-						<!-- 开始公告列表 -->
-						<ul class="task-list" id="task-list">
-							<!-- 说明：此处由JS动态插入 -->
-						</ul>
-						<!-- 结束公告列表 -->
-					</div>
-				</div>
-				<div class="task-footer">
-					<div id="btn-arrow-link" class="btn-arrow-link">
-						<ul id="paging" class="pagination">
-							<!-- 此处内容由JS显示分页内容 -->
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- 结束组件-->
-	</div>
-</div>
-<!-- 结束页内容内部 -->
 
 <!-- 最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -117,25 +69,15 @@
 <!-- 结束页级脚本 -->
 
 <script type="text/javascript">
-function showPage(){
-	var page_li = '';
-	page_li += '<li><a href="#">首页</a></li>';
-	page_li += '<li><a href="#">&laquo;</a></li>';
-	page_li += '<li><a href="#">1</a></li>';
-	page_li += '<li><a href="#">2</a></li>';
-	page_li += '<li><a href="#">3</a></li>';
-	page_li += '<li><a href="#">4</a></li>';
-	page_li += '<li><a href="#">5</a></li>';
-	page_li += '<li><a href="#">&raquo;</a></li>';
-	page_li += '<li><a href="#">末页</a></li>';
-	page_li += '<li><a style="color:black">共5页</a></li>';
-	$("#paging").html(page_li);
-}
+/**
+ * 已选作业(按照剩余提交次数由小到大、有搜索框)未提交 已提交
+ 作业名	所属课程	开课老师	起始时间	截止时间	剩余提交次数	[批改?]	[评分]
+ */
+
 /*
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	showPage(); //展示学生未结课程
 });
 </script>
 </body>
