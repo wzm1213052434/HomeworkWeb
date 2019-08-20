@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%> 
+<%User user=(User)request.getSession().getAttribute("user");%>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -38,11 +45,10 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<a href="#">
-			<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
+			<a href="admin/index">
+				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
 			</a>
-			<div class="menu-toggler sidebar-toggler hide">
-			</div>
+			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
 		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
 		</a>
@@ -118,24 +124,12 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="管理员：" class="img-circle" src="assets/admin/layout/img/avatar.png"/>
-						<span class="username username-hide-on-mobile">
-							管理员
-						</span>
+						<span class="username username-hide-on-mobile">管理员</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-						<li>
-							<a href="findMyself">
-								<i class="icon-user"></i> 
-								个人信息 
-							</a>
-						</li>
-						<li>
-							<a href="login">
-								<i class="icon-key"></i> 
-								退出登入
-							</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-user"></i>个人信息 </a></li>
+						<li><a href="login"><i class="icon-key"></i>退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -154,13 +148,10 @@
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="sidebar-toggler-wrapper">
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler">
-					</div>
+					<div class="sidebar-toggler"></div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li class="heading">
-					<h3 class="uppercase">Functions</h3>
-				</li>
+				<li class="heading"><h3 class="uppercase">Functions</h3></li>
 				<li class="start active open">
 					<a href="javascript:;">
 						<i class="icon-home"></i>
@@ -169,18 +160,10 @@
 						<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu	">
-						<li>
-							<a href="lookIndex"><i class="icon-bar-chart"></i> 用户信息</a>
-						</li>
-						<li class="active">
-							<a href="#"><i class="icon-bar-chart"></i> 课程信息</a>
-						</li>
-						<li>
-							<a href="lookWork"><i class="icon-bar-chart"></i> 作业信息</a>
-						</li>
-						<li>
-							<a href="lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a>
-						</li>
+						<li><a href="admin/index"><i class="icon-bar-chart"></i> 用户信息</a></li>
+						<li><a href="admin/Course"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
+						<li class="active"><a href="javascript:;"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>
 				</li>
 				<li>
@@ -190,15 +173,9 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="findstudent"><i class="icon-user-follow"></i>学生管理</a>
-						</li>
-						<li>
-							<a href="findteacher"><i class="icon-user-follow"></i>教师管理</a>
-						</li>
-						<li>
-							<a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a>
-						</li>
+						<li><a href="admin/mStudent"><i class="icon-user-follow"></i>学生管理</a></li>
+						<li><a href="admin/mTeacher"><i class="icon-user-follow"></i>教师管理</a></li>
+						<li><a href="admin/mAdmin"><i class="icon-user-follow"></i>管理员管理</a></li>
 					</ul>
 				</li>
 				<li class="last ">
@@ -208,17 +185,12 @@
 						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="findMyself"><i class="icon-notebook"></i> 您的信息</a>
-						</li>
-						<li>
-							<a href="login"><i class="icon-key"></i> 退出登入</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
+						<li><a href="login"><i class="icon-key"></i> 退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
-			
 		</div>
 	</div>
 	<!-- END SIDEBAR -->
@@ -229,22 +201,22 @@
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li><i class="fa fa-home"></i>系统使用详情<i class="fa fa-angle-right"></i></li>
-					<li>课程信息</li>
+					<li>公告信息</li>
 				</ul>
 			</div>
 			<h3 class="page-title">
-				课程信息 <small>查看所有课程</small>
+				公告信息 <small>查看所有公告</small>
 			</h3>
 			<!-- END PAGE HEADER-->
 			<!-- 显示表格部分-开始 -->
 			<div class="row">
 				<div class="col-md-12">
 					<div class="portlet box green">
-						<div class="portlet-title">
-							<div class="caption"><i class="fa fa-comments"></i>课程信息总览</div>
-							<div class="tools">
-								<a href="javascript:;" class="collapse"></a>
-								<a href="javascript:;" class="reload"></a>
+						<div class="portlet-title" style="vertical-align:middle;position:relative;">
+							<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>公告信息总览</div>
+							<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
+								<a href="javascript:;" class="collapse" title="折叠"></a>
+								<a href="javascript:;" class="reload" title="刷新"></a>
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -252,7 +224,7 @@
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
 										<form>
-											<input type="search" class="form-control input-big input-inline" placeholder="按课程号查询" aria-controls="sample_editable_1">
+											<input type="search" class="form-control input-big input-inline" placeholder="按公告号查询" aria-controls="sample_editable_1">
 											<button type="submit" class="form-control input-inline">查询</button>
 										</form>
 									</div>
@@ -262,25 +234,21 @@
 								<table class="table table-striped table-hover">
 									<thead>
 										<tr>
-											<th style="width:10%;">课程号</th>
-											<th style="width:10%;">教职工号</th>
-											<th style="width:12%;">课程名</th>
-											<th style="width:7%;">学年</th>
-											<th style="width:11%;">学期</th>
-											<th style="width:23%;">上课时间</th>
-											<th style="width:22%;">上课地点</th>
+											<th style="width:15%;">公告号</th>
+											<th style="width:15%;">课程号</th>
+											<th style="width:15%;">公告名</th>
+											<th style="width:40%;">公告描述</th>
+											<th style="width:10%;">发布时间</th>
 											<th style="width:5%;">操作</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>123456789</td>
-											<td>123456</td>
-											<td>asdsadadsa</td>
-											<td>20**</td>
-											<td>*</td>
-											<td>asdsdadsasdasdasdasdasd</td>
-											<td>asdasdasdasdasdasdasdasd</td>
+											<td>123456789</td>
+											<td>123456789</td>
+											<td>今天不上课今天不上课今天必胜客今天不上课今天不上课今天必胜客</td>
+											<td>20**1219</td>
 											<td><a class="edit" href="javascript:;">删除</a></td>
 										</tr>
 									</tbody>

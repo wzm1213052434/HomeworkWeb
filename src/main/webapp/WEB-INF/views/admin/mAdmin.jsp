@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%> 
+<%User user=(User)request.getSession().getAttribute("user");%>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -23,7 +30,6 @@
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
-<link href="assets/golbal/plugins/select2/select2.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -39,14 +45,12 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<a href="#">
+			<a href="admin/index">
 				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
 			</a>
-			<div class="menu-toggler sidebar-toggler hide">
-			</div>
+			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
-		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-		</a>
+		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
@@ -119,24 +123,12 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="管理员：" class="img-circle" src="assets/admin/layout/img/avatar.png"/>
-						<span class="username username-hide-on-mobile">
-							管理员
-						</span>
+						<span class="username username-hide-on-mobile">管理员</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-						<li>
-							<a href="findMyself">
-								<i class="icon-user"></i> 
-								个人信息 
-							</a>
-						</li>
-						<li>
-							<a href="login">
-								<i class="icon-key"></i> 
-								退出登入
-							</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-user"></i>个人信息 </a></li>
+						<li><a href="login"><i class="icon-key"></i>退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -155,13 +147,10 @@
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="sidebar-toggler-wrapper">
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler">
-					</div>
+					<div class="sidebar-toggler"></div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li class="heading">
-					<h3 class="uppercase">Functions</h3>
-				</li>
+				<li class="heading"><h3 class="uppercase">Functions</h3></li>
 				<li>
 					<a href="javascript:;">
 						<i class="icon-home"></i>
@@ -170,18 +159,10 @@
 						<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu	">
-						<li>
-							<a href="lookIndex"><i class="icon-bar-chart"></i> 用户信息</a>
-						</li>
-						<li>
-							<a href="lookCourse"><i class="icon-bar-chart"></i> 课程信息</a>
-						</li>
-						<li>
-							<a href="lookWork"><i class="icon-bar-chart"></i> 作业信息</a>
-						</li>
-						<li>
-							<a href="lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a>
-						</li>
+						<li><a href="admin/index"><i class="icon-bar-chart"></i> 用户信息</a></li>
+						<li><a href="admin/lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
+						<li><a href="admin/lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>
 				</li>
 				<li class="start active open">
@@ -191,15 +172,9 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li  class="active">
-							<a href="findstudent"><i class="icon-user-follow"></i>学生管理</a>
-						</li>
-						<li>
-							<a href="findteacher"><i class="icon-user-follow"></i>教师管理</a>
-						</li>
-						<li>
-							<a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a>
-						</li>
+						<li><a href="admin/mStudent"><i class="icon-user-follow"></i>学生管理</a></li>
+						<li><a href="admin/mTeacher"><i class="icon-user-follow"></i>教师管理</a></li>
+						<li class="active"><a href="javascript:;"><i class="icon-user-follow"></i>管理员管理</a></li>
 					</ul>
 				</li>
 				<li class="last ">
@@ -209,12 +184,8 @@
 						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="findMyself"><i class="icon-notebook"></i> 您的信息</a>
-						</li>
-						<li>
-							<a href="login"><i class="icon-key"></i> 退出登入</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
+						<li><a href="login"><i class="icon-key"></i> 退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -229,35 +200,35 @@
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
 					<li><i class="fa fa-home"></i>用户管理<i class="fa fa-angle-right"></i></li>
-					<li>学生管理</li>
+					<li>管理员管理</li>
 				</ul>
 			</div>
 			<h3 class="page-title">
-				学生管理 <small>查看所有学生用户的信息</small>
+				管理员管理 <small>查看所有管理员用户的信息</small>
 			</h3>
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
-				<div class="portlet-title" style="height:20px;">
-					<div class="caption"><i class="fa fa-comments"></i>学生信息总览</div>
-					<div class="tools">
-						<a href="javascript:;" class="collapse" data-original-title="" title="折叠"></a>
-						<a href="javascript:;" class="reload" data-original-title="" title="刷新"></a>
+				<div class="portlet-title" style="vertical-align:middle;position:relative;">
+					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>管理员用户信息</div>
+					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
+						<a href="javascript:;" class="collapse" title="折叠"></a>
+						<a href="javascript:;" class="reload" title="刷新"></a>
 					</div>
 				</div>
 				<div class="portlet-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-6">
+						<div class="col-md-6 col-sm-12">
 							<div id="sample_editable_1_filter" class="dataTables_filter">
 								<form>
-									<input type="search" class="form-control input-big input-inline" placeholder="按学号查询" aria-controls="sample_editable_1">
+									<input type="search" class="form-control input-big input-inline" placeholder="按账号查询" aria-controls="sample_editable_1">
 									<button type="submit" class="form-control input-inline">查询</button>
-								</form>					
+								</form>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">	
 							<div class="pull-right">
-								<a><button class="form-control input-inline">增加学生</button></a>
+								<a><button class="form-control input-inline">增加管理员</button></a>
 							</div>
 						</div>
 					</div>
@@ -266,21 +237,14 @@
 							<table class="table table-striped table-hover table-bordered dataTable no-footer" id="able_1" style="text-align:center;">
 								<thead>
 									<tr role="row">
-										<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;"></th>
+										<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1">
+											 
+										</th>
 										<th class="sorting" tabindex="1" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-									 		学号
-										</th>
-										<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-											姓名
+									 		账号
 										</th>
 										<th class="sorting" tabindex="2" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				专业
-										</th>
-										<th class="sorting" tabindex="2" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				邮箱
-										</th>
-										<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-											账号密码
+							 				密码
 										</th>
 										<th class="sorting" tabindex="3" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
 							 				使用状态
@@ -293,17 +257,27 @@
 								<tbody>
 									<tr role="row" class="odd">
 										<td class="sorting_1">1</td>
-										<td>3160661515</td>
-										<td>小兵</td>
-										<td>计算机科学与技术</td>
-										<td>无</td>
+										<td class="sorting_1">admin</td>
 										<td>123456</td>
 										<td>
 											<span class="label label-sm label-success">
 												 正常
 											</span>
 										</td>
-										<td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td>
+										<td><a class="edit" href="javascript:;">更改密码</a></td>
+										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
+										<td><a class="edit" href="javascript:;">删除</a></td>
+									</tr>
+									<tr role="row" class="odd">
+										<td class="sorting_1">2</td>
+										<td class="sorting_1">admin2</td>
+										<td>456789</td>
+										<td>
+											<span class="label label-sm label-danger">
+												冻结
+											</span>
+										</td>
+										<td><a class="edit" href="javascript:;">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -332,55 +306,13 @@
 					</div>
 				</div>
 			</div>
-			<!-- 信息表格  结束 -->
-			<!-- 修改信息模态框  开始-->
-            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first">
-            	<div class="modal-body">
-            		<div class="portlet box blue">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="fa fa-gift"></i>修改信息
-							</div>
-						</div>
-						<div class="portlet-body form">
-							<form role="form">
-								<div class="form-body">
-									<div class="form-group">
-										<label>学号</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-									<div class="form-group">
-										<label>姓名</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-									<div class="form-group">
-										<label>专业</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-									<div class="form-group">
-										<label>邮箱</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-									<div class="form-group">
-										<label>密码</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-								</div>
-								<div class="form-actions right">
-									<button type="button" class="btn default">Cancel</button>
-									<button type="submit" class="btn green">Submit</button>
-								</div>
-							</form>
-						</div>
-					</div>
-            	</div>
-            </div>
-            <!-- 修改信息模态框  结束-->
-			
+			<!-- 信息表格  结束 -->		
 			<!-- 老刘的分界线 -->
 		</div>
 	</div>
 </div>
+
+
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
@@ -425,7 +357,6 @@
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
-<script src="assets/admin/pages/scripts/table-editable.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    
@@ -441,7 +372,6 @@ Demo.init(); // init demo features
    Index.initChat();
    Index.initMiniCharts();
    Tasks.initDashboardWidget();
-   TableEditable.init();
 });
 </script>
 </body>

@@ -1,8 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%> 
+<%User user=(User)request.getSession().getAttribute("user");%>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -38,14 +45,12 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<a href="#">
+			<a href="admin/index">
 				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
 			</a>
-			<div class="menu-toggler sidebar-toggler hide">
-			</div>
+			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
-		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-		</a>
+		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
@@ -118,24 +123,12 @@
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<img alt="管理员：" class="img-circle" src="assets/admin/layout/img/avatar.png"/>
-						<span class="username username-hide-on-mobile">
-							管理员
-						</span>
+						<span class="username username-hide-on-mobile">管理员</span>
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-						<li>
-							<a href="findMyself">
-								<i class="icon-user"></i> 
-								个人信息 
-							</a>
-						</li>
-						<li>
-							<a href="login">
-								<i class="icon-key"></i> 
-								退出登入
-							</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-user"></i>个人信息 </a></li>
+						<li><a href="login"><i class="icon-key"></i>退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -154,13 +147,10 @@
 			<ul class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="sidebar-toggler-wrapper">
 					<!-- BEGIN SIDEBAR TOGGLER BUTTON -->
-					<div class="sidebar-toggler">
-					</div>
+					<div class="sidebar-toggler"></div>
 					<!-- END SIDEBAR TOGGLER BUTTON -->
 				</li>
-				<li class="heading">
-					<h3 class="uppercase">Functions</h3>
-				</li>
+				<li class="heading"><h3 class="uppercase">Functions</h3></li>
 				<li>
 					<a href="javascript:;">
 						<i class="icon-home"></i>
@@ -169,18 +159,10 @@
 						<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu	">
-						<li>
-							<a href="lookIndex"><i class="icon-bar-chart"></i> 用户信息</a>
-						</li>
-						<li>
-							<a href="lookCourse"><i class="icon-bar-chart"></i> 课程信息</a>
-						</li>
-						<li>
-							<a href="lookWork"><i class="icon-bar-chart"></i> 作业信息</a>
-						</li>
-						<li>
-							<a href="lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a>
-						</li>
+						<li><a href="admin/index"><i class="icon-bar-chart"></i> 用户信息</a></li>
+						<li><a href="admin/lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
+						<li><a href="admin/lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>
 				</li>
 				<li class="start active open">
@@ -190,30 +172,20 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="findstudent"><i class="icon-user-follow"></i>学生管理</a>
-						</li>
-						<li class="active">
-							<a href="findteacher"><i class="icon-user-follow"></i>教师管理</a>
-						</li>
-						<li>
-							<a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a>
-						</li>
+						<li><a href="admin/mStudent"><i class="icon-user-follow"></i>学生管理</a></li>
+						<li class="active"><a href="javascript:;"><i class="icon-user-follow"></i>教师管理</a></li>
+						<li><a href="admin/mAdmin"><i class="icon-user-follow"></i>管理员管理</a></li>
 					</ul>
 				</li>
 				<li class="last ">
 					<a href="javascript:;">
 						<i class="icon-user"></i>
 						<span class="title">我的信息</span>
-						<span class="arrow "></span>
+						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li>
-							<a href="findMyself"><i class="icon-notebook"></i> 您的信息</a>
-						</li>
-						<li>
-							<a href="login"><i class="icon-key"></i> 退出登入</a>
-						</li>
+						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
+						<li><a href="login"><i class="icon-key"></i> 退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -237,13 +209,11 @@
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
-				<div class="portlet-title" style="height:20px;">
-					<div class="caption"><i class="fa fa-comments"></i>教师信息总览</div>
-					<div class="tools">
-						<a href="javascript:;" class="collapse" data-original-title="" title="折叠">
-						</a>
-						<a href="javascript:;" class="reload" data-original-title="" title="刷新">
-						</a>
+				<div class="portlet-title" style="vertical-align:middle;position:relative;">
+					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>教师用户信息</div>
+					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
+						<a href="javascript:;" class="collapse" title="折叠"></a>
+						<a href="javascript:;" class="reload" title="刷新"></a>
 					</div>
 				</div>
 				<div class="portlet-body">

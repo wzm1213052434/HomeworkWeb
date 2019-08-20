@@ -3,7 +3,13 @@
 <%@ page import="com.xaut.entity.User"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+%> 
+<%User user=(User)request.getSession().getAttribute("user");%>
 <head>
+<base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
@@ -40,7 +46,7 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<a href="#">
+			<a href="javascript:;">
 				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide"></div>
@@ -123,7 +129,7 @@
 						<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
-						<li><a href="findMyself"><i class="icon-user"></i>个人信息 </a></li>
+						<li><a href="admin/myself"><i class="icon-user"></i>个人信息 </a></li>
 						<li><a href="login"><i class="icon-key"></i>退出登入</a></li>
 					</ul>
 				</li>
@@ -154,10 +160,10 @@
 						<span class="arrow open"></span>
 					</a>
 					<ul class="sub-menu	">
-						<li class="active"><a href="#"><i class="icon-bar-chart"></i> 用户信息</a></li>
-						<li><a href="lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
-						<li><a href="lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
-						<li><a href="lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a></li>
+						<li class="active"><a href="javascript:;"><i class="icon-bar-chart"></i> 用户信息</a></li>
+						<li><a href="admin/lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
+						<li><a href="admin/lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>
 				</li>
 				<li>
@@ -167,9 +173,9 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="findstudent"><i class="icon-user-follow"></i>学生管理</a></li>
-						<li><a href="findteacher"><i class="icon-user-follow"></i>教师管理</a></li>
-						<li><a href="findadmin"><i class="icon-user-follow"></i>管理员管理</a></li>
+						<li><a href="admin/mStudent"><i class="icon-user-follow"></i>学生管理</a></li>
+						<li><a href="admin/mTeacher"><i class="icon-user-follow"></i>教师管理</a></li>
+						<li><a href="admin/mAdmin"><i class="icon-user-follow"></i>管理员管理</a></li>
 					</ul>
 				</li>
 				<li class="last ">
@@ -179,7 +185,7 @@
 						<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-						<li><a href="findMyself"><i class="icon-notebook"></i> 您的信息</a></li>
+						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
 						<li><a href="login"><i class="icon-key"></i> 退出登入</a></li>
 					</ul>
 				</li>
