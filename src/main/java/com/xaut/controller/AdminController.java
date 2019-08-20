@@ -44,7 +44,7 @@ public class AdminController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "/lookCourse", method = {RequestMethod.GET})
+	@RequestMapping(value = "/lookCourseMsg", method = {RequestMethod.GET})
     @ResponseBody
 	public ResponseBean lookCourse(HttpServletRequest request) {
 		String courseName = request.getParameter("cname"); // 课程名
