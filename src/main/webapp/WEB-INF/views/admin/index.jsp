@@ -438,11 +438,8 @@ function changeMsg(info){
 	num = document.getElementById("teaMsg3");
 	num.innerHTML = info.teacherInfo.locked;
 }
-
 </script>
 <!-- 获取json数据的代码  结束 -->
-
-
 <script>
 jQuery(document).ready(function() {    
    Metronic.init(); // init metronic core componets
@@ -460,7 +457,5 @@ jQuery(document).ready(function() {
    ajaxForMsg();
 });
 </script>
-
-
 </body>
 </html>

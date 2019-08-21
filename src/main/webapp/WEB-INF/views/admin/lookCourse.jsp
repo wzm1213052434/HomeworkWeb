@@ -50,25 +50,17 @@
 			</a>
 			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
-		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-		</a>
+		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
 		<div class="top-menu">
 			<ul class="nav navbar-nav pull-right">
 				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 						<i class="icon-bell"></i>
-						<span class="badge badge-default">
-						4
-						</span>
+						<span class="badge badge-default">4</span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="external">
-							<h3>
-								<span class="bold">
-									4
-								</span>
-									条新消息
-							</h3>
+							<h3><span class="bold">4</span>条新消息</h3>
 							<a href="#">查看详情</a>
 						</li>
 						<li>
@@ -217,7 +209,6 @@
 							<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>课程信息总览</div>
 							<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
 								<a href="javascript:;" class="collapse" title="折叠"></a>
-								<a href="javascript:;" class="reload" title="刷新"></a>
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -225,7 +216,7 @@
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
 										<form>
-											<input type="search" class="form-control input-big input-inline" placeholder="按课程号查询" aria-controls="sample_editable_1">
+											<input type="search" class="form-control input-big input-inline" placeholder="按课程名查询" aria-controls="sample_editable_1">
 											<button type="submit" class="form-control input-inline">查询</button>
 										</form>
 									</div>
@@ -234,14 +225,18 @@
 							<div class="table-scrollable">
 								<table class="table table-striped table-hover">
 									<thead>
-										<tr>
+										<tr id="displayMessage" style="display:none;">
+											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
+										</tr>
+										<tr id="displayContent" style="display:show;">
 											<th style="width:10%;">课程号</th>
 											<th style="width:10%;">教职工号</th>
 											<th style="width:12%;">课程名</th>
 											<th style="width:7%;">学年</th>
 											<th style="width:11%;">学期</th>
 											<th style="width:23%;">上课时间</th>
-											<th style="width:22%;">上课地点</th>
+											<th style="width:17%;">上课地点</th>
+											<th style="width:5%;">是否结课</th>
 											<th style="width:5%;">操作</th>
 										</tr>
 									</thead>
@@ -254,26 +249,19 @@
 											<td>*</td>
 											<td>asdsdadsasdasdasdasdasd</td>
 											<td>asdasdasdasdasdasdasdasd</td>
+											<td>否</td>
 											<td><a class="edit" href="javascript:;">删除</a></td>
 										</tr>
 									</tbody>
 								</table>
 							</div>
-							<div class="row">
+							<div class="row" id="pages">
 								<div class="col-md-4 col-sm-5 pull-right">
 									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
 										<ul class="pagination">
-											<li class="prev disabled">
-												<a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
-											</li>
-											<li><a href="#">first</a></li>
-											<li class="active"><a>---</a></li>
-											<li class="active"><a>now</a></li>
-											<li class="active"><a>---</a></li>
-											<li><a href="#">last</a></li>
-											<li class="next">
-												<a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-											</li>
+											<li><a href="javascript:;" title="上一页"><i class="fa fa-angle-left"></i></a></li>
+											<li id="pageList"></li>
+											<li><a href="javascript:;" title="下一页"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
 								</div>
@@ -334,20 +322,97 @@
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 获取内容  开始 -->
 <script>
-jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-   Index.init();   
-   Index.initDashboardDaterange();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Tasks.initDashboardWidget();
+var Page = 1;    /* 初始页号  */
+var Rows = 2;   /* 每页条数  */
+var Cname = "软";  /* 课程号  */
+
+var ajaxForMsg = function (p,r,c) {
+    $.ajax({
+        url:'/HomeWorkWeb/admin/lookCourseMsg',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            page:p,
+            rows:r,
+            cname:c
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	alert(data.message);
+        	dataFirstToLast(data.message,p,r);
+	       	dataList(data.data);
+        }
+    })
+}
+function dataFirstToLast(message,p,r){  /* 更改页码  */
+	var num = parseInt(message);
+	if (isNaN(num)){
+		var obj = document.getElementById("displayMessage");
+		obj.style.display = "table-row";
+		obj = document.getElementById("displayContent");
+		obj.style.display = "none";
+		obj = document.getElementById("pages");
+		obj.style.display = "none";
+		obj = document.getElementById("emptyMessage");
+		obj.innerHTML = message;
+	}else{
+		num = num/r;
+		var pageList = $('#pageList');
+		if(num < 5){
+			for(var j=0;j<num;j++){
+				if(j+1 == p)
+					var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+(j+1)+'</a>');
+				else
+					var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(j+1)+'</a>');
+                pageList.append(newNode);
+            }
+		}else{
+			if(num-p > 3){
+				alert("this");
+				for(var j=0;j<4;j++){
+					if(j == 0)
+						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
+					else
+						var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(j+p)+'</a>');
+	                pageList.append(newNode);
+	            }
+			}else{
+				for(var j=3;j>=0;j--){
+					if(num-j == p)
+						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
+					else
+						var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(num-j)+'</a>');
+	                pageList.append(newNode);
+	            }
+			}
+		}
+	}
+}
+function dataList(info){  /* 将信息写道列表中  */
+}
+</script>
+<!-- 获取内容  结束 -->
+<script>
+jQuery(document).ready(function() {   
+	Metronic.init(); // init metronic core componets
+	Layout.init(); // init layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	Index.init();   
+	Index.initDashboardDaterange();
+	Index.initJQVMAP(); // init index page's custom scripts
+	Index.initCalendar(); // init index page's custom scripts
+	Index.initCharts(); // init index page's custom scripts
+	Index.initChat();
+	Index.initMiniCharts();
+	Tasks.initDashboardWidget();
+	ajaxForMsg(Page,Rows,Cname);
 });
 </script>
 </body>
