@@ -129,8 +129,7 @@
 	</div>
 </div>
 <!-- END HEADER -->
-<div class="clearfix">
-</div>
+<div class="clearfix"></div>
 <!-- BEGIN CONTAINER -->
 <div class="page-container">
 	<!-- BEGIN SIDEBAR -->
@@ -172,9 +171,7 @@
 				</li>
 				<li class="last ">
 					<a href="javascript:;">
-						<i class="icon-user"></i>
-						<span class="title">我的信息</span>
-						<span class="arrow "></span>
+						<i class="icon-user"></i><span class="title">我的信息</span><span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
@@ -183,7 +180,6 @@
 				</li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
-			
 		</div>
 	</div>
 	<!-- END SIDEBAR -->
@@ -228,40 +224,28 @@
 										<tr id="displayMessage" style="display:none;">
 											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
 										</tr>
-										<tr id="displayContent" style="display:show;">
-											<th style="width:10%;">课程号</th>
-											<th style="width:10%;">教职工号</th>
+										<tr id="displayContent" style="display:show;text-align:center;">
+											<th style="width:12%;">课程号</th>
+											<th style="width:8%;">教职工号</th>
 											<th style="width:12%;">课程名</th>
-											<th style="width:7%;">学年</th>
-											<th style="width:11%;">学期</th>
-											<th style="width:23%;">上课时间</th>
-											<th style="width:17%;">上课地点</th>
+											<th style="width:8%;">学年</th>
+											<th style="width:8%;">学期</th>
+											<th style="width:25%;">上课时间</th>
+											<th style="width:20%;">上课地点</th>
 											<th style="width:5%;">是否结课</th>
-											<th style="width:5%;">操作</th>
+											<th style="width:2%;">操作</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>123456789</td>
-											<td>123456</td>
-											<td>asdsadadsa</td>
-											<td>20**</td>
-											<td>*</td>
-											<td>asdsdadsasdasdasdasdasd</td>
-											<td>asdasdasdasdasdasdasdasd</td>
-											<td>否</td>
-											<td><a class="edit" href="javascript:;">删除</a></td>
-										</tr>
-									</tbody>
+									<tbody id="contentList"></tbody>
 								</table>
 							</div>
 							<div class="row" id="pages">
 								<div class="col-md-4 col-sm-5 pull-right">
 									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
 										<ul class="pagination">
-											<li><a href="javascript:;" title="上一页"><i class="fa fa-angle-left"></i></a></li>
+											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
 											<li id="pageList"></li>
-											<li><a href="javascript:;" title="下一页"><i class="fa fa-angle-right"></i></a></li>
+											<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
 								</div>
@@ -271,7 +255,6 @@
 				</div>
 			</div>
 			<!-- 显示表格部分-结束-->
-			
 		</div>
 	</div>
 </div>
@@ -324,9 +307,26 @@
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- 获取内容  开始 -->
 <script>
-var Page = 1;    /* 初始页号  */
-var Rows = 2;   /* 每页条数  */
-var Cname = "软";  /* 课程号  */
+var Page = 1;      /* 搜索信息所用初始页号  */
+var Rows = 1;      /* 搜索信息所用每页条数  */
+var Cname = 'c';   /* 搜索信息所用课程名     */
+
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
+
+//获取参数封装
+function GetPar(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null) return decodeURIComponent(r[2]);
+	return null;
+}
+var id = GetPar("page");
+if(id != null){
+	var nowpage = parseInt(id);
+	Page = nowpage;
+	now = Page;
+}
 
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
@@ -344,7 +344,6 @@ var ajaxForMsg = function (p,r,c) {
             console.log("正在进行，请稍候");
         },
         success: function (data) {
-        	alert(data.message);
         	dataFirstToLast(data.message,p,r);
 	       	dataList(data.data);
         }
@@ -363,23 +362,23 @@ function dataFirstToLast(message,p,r){  /* 更改页码  */
 		obj.innerHTML = message;
 	}else{
 		num = num/r;
+		total = num;
 		var pageList = $('#pageList');
 		if(num < 5){
 			for(var j=0;j<num;j++){
 				if(j+1 == p)
 					var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+(j+1)+'</a>');
 				else
-					var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(j+1)+'</a>');
+					var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(j+1)+'</a>');
                 pageList.append(newNode);
             }
 		}else{
 			if(num-p > 3){
-				alert("this");
 				for(var j=0;j<4;j++){
 					if(j == 0)
 						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
 					else
-						var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(j+p)+'</a>');
+						var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(j+p)+'</a>');
 	                pageList.append(newNode);
 	            }
 			}else{
@@ -387,7 +386,7 @@ function dataFirstToLast(message,p,r){  /* 更改页码  */
 					if(num-j == p)
 						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
 					else
-						var newNode=$('<a href="javascript:;" style="font-size:10px;">'+(num-j)+'</a>');
+						var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(num-j)+'</a>');
 	                pageList.append(newNode);
 	            }
 			}
@@ -395,9 +394,41 @@ function dataFirstToLast(message,p,r){  /* 更改页码  */
 	}
 }
 function dataList(info){  /* 将信息写道列表中  */
+	var cList = $('#contentList');
+	for(var j=0;j<info.length;j++){
+		if(info[j].state == "ture")
+			var st = "是";
+		else
+			var st = "否";
+		var newNode=$('<tr><td>'+info[j].cno+'</td><td>'+info[j].tno+'</td><td>'+info[j].cname+'</td><td>'+info[j].year+'</td><td>'+info[j].term+'</td><td>'+info[j].time+'</td><td>'+info[j].place+'</td><td>'+st+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+		cList.append(newNode);
+	}
 }
 </script>
 <!-- 获取内容  结束 -->
+<!-- 其他事件  开始   -->
+<script>
+function jumpPage(dest){  /* 跳转分页  */
+	var url = "admin/lookCourse";
+    var page = dest;
+    location.href = encodeURI(url + "?page=" + page);
+}
+function jumpPrevPage(){  /* 跳转到上一页  */
+	if(now > 1){
+		var url = "admin/lookCourse";
+	    var page = now-1;
+		location.href = encodeURI(url + "?page=" + page);
+	}	
+}
+function jumpNextPage(){  /* 跳转到下一页  */
+	if(now < total){
+		var url = "admin/lookCourse";
+	    var page = now+1;
+		location.href = encodeURI(url + "?page=" + page);
+	}	
+}
+</script>
+<!-- 其他事件  结束   -->
 <script>
 jQuery(document).ready(function() {   
 	Metronic.init(); // init metronic core componets
