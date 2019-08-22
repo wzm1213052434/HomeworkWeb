@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.alibaba.fastjson.JSON;
 import com.xaut.entity.Work;
 import com.xaut.util.HandleJSON;
+import com.xaut.util.ResponseBean;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
@@ -56,5 +57,17 @@ public class WorkServiceImplTest {
 		map = workService.publishWork(work);
 		String jsonString = JSON.toJSONString(map); //将JSON对象	转化为	JSON字符串
 		System.out.println(new HandleJSON().print_JSON(jsonString)); //将JSON字符串格式化输出
+	}
+	
+	/**
+	 * 测试：获得学生所选课程概况
+	 */
+	@Test
+	public void getCourseSurveyTest() {
+		ResponseBean result = workService.getWorkSurvey("0000123456");
+		
+		//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}
 }

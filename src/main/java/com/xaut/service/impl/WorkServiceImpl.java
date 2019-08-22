@@ -7,10 +7,13 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import com.xaut.entity.Work;
 import com.xaut.mapper.StudentMapper;
 import com.xaut.mapper.WorkMapper;
 import com.xaut.service.WorkService;
+import com.xaut.util.ResponseBean;
 
 @Service("WorkService")
 public class WorkServiceImpl implements WorkService{
@@ -77,5 +80,28 @@ public class WorkServiceImpl implements WorkService{
 	 */
 	public int findWorkTimesByCno(String cno) {
 		return workMapper.findWorkTimesByCno(cno);
+	}
+	
+	/**
+     * function:获得学生所选作业概况
+     * @param 学生账号
+     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     */
+	public ResponseBean getWorkSurvey(String username) {
+		if (StringUtils.isEmpty(username)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.workMapper.getWorkSurvey(username);
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "该学生未选作业");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得学生所选作业概况异常");
+		}
+		
+		return new ResponseBean(true, list, "获得学生所选作业概况成功");
 	}
 }

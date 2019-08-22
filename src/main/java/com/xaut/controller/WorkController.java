@@ -9,21 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.xaut.entity.Work;
 import com.xaut.service.WorkService;
+import com.xaut.util.ResponseBean;
 
 @Controller
 @RequestMapping(value = "/work")
 public class WorkController {
 	@Autowired
-	private WorkService workService; 
+	private WorkService workService;
 	
 	/**
 	 * 功能：教师发布作业
 	 * 参数 request
 	 * 返回值 map
 	 */
-	@RequestMapping(value = "/publishWork",method=RequestMethod.POST)
+	@RequestMapping(value = "/publishWork", method = RequestMethod.POST)
 	public Map<String, Object> publishWork(HttpServletRequest request) {
 		//1.前端获取参数
 		String start_time = request.getParameter("beginDate").toString();
@@ -51,5 +54,17 @@ public class WorkController {
 		
 		//3.调用Service完成功能
 		return workService.publishWork(work);
+	}
+	
+	/**
+     * function:获得学生所选作业概况
+     * @param 学生账号
+     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     */
+	@RequestMapping(value = "/getWorkSurvey", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getWorkSurvey(HttpServletRequest request) {
+		String username = request.getParameter("UserName");
+		return workService.getWorkSurvey(username);
 	}
 }

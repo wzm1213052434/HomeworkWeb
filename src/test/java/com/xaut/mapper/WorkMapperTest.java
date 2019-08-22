@@ -3,12 +3,16 @@ package com.xaut.mapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.alibaba.fastjson.JSON;
 import com.xaut.entity.Work;
+import com.xaut.util.HandleJSON;
 
 public class WorkMapperTest {
 	
@@ -54,5 +58,17 @@ public class WorkMapperTest {
 	@Test
 	public void findWorkTimesByCnoTest() {
 		System.out.println("发布作业次数：" + workMapper.findWorkTimesByCno("(2017-2018-2)-09191430-104496-3"));
+	}
+	
+	/**
+	 * 测试：获得学生所选作业概况
+	 */
+	@Test
+	public void getWorkSurveyTest() {
+		List<Map<String, Object>> result = workMapper.getWorkSurvey("0000123456");
+		
+		//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}
 }

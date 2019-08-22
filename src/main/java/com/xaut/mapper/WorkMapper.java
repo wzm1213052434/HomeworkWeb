@@ -1,5 +1,9 @@
 package com.xaut.mapper;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 import com.xaut.entity.Work;
 
@@ -23,4 +27,11 @@ public interface WorkMapper {
 	 * @return
 	 */
 	public int findWorkTimesByCno(String cno);
+	
+	/**
+     * function:获得学生所选作业概况
+     * @param 学生账号
+     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     */
+    List<Map<String, Object>> getWorkSurvey(@Param("username") String username);
 }
