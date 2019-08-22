@@ -226,12 +226,13 @@
 								</thead>
 								<tbody>
 									<tr role="row" class="odd">
-										<td class="sorting_1">admin</td>
-										<td>123456</td>
-										<td>
-											<span class="label label-sm label-success">
-												 正常
-											</span>
+										<td class="sorting_1"><%= user.getUserName() %></td>
+										<td><%= user.getSalt() %></td>
+										<td><% if("0".equals(user.getLocked())){ %>
+											<span class="label label-sm label-success">正常</span>
+											<% }else{ %>
+											<span class="label label-sm label-danger">冻结</span>
+											<% } %>
 										</td>
 										<td><a class="edit" href="javascript:;">更改密码</a></td>
 									</tr>
