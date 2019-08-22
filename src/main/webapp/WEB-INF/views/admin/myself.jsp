@@ -199,13 +199,10 @@
 			<!-- BEGIN PAGE HEADER-->
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
-					<li><i class="fa fa-home"></i>我的信息<i class="fa fa-angle-right"></i></li>
-					<li>您的信息</li>
+					<li><i class="fa fa-home"></i>我的信息<i class="fa fa-angle-right"></i></li><li>您的信息</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				您的信息 <small>查看您的用户信息</small>
-			</h3>
+			<h3 class="page-title">您的信息 <small>查看您的用户信息</small></h3>
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
@@ -213,7 +210,6 @@
 					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>您的信息</div>
 					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
 						<a href="javascript:;" class="collapse" title="折叠"></a>
-						<a href="javascript:;" class="reload" title="刷新"></a>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -222,18 +218,10 @@
 							<table class="table table-striped table-hover table-bordered dataTable no-footer" id="able_1" style="text-align:center;">
 								<thead>
 									<tr role="row">
-										<th class="sorting" tabindex="1" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-									 		账号
-										</th>
-										<th class="sorting" tabindex="2" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				密码
-										</th>
-										<th class="sorting" tabindex="3" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				使用状态
-										</th>
-										<th class="sorting" tabindex="4" aria-controls="sample_editable_1" rowspan="1" colspan="2" style="text-align:center;">
-							 				可用操作
-										</th>
+										<th class="sorting" tabindex="1" rowspan="1" colspan="1" style="text-align:center;">账号</th>
+										<th class="sorting" tabindex="2" rowspan="1" colspan="1" style="text-align:center;">密码</th>
+										<th class="sorting" tabindex="3" rowspan="1" colspan="1" style="text-align:center;">使用状态</th>
+										<th class="sorting" tabindex="4" rowspan="1" colspan="2" style="text-align:center;">可用操作</th>
 									</tr>
 								</thead>
 								<tbody>

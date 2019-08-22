@@ -211,10 +211,9 @@
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
-										<form>
-											<input type="search" class="form-control input-big input-inline" placeholder="按课程名查询" aria-controls="sample_editable_1">
-											<button type="submit" class="form-control input-inline">查询</button>
-										</form>
+										<input id="cnameInput" type="search" class="form-control input-big input-inline" placeholder="按课程名查询">
+										<button class="form-control input-inline" onclick="findCourse();">查询</button>
+										<button class="form-control input-inline" onclick="location.href='admin/lookCourse';">显示所有</button>
 									</div>
 								</div>
 							</div>
@@ -225,9 +224,9 @@
 											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
 										</tr>
 										<tr id="displayContent" style="display:show;text-align:center;">
-											<th style="width:12%;">课程号</th>
+											<th style="width:14%;">课程号</th>
 											<th style="width:8%;">教职工号</th>
-											<th style="width:12%;">课程名</th>
+											<th style="width:10%;">课程名</th>
 											<th style="width:8%;">学年</th>
 											<th style="width:8%;">学期</th>
 											<th style="width:25%;">上课时间</th>
@@ -308,8 +307,8 @@
 <!-- 获取内容  开始 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 1;      /* 搜索信息所用每页条数  */
-var Cname = 'c';   /* 搜索信息所用课程名     */
+var Rows = 3;      /* 搜索信息所用每页条数  */
+var Cname = '软';   /* 搜索信息所用课程名     */
 
 var total = 1;  /* 记录总页数  */
 var now = 1;    /* 记录当前页  */
@@ -321,11 +320,15 @@ function GetPar(name) {
 	if(r != null) return decodeURIComponent(r[2]);
 	return null;
 }
-var id = GetPar("page");
-if(id != null){
-	var nowpage = parseInt(id);
+var id1 = GetPar("page");
+var id2 = GetPar("cname");
+if(id1 != null){
+	var nowpage = parseInt(id1);
 	Page = nowpage;
 	now = Page;
+}
+if(id2 != null){
+	Cname = id2;
 }
 
 var ajaxForMsg = function (p,r,c) {
@@ -426,6 +429,17 @@ function jumpNextPage(){  /* 跳转到下一页  */
 	    var page = now+1;
 		location.href = encodeURI(url + "?page=" + page);
 	}	
+}
+function findCourse(){  /* 按课程名模糊查询课程信息  */
+	var input = document.getElementById("cnameInput");
+	var inputThing = input.value;
+	if(inputThing == ""){
+		alert("请输入课程名");
+	}else{
+		var url = "admin/lookCourse";
+	    var cn = inputThing;
+		location.href = encodeURI(url + "?cname=" + cn);
+	}
 }
 </script>
 <!-- 其他事件  结束   -->
