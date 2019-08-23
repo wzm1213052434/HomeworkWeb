@@ -50,4 +50,11 @@ public interface CourseMapper {
      * @throws Exception
      */
     public int countCourse() throws Exception;
+    
+    /**
+     * 为分页模糊查询课程提供总数
+     * @return
+     * @throws Exception
+     */
+    public int countVagueCourse(@Param("courseName") String courseName);
 }

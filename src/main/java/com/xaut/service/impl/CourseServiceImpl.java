@@ -54,9 +54,6 @@ public class CourseServiceImpl implements CourseService {
 	 * @return
 	 */
 	public ResponseBean getAllCourse(String courseName, Integer page, Integer rows) {
-		if (StringUtils.isEmpty(courseName)) {
-			return new ResponseBean(false, "课程名不能为空");
-		}
 		if (page == 0 || rows == 0) { // page和rows为0时,为其设置默认值
 			page = Integer.parseInt(CommonString.ONE);
 			rows = Integer.parseInt(CommonString.TEN);
@@ -65,7 +62,14 @@ public class CourseServiceImpl implements CourseService {
 		List<Map<String, Object>> list = null;
 		String courseTotal = null;
 		try {
-			courseTotal = Integer.toString(this.courseMapper.countCourse()); // 课程总数
+			if(courseName == "") {
+				System.out.println("12312312312312");
+				courseTotal = Integer.toString(this.courseMapper.countCourse()); // 课程总数
+			}else {
+				System.out.println("1231231231231ppppppppppppppppp2");
+				courseTotal = Integer.toString(this.courseMapper.countVagueCourse(courseName)); // 模糊课程总数
+				System.out.println(courseTotal);
+			}
 			list = this.courseMapper.getAllCourse(courseName, startPage, rows);
 			if (list.size() == 0) {
 				return new ResponseBean(true, "无课程");

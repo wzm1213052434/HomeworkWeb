@@ -43,4 +43,9 @@
 	<select id="countCourse" resultType="int">
 		select count(*) from db_course
 	</select>
+	
+	<!--为分页查询课程提供总数-->
+	<select id="countVagueCourse" resultType="int" parameterType="String">
+		select count(*) from db_course where db_course.cname like '%${courseName}%'
+	</select>
 </mapper>
