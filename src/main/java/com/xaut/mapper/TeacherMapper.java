@@ -1,6 +1,10 @@
 package com.xaut.mapper;
 
 import com.xaut.entity.Teacher;
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,5 +21,19 @@ public interface TeacherMapper {
      * @return
      * @throws Exception
      */
-    public int addTeacher(Teacher teacher) throws Exception;
+    int addTeacher(Teacher teacher) throws Exception;
+    
+    /**
+     * function:根据学号获得已选课程老师
+     * @param username
+     * @return 教师名 所属院系 开课数
+     */
+    List<Map<String, Object>> getTeacherByUsername(String username);
+    
+    /**
+     * function:根据学号获得本院老师
+     * @param username
+     * @return 教师名 所属院系
+     */
+    List<Map<String, Object>> getCollegeTeacherByUsername(String username);
 }

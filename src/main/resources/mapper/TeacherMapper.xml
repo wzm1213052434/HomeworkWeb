@@ -14,4 +14,19 @@
 		 student.college,
 		 student.updatetime)
 	</insert>
+	
+	<!-- 根据学号获得已选课程老师 -->
+	<select id="getTeacherByUsername" parameterType="String" resultType="java.util.Map">
+		select t.tname '教师名',t.company '所属院系',count(*) '开课数'
+		from db_student s,db_course c,db_teacher t,db_studcour sc
+		where s.sno = #{username} and s.sno = sc.sno and sc.cno = c.cno and c.tno = t.tno
+		group by c.tno;
+	</select>
+	
+	<!-- 根据学号获得本院老师 -->
+	<select id="getCollegeTeacherByUsername" parameterType="String" resultType="java.util.Map">
+		select t.tno '教工号',t.tname '教师名',t.company '所属院系'
+		from db_student s,db_teacher t
+		where s.sno = #{username} and s.company = t.company;
+	</select>
 </mapper>
