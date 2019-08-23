@@ -234,7 +234,7 @@
 											<span class="label label-sm label-danger">冻结</span>
 											<% } %>
 										</td>
-										<td><a class="edit" href="javascript:;">更改密码</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large">更改密码</a></td>
 									</tr>
 								</tbody>
 							</table>
@@ -243,6 +243,33 @@
 				</div>
 			</div>
 			<!-- 信息表格  结束 -->
+			<!-- 修改信息模态框  开始-->
+            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+            	<div class="modal-body">
+            		<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption" style="margin:10px 0;">
+								<i class="fa fa-gift"></i>修改密码
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<form role="form">
+								<div class="form-body">
+									<div class="form-group">
+										<label>密码</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+								</div>
+								<div class="form-actions right">
+									<button type="button" class="btn default">Cancel</button>
+									<button type="submit" class="btn green">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+            	</div>
+            </div>
+            <!-- 修改信息模态框  结束-->
 		</div>
 	</div>
 </div>

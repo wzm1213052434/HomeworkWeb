@@ -228,7 +228,7 @@
 						</div>
 						<div class="col-md-6 col-sm-6">	
 							<div class="pull-right">
-								<a><button class="form-control input-inline">增加管理员</button></a>
+								<a class="edit" data-toggle="modal" href="#large"><button class="form-control input-inline">增加管理员</button></a>
 							</div>
 						</div>
 					</div>
@@ -264,7 +264,7 @@
 												 正常
 											</span>
 										</td>
-										<td><a class="edit" href="javascript:;">更改密码</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -277,7 +277,7 @@
 												冻结
 											</span>
 										</td>
-										<td><a class="edit" href="javascript:;">更改密码</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -306,7 +306,65 @@
 					</div>
 				</div>
 			</div>
-			<!-- 信息表格  结束 -->		
+			<!-- 信息表格  结束 -->	
+			<!-- 修改信息模态框1   开始-->
+            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+            	<div class="modal-body">
+            		<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption" style="margin:10px 0;">
+								<i class="fa fa-gift"></i>增加管理员
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<form role="form">
+								<div class="form-body">
+									<div class="form-group">
+										<label>账号</label>
+										<input type="text" class="form-control input-sm mandatory" placeholder="input-sm">
+									</div>
+									<div class="form-group">
+										<label>密码</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+								</div>
+								<div class="form-actions right">
+									<button type="button" class="btn default">Cancel</button>
+									<button type="submit" class="btn green">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+            	</div>
+            </div>
+            <!-- 修改信息模态框1  结束-->	
+            <!-- 修改信息模态框2  开始-->
+            <div id="large2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+            	<div class="modal-body">
+            		<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption" style="margin:10px 0;">
+								<i class="fa fa-gift"></i>修改密码
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<form role="form">
+								<div class="form-body">
+									<div class="form-group">
+										<label>密码</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+								</div>
+								<div class="form-actions right">
+									<button type="button" class="btn default">Cancel</button>
+									<button type="submit" class="btn green">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+            	</div>
+            </div>
+            <!-- 修改信息模态框2  结束-->	
 			<!-- 老刘的分界线 -->
 		</div>
 	</div>

@@ -221,15 +221,13 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
 							<div id="sample_editable_1_filter" class="dataTables_filter">
-								<form>
-									<input type="search" class="form-control input-big input-inline" placeholder="按学号查询" aria-controls="sample_editable_1">
-									<button type="submit" class="form-control input-inline">查询</button>
-								</form>					
+								<input type="search" class="form-control input-big input-inline" placeholder="按学号查询" aria-controls="sample_editable_1">
+								<button type="submit" class="form-control input-inline">查询</button>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">	
 							<div class="pull-right">
-								<a><button class="form-control input-inline">增加学生</button></a>
+								<a class="edit" data-toggle="modal" href="#large2"><button class="form-control input-inline">增加学生</button></a>
 							</div>
 						</div>
 					</div>
@@ -305,12 +303,12 @@
 				</div>
 			</div>
 			<!-- 信息表格  结束 -->
-			<!-- 修改信息模态框  开始-->
-            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first">
+			<!-- 修改信息模态框1   开始-->
+            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:40%;">
             	<div class="modal-body">
             		<div class="portlet box blue">
 						<div class="portlet-title">
-							<div class="caption">
+							<div class="caption" style="margin:10px 0;">
 								<i class="fa fa-gift"></i>修改信息
 							</div>
 						</div>
@@ -318,8 +316,8 @@
 							<form role="form">
 								<div class="form-body">
 									<div class="form-group">
-										<label>学号</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
+										<label>学号</label> <span id="snomessage1" style="color:red;visibility:hidden;">学号只能为十位数字</span></label>
+										<input id="sno1" name="sno" type="text" class="form-control input-sm" placeholder="input-sm" onblur="checkSno(this);">
 									</div>
 									<div class="form-group">
 										<label>姓名</label>
@@ -339,15 +337,58 @@
 									</div>
 								</div>
 								<div class="form-actions right">
-									<button type="button" class="btn default">Cancel</button>
-									<button type="submit" class="btn green">Submit</button>
+									<button type="button" class="btn default">取消</button>
+									<button type="submit" class="btn green">提交</button>
 								</div>
 							</form>
 						</div>
 					</div>
             	</div>
             </div>
-            <!-- 修改信息模态框  结束-->
+            <!-- 修改信息模态框1  结束-->
+			<!-- 修改信息模态框2   开始-->
+            <div id="large2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:40%;">
+            	<div class="modal-body">
+            		<div class="portlet box blue">
+						<div class="portlet-title">
+							<div class="caption" style="margin:10px 0;">
+								<i class="fa fa-gift"></i>增加学生
+							</div>
+						</div>
+						<div class="portlet-body form">
+							<form role="form">
+								<div class="form-body">
+									<div class="form-group">
+										<label >学号 : <span id="snomessage2" style="color:red;visibility:hidden;">学号只能为十位数字</span></label>
+										<input id="sno2" name="sno" type="text" class="form-control input-sm" placeholder="input-sm" value="" onblur="checkSno(this);">
+									</div>
+									<div class="form-group">
+										<label>姓名</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+									<div class="form-group">
+										<label>专业</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+									<div class="form-group">
+										<label>邮箱</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+									<div class="form-group">
+										<label>密码</label>
+										<input type="text" class="form-control input-sm" placeholder="input-sm">
+									</div>
+								</div>
+								<div class="form-actions right">
+									<button type="button" class="btn default">取消</button>
+									<button type="submit" class="btn green">提交</button>
+								</div>
+							</form>
+						</div>
+					</div>
+            	</div>
+            </div>
+            <!-- 修改信息模态框2  结束-->
 			
 			<!-- 老刘的分界线 -->
 		</div>
@@ -415,6 +456,21 @@ Demo.init(); // init demo features
    Tasks.initDashboardWidget();
    TableEditable.init();
 });
+
+function checkSno(val){  /* 检查学生学号是否为十位的函数  */
+	var elem1 = document.getElementById("snomessage1");
+	var elem2 = document.getElementById("snomessage2");
+	var elem;
+	if(val.id == "sno1")
+		elem = elem1;
+	else
+		elem = elem2;
+	var str = val.value;
+	if(str.length != 10)
+		elem.style.visibility = "visible";
+	else
+		elem.style.visibility = "hidden";
+}
 </script>
 </body>
 </html>
