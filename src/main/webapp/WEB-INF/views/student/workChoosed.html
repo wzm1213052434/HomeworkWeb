@@ -102,8 +102,7 @@ Date.prototype.toLocaleString = function() {
         return num;
     }
     // 按自定义拼接格式返回
-    return this.getFullYear() + "/" + addZero(this.getMonth() + 1) + "/" + addZero(this.getDate()) + " " +
-        addZero(this.getHours()) + ":" + addZero(this.getMinutes());
+    return this.getFullYear() + "/" + addZero(this.getMonth() + 1) + "/" + addZero(this.getDate());
 };
 
 /**
@@ -120,7 +119,7 @@ function showUnsubmitWorkList(){
 	        	UserName: userName,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr class="uppercase"><th colspan="2">作业名</th><th>所属课程名</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th></tr></thead>';
+	        	var course_tr = '<thead><tr class="uppercase"><th colspan="2">作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 == 3){ //尚未提交的作业
 		        		course_tr += '<tr><td colspan="2"><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
@@ -150,7 +149,7 @@ function showSubmitWorkList(){
 	        	UserName: userName,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr class="uppercase"><th colspan="2">作业名</th><th>所属课程名</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th><th>是否批改</th><th>评分</th></tr></thead>';
+	        	var course_tr = '<thead><tr class="uppercase"><th colspan="2">作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th><th>是否批改</th><th>评分</th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 != 3){ //已经提交的作业
 		        		course_tr += '<tr><td colspan="2"><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
@@ -166,11 +165,12 @@ function showSubmitWorkList(){
 		        			course_tr += '<td>是</td>';
 		        		}
 		        		if(response.data[i].评分 != null){
-		        			course_tr += '<td>' + response.data[i].评分 + '</td></tr>';
+		        			course_tr += '<td>' + response.data[i].评分 + '</td>';
 		        		}
 		        		else{
-		        			course_tr += '<td>无</td></tr>';
+		        			course_tr += '<td>无</td>';
 		        		}
+		        		course_tr += '<td><a href="javascript:;" class="primary-link">公布</a></td></tr>';
 	        		}
 	        	}
 	        	$("#workList").html(course_tr);

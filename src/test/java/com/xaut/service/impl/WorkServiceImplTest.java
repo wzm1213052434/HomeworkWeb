@@ -70,4 +70,16 @@ public class WorkServiceImplTest {
     	HandleJSON handleJSON = new HandleJSON();
     	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}
+	
+	/**
+	 * 测试:公布的作业概况
+	 */
+	@Test
+	public void getPublishWorkSurveyTest() {
+		ResponseBean result = workService.getPublishWorkSurvey();
+		
+		//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
 }

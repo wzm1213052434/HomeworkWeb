@@ -24,4 +24,10 @@ public interface WorkService {
      * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
      */
 	ResponseBean getWorkSurvey(String username);
+	
+	/**
+     * function:公布的作业概况
+     * @return 作业 所属课程 开课老师 作业评分 公布人
+     */
+	ResponseBean getPublishWorkSurvey();
 }

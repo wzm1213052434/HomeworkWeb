@@ -125,7 +125,7 @@ CREATE TABLE `db_studwork`  (
   `comment` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评语',
   `score` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评分',
   `updatetime` datetime NOT NULL COMMENT '更新时间',
-  `remark1` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
+  `ispublish` varchar(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '是否公布此作业',
   `remark2` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '预留',
   PRIMARY KEY (`sno`, `wno`) USING BTREE,
   INDEX `wno`(`wno`) USING BTREE,

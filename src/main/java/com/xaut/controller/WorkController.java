@@ -67,4 +67,14 @@ public class WorkController {
 		String username = request.getParameter("UserName");
 		return workService.getWorkSurvey(username);
 	}
+	
+	/**
+     * function:公布的作业概况
+     * @return 作业 所属课程 开课老师 作业评分 公布人
+     */
+	@RequestMapping(value = "/getPublishWorkSurvey", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getPublishWorkSurvey(HttpServletRequest request) {
+		return workService.getPublishWorkSurvey();
+	}
 }

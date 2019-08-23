@@ -104,4 +104,22 @@ public class WorkServiceImpl implements WorkService{
 		
 		return new ResponseBean(true, list, "获得学生所选作业概况成功");
 	}
+	
+	/**
+     * function:公布的作业概况
+     * @return 作业 所属课程 开课老师 作业评分 公布人
+     */
+	public ResponseBean getPublishWorkSurvey() {
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.workMapper.getPublishWorkSurvey();
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "没有人公布作业");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得公布的作业概况异常");
+		}
+		
+		return new ResponseBean(true, list, "获得公布的作业概况成功");
+	}
 }
