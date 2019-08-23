@@ -30,4 +30,16 @@ public class CourseController {
 		String tno = request.getParameter("teacherId").toString();
 		return courseService.findCourseByTeacherTno(tno); // 调用Service完成功能
 	}
+	
+	/**
+     * function:学生本院老师已开课程
+     * @param username
+     * @return 课程名 开课学期 开课学年 开课老师 老师学院
+     */
+	@RequestMapping(value = "/getOurCollegeCourse", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getOurCollegeCourse(HttpServletRequest request) {
+		String userName = request.getParameter("userName").toString();
+		return courseService.getOurCollegeCourse(userName);
+	}
 }

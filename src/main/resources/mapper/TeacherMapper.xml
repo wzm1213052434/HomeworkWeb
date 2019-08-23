@@ -17,7 +17,7 @@
 	
 	<!-- 根据学号获得已选课程老师 -->
 	<select id="getTeacherByUsername" parameterType="String" resultType="java.util.Map">
-		select t.tname '教师名',t.company '所属院系',count(*) '开课数'
+		select t.tno '教工号',t.tname '教师名',t.company '所属院系',count(*) '开课数'
 		from db_student s,db_course c,db_teacher t,db_studcour sc
 		where s.sno = #{username} and s.sno = sc.sno and sc.cno = c.cno and c.tno = t.tno
 		group by c.tno;
@@ -25,8 +25,12 @@
 	
 	<!-- 根据学号获得本院老师 -->
 	<select id="getCollegeTeacherByUsername" parameterType="String" resultType="java.util.Map">
-		select t.tno '教工号',t.tname '教师名',t.company '所属院系'
+		select t.tno '教工号',t.tname '教师名',t.company '所属院系',count(case when c.tno is not null then 1 end) '开课数'
 		from db_student s,db_teacher t
-		where s.sno = #{username} and s.company = t.company;
+		left join (
+				db_course c
+				) on c.tno = t.tno
+		where s.sno = #{username} and s.company = t.company
+		group by t.tno;
 	</select>
 </mapper>

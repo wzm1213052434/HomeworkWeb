@@ -48,4 +48,11 @@
 	<select id="countVagueCourse" resultType="int" parameterType="String">
 		select count(*) from db_course where db_course.cname like '%${courseName}%'
 	</select>
+	
+	<!-- 学生本院老师已开课程 -->
+	<select id="getOurCollegeCourse" parameterType="String" resultType="java.util.Map">
+		select c.cname '课程名',c.year '开课学年',c.term '开课学期',t.tname '开课老师',t.company '老师学院'
+		from db_course c,db_teacher t,db_student s
+		where s.sno = #{username} and s.company = t.company and c.tno = t.tno;
+	</select>
 </mapper>

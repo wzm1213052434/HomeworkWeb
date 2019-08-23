@@ -33,7 +33,7 @@ public interface TeacherMapper {
     /**
      * function:根据学号获得本院老师
      * @param username
-     * @return 教师名 所属院系
+     * @return 教师名 所属院系 开课数
      */
     List<Map<String, Object>> getCollegeTeacherByUsername(String username);
 }

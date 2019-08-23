@@ -44,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
 	/**
      * function:根据学号获得本院老师
      * @param username
-     * @return 教师名 所属院系
+     * @return 教师名 所属院系 开课数
      */
 	public ResponseBean getCollegeTeacherByUsername(String username) {
 		if (StringUtils.isEmpty(username)) {

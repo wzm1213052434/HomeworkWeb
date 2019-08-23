@@ -80,4 +80,27 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return new ResponseBean(true, list, courseTotal);
 	}
+	
+	/**
+     * function:学生本院老师已开课程
+     * @param username
+     * @return 课程名 开课学期 开课学年 开课老师 老师学院
+     */
+    public ResponseBean getOurCollegeCourse(String username) {
+    	if (StringUtils.isEmpty(username)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.courseMapper.getOurCollegeCourse(username);
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "该学生本院老师已开课程为空");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得学生本院老师已开课程异常");
+		}
+		
+		return new ResponseBean(true, list, "获得学生本院老师已开课程成功");
+    }
 }

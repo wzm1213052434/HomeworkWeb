@@ -8,7 +8,7 @@ public interface CourseService {
 	 * @param tno 教师职工号
 	 * @return
 	 */
-    public ResponseBean findCourseByTeacherTno(String tno);
+    ResponseBean findCourseByTeacherTno(String tno);
 
 	/**
 	 * 根据课程名分页获取课程
@@ -17,5 +17,12 @@ public interface CourseService {
 	 * @param rows
 	 * @return
 	 */
-    public ResponseBean getAllCourse(String courseName, Integer page, Integer rows);
+    ResponseBean getAllCourse(String courseName, Integer page, Integer rows);
+    
+    /**
+     * function:学生本院老师已开课程
+     * @param username
+     * @return 课程名 开课学期 开课学年 开课老师 老师学院
+     */
+    ResponseBean getOurCollegeCourse(String username);
 }

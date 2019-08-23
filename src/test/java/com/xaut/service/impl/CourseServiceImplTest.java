@@ -55,4 +55,15 @@ public class CourseServiceImplTest {
         System.out.println(new HandleJSON().print_JSON(jsonString));
         System.out.println("测试分页查询课程信息通过");
     }
+    
+    /**
+     * 测试：学生本院老师已开课程
+     */
+    @Test
+    public void getOurCollegeCourseTest() {
+    	ResponseBean bean = this.service.getOurCollegeCourse("0000123456");
+		
+		String jsonString = JSON.toJSONString(bean); //将JSON对象	转化为	JSON字符串
+		System.out.println(handleJSON.print_JSON(jsonString)); //将JSON字符串格式化输出
+    }
 }

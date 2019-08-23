@@ -13,13 +13,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.xaut.service.TeacherService;
 import com.xaut.util.FileUtil;
+import com.xaut.util.ResponseBean;
 
 @RequestMapping(value = "/teacher")
 @Controller
 public class TeacherController {
 	@Autowired
 	FileUtil fileUtil;
+	
+	@Autowired
+	TeacherService teacherService;
 	
 	/**
 	 * 教师主页
@@ -70,5 +76,31 @@ public class TeacherController {
 		}
         
         return json;
+	}
+	
+	/**
+     * function:根据学号获得已选课程老师
+     * @param username
+     * @return 教师名 所属院系 开课数
+     */
+	@RequestMapping(value = "/getTeacherByUsername", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getTeacherByUsername(HttpServletRequest request){
+		String userName = request.getParameter("userName").toString();
+		
+		return teacherService.getTeacherByUsername(userName);
+	}
+	
+	/**
+     * function:根据学号获得本院老师
+     * @param username
+     * @return 教师名 所属院系 开课数
+     */
+	@RequestMapping(value = "/getCollegeTeacherByUsername", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getCollegeTeacherByUsername(HttpServletRequest request){
+		String userName = request.getParameter("userName").toString();
+		
+		return teacherService.getCollegeTeacherByUsername(userName);
 	}
 }
