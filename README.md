@@ -11,6 +11,7 @@
 
 **项目资源：**
 - 教师新建课程上传excel表路径为E:\HomeWorkWeb\teacher\excel
+- 学生提交作业路径为E:\HomeWorkWeb\student\work
 
 **项目规则：**
 - 命名规则：均采用驼峰命名
