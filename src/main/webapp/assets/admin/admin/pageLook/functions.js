@@ -1,5 +1,6 @@
 /**
- * 
+ *  admin/look*** 系列函数
+ *  在管理员界面 look开头的所有页面中引用
  */
 
 function GetPar(name) {  /* 获取参数函数 */
@@ -7,19 +8,6 @@ function GetPar(name) {  /* 获取参数函数 */
 	var r = window.location.search.substr(1).match(reg);
 	if(r != null) return decodeURIComponent(r[2]);
 	return null;
-}
-
-function changePar(){  /* 更改页面原始参数函数  */
-	var id1 = GetPar("page");
-	var id2 = GetPar("cname");
-	if(id1 != null){
-		var nowpage = parseInt(id1);
-		Page = nowpage;
-		now = Page;
-	}
-	if(id2 != null){
-		Cname = id2;
-	}
 }
 
 function dataFirstToLast(message,p,r){  /* 更改页码显示  */
@@ -99,4 +87,19 @@ function findCourse(message){   /* 按输入模糊查询课程信息  */
 	    var cn = inputThing;
 		location.href = encodeURI(url + "?cname=" + cn);
 	}
+}
+
+function changeIcon(i){     /* 展示与隐藏内容过程后更改小图标  */
+	var name = "listIcon" + i;
+	var icon = document.getElementsByName(name);
+	if(icon[0].getAttribute("class") == "fa fa-angle-left"){
+		icon[0].setAttribute("class","fa fa-angle-down");
+	}else{
+		icon[0].setAttribute("class","fa fa-angle-left");
+	}
+}
+
+var openAndClose = function (i){  /* 点击标题，展示与隐藏内容  */
+	var name = ".listContent" + i;
+	$(name).slideToggle(500,changeIcon(i));
 }

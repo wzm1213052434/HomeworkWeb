@@ -161,7 +161,7 @@
 					</a>
 					<ul class="sub-menu	">
 						<li><a href="admin/index"><i class="icon-bar-chart"></i> 用户信息</a></li>
-						<li><a href="admin/Course"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li><a href="admin/lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
 						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
 						<li class="active"><a href="javascript:;"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>

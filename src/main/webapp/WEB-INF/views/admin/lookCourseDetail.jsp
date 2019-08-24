@@ -152,7 +152,7 @@
 					</a>
 					<ul class="sub-menu	">
 						<li><a href="admin/index"><i class="icon-bar-chart"></i> 用户信息</a></li>
-						<li class="active"><a href="javascript:;"><i class="icon-bar-chart"></i> 课程信息</a></li>
+						<li class="active"><a href="admin/lookCourse"><i class="icon-bar-chart"></i> 课程信息</a></li>
 						<li><a href="admin/lookWork"><i class="icon-bar-chart"></i> 作业信息</a></li>
 						<li><a href="admin/lookAnnounce"><i class="icon-bar-chart"></i> 公告信息</a></li>
 					</ul>
@@ -189,77 +189,123 @@
 			<!-- BEGIN PAGE HEADER-->
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
-					<li><i class="fa fa-home"></i>系统使用详情<i class="fa fa-angle-right"></i></li>
-					<li>课程信息</li>
+					<li><a href="admin/lookCourse"><i class="fa fa-angle-left"></i>返回课程总览</a></li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				课程信息 <small>查看所有课程</small>
-			</h3>
+			<h3 class="page-title">课程信息详情 &nbsp;<small id="courseNo"></small></h3>
 			<!-- END PAGE HEADER-->
-			<!-- 显示表格部分-开始 -->
-			<div class="row">
-				<div class="col-md-12">
-					<div class="portlet box green">
-						<div class="portlet-title" style="vertical-align:middle;position:relative;">
-							<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>课程信息总览</div>
-							<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
-								<a href="javascript:;" class="collapse" title="折叠"></a>
-							</div>
-						</div>
-						<div class="portlet-body">
-							<div class="row">
-								<div class="col-md-6 col-sm-12">
-									<div id="sample_editable_1_filter" class="dataTables_filter">
-										<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按课程名查询">
-										<button class="form-control input-inline" onclick="findCourse('请输入课程名');">查询</button>
-										<button class="form-control input-inline" onclick="location.href='admin/lookCourse';">显示所有</button>
+			<!-- 显示基本信息  开始 -->
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject font-red-sunglo bold">课程基本信息</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="list-group">
+						<div class="row">
+							<!-- 左部信息  开始 -->
+							<div class="col-md-6 col-sm-12">
+								<div class="portlet light bordered">
+									<div class="portlet-body">
+										<table class="table table-bordered table-hover">
+											<tbody>
+												<tr><td>课程号</td><td id="courseNo2"></td></tr>
+												<tr><td>课程名</td><td>***</td></tr>
+												<tr><td>课程教师</td><td>***</td></tr>
+												<tr><td>发布作业数</td><td>***</td></tr>
+												<tr><td>学生人数</td><td>***</td></tr>												
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>
-							<div class="table-scrollable">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr id="displayMessage" style="display:none;">
-											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
-										</tr>
-										<tr id="displayContent" style="display:show;text-align:center;">
-											<th style="width:14%;">课程号</th>
-											<th style="width:8%;">教职工号</th>
-											<th style="width:10%;">课程名</th>
-											<th style="width:8%;">学年</th>
-											<th style="width:8%;">学期</th>
-											<th style="width:25%;">上课时间</th>
-											<th style="width:20%;">上课地点</th>
-											<th style="width:5%;">是否结课</th>
-											<th style="width:2%;">操作</th>
-										</tr>
-									</thead>
-									<tbody id="contentList"></tbody>
-								</table>
-							</div>
-							<div class="row" id="pages">
-								<div class="col-md-4 col-sm-5 pull-right">
-									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
-										<ul class="pagination">
-											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
-											<li id="pageList"></li>
-											<li id="pageURL" style="display:none;">admin/lookCourse</li>
-											<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
-										</ul>
+							<!-- 左部信息  结束 -->
+							<!-- 右部信息  开始 -->
+							<div class="col-md-6 col-sm-12">
+								<div class="portlet light bordered" style="height:250px">
+									<div  class="portlet-body" style="position:relative;">
+										<div style="width:25%;position:absolute;top:18px;">课程描述</div>
+										<div style="width:80%;position:absolute;left:70px;top:10px;">
+											<div class="list-group-item" style="height:200px;word-wrap: break-word;overflow:auto;">
+												<span>
+												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
+												</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
+							<!-- 右部信息  结束 -->
 						</div>
 					</div>
 				</div>
+				<hr color="gray"/>
 			</div>
-			<!-- 显示表格部分-结束-->
+			<!-- 显示基本信息 结束 -->
+			<!-- 显示所有作业 开始 -->
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject font-red-sunglo bold">作业发布情况</span>
+						<span class="caption-helper">&nbsp;已发布</span>
+						<span id="courseWorkAmount">1</span>
+						<span class="caption-helper">次作业</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="rows">
+						<div class="list-group" style="width:60%;margin:0 auto;">
+							<div>
+								<a href="javascript:;" class="list-group-item listHead" onclick="openAndClose(0);">
+									<span>作业号：</span><span>***</span>
+									<span>作业名：</span><span>***</span>
+									|<i class="fa fa-angle-left" name="listIcon0"></i>
+								</a>
+								<div class="portlet light bordered listContent0" style="display:none;">
+									<div class="portlet-body">
+										<table class="table table-bordered">
+											<tbody>
+												<tr><td>发布时间</td><td>***</td></tr>
+												<tr><td>截止时间</td><td>***</td></tr>
+												<tr><td>作业描述</td><td>***</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<div>
+								<a href="javascript:;" class="list-group-item listHead" onclick="openAndClose(1);">
+									<span>作业号：</span><span>***</span>
+									<span>作业名：</span><span>***</span>
+									|<i class="fa fa-angle-left" name="listIcon1"></i>
+								</a>
+								<div class="portlet light bordered listContent1" style="display:none;">
+									<div class="portlet-body">
+										<table class="table table-bordered">
+											<tbody>
+												<tr><td>发布时间</td><td>***</td></tr>
+												<tr><td>截止时间</td><td>***</td></tr>
+												<tr><td>作业描述</td><td>***</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<hr color="gray"/>
+			</div>
+			<!-- 显示所有作业  结束 -->
+			<!-- 内容由此增加 -->
 		</div>
 	</div>
 </div>
-
-
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
@@ -310,24 +356,15 @@
 <!-- 自定义函数   结束 -->
 <!-- 获取内容  开始 -->
 <script>
-var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 10;     /* 搜索信息所用每页条数  */
-var Cname = '';    /* 搜索信息所用课程名     */
+var cno = "";    	   /* 搜索信息所用课程号     */
 
-var total = 1;  /* 记录总页数  */
-var now = 1;    /* 记录当前页  */
-
-function changePar(){  /* 更改页面原始参数函数  */
-	var id1 = GetPar("page");
-	var id2 = GetPar("cname");
-	if(id1 != null){
-		var nowpage = parseInt(id1);
-		Page = nowpage;
-		now = Page;
+function changePar(){  /* 更改页面原始参数的函数  */
+	var para = GetPar("cno");
+	if(para != null){
+		cno = para;
 	}
-	if(id2 != null){
-		Cname = id2;
-	}
+	document.getElementById("courseNo").innerHTML = cno;
+	document.getElementById("courseNo2").innerHTML = cno;
 }
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
@@ -357,7 +394,7 @@ function dataList(info){  /* 将信息写到列表中  */
 			var st = "是";
 		else
 			var st = "否";
-		var newNode=$('<tr><td>'+info[j].cno+'</td><td>'+info[j].tno+'</td><td><a href="admin/lookCourseDetail?cno='+info[j].cno+'">'+info[j].cname+'</a></td><td>'+info[j].year+'</td><td>'+info[j].term+'</td><td>'+info[j].time+'</td><td>'+info[j].place+'</td><td>'+st+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+		var newNode=$('<tr><td>'+info[j].cno+'</td><td>'+info[j].tno+'</td><td><a href="admin/">'+info[j].cname+'</a></td><td>'+info[j].year+'</td><td>'+info[j].term+'</td><td>'+info[j].time+'</td><td>'+info[j].place+'</td><td>'+st+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 		cList.append(newNode);
 	}
 }
@@ -378,7 +415,7 @@ jQuery(document).ready(function() {
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
 	changePar();
-	ajaxForMsg(Page,Rows,Cname);
+	//ajaxForMsg(Page,Rows,Cname);
 });
 </script>
 </body>
