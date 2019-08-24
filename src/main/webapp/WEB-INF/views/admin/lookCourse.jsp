@@ -211,8 +211,8 @@
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
-										<input id="cnameInput" type="search" class="form-control input-big input-inline" placeholder="按课程名查询">
-										<button class="form-control input-inline" onclick="findCourse();">查询</button>
+										<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按课程名查询">
+										<button class="form-control input-inline" onclick="findCourse('请输入课程名');">查询</button>
 										<button class="form-control input-inline" onclick="location.href='admin/lookCourse';">显示所有</button>
 									</div>
 								</div>
@@ -244,6 +244,7 @@
 										<ul class="pagination">
 											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
 											<li id="pageList"></li>
+											<li id="pageURL" style="display:none;">admin/lookCourse</li>
 											<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
@@ -304,32 +305,17 @@
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageLook/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
 <!-- 获取内容  开始 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 10;      /* 搜索信息所用每页条数  */
-var Cname = '';   /* 搜索信息所用课程名     */
+var Rows = 10;     /* 搜索信息所用每页条数  */
+var Cname = '';    /* 搜索信息所用课程名     */
 
 var total = 1;  /* 记录总页数  */
 var now = 1;    /* 记录当前页  */
-
-//获取参数封装
-function GetPar(name) {
-	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-	var r = window.location.search.substr(1).match(reg);
-	if(r != null) return decodeURIComponent(r[2]);
-	return null;
-}
-var id1 = GetPar("page");
-var id2 = GetPar("cname");
-if(id1 != null){
-	var nowpage = parseInt(id1);
-	Page = nowpage;
-	now = Page;
-}
-if(id2 != null){
-	Cname = id2;
-}
 
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
@@ -352,51 +338,7 @@ var ajaxForMsg = function (p,r,c) {
         }
     })
 }
-function dataFirstToLast(message,p,r){  /* 更改页码  */
-	var num = parseInt(message);
-	if (isNaN(num)){
-		var obj = document.getElementById("displayMessage");
-		obj.style.display = "table-row";
-		obj = document.getElementById("displayContent");
-		obj.style.display = "none";
-		obj = document.getElementById("pages");
-		obj.style.display = "none";
-		obj = document.getElementById("emptyMessage");
-		obj.innerHTML = message;
-	}else{
-		num = num/r;
-		total = num;
-		var pageList = $('#pageList');
-		if(num < 5){
-			for(var j=0;j<num;j++){
-				if(j+1 == p)
-					var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+(j+1)+'</a>');
-				else
-					var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(j+1)+'</a>');
-                pageList.append(newNode);
-            }
-		}else{
-			if(num-p > 3){
-				for(var j=0;j<4;j++){
-					if(j == 0)
-						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
-					else
-						var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(j+p)+'</a>');
-	                pageList.append(newNode);
-	            }
-			}else{
-				for(var j=3;j>=0;j--){
-					if(num-j == p)
-						var newNode=$('<a href="javascript:;" style="font-size:14px;font-weight:bold;">'+p+'</a>');
-					else
-						var newNode=$('<a href="javascript:;" style="font-size:10px;" onclick="jumpPage(this.innerHTML);">'+(num-j)+'</a>');
-	                pageList.append(newNode);
-	            }
-			}
-		}
-	}
-}
-function dataList(info){  /* 将信息写道列表中  */
+function dataList(info){  /* 将信息写到列表中  */
 	var cList = $('#contentList');
 	for(var j=0;j<info.length;j++){
 		if(info[j].state == "ture")
@@ -409,40 +351,6 @@ function dataList(info){  /* 将信息写道列表中  */
 }
 </script>
 <!-- 获取内容  结束 -->
-<!-- 其他事件  开始   -->
-<script>
-function jumpPage(dest){  /* 跳转分页  */
-	var url = "admin/lookCourse";
-    var page = dest;
-    location.href = encodeURI(url + "?page=" + page);
-}
-function jumpPrevPage(){  /* 跳转到上一页  */
-	if(now > 1){
-		var url = "admin/lookCourse";
-	    var page = now-1;
-		location.href = encodeURI(url + "?page=" + page);
-	}	
-}
-function jumpNextPage(){  /* 跳转到下一页  */
-	if(now < total){
-		var url = "admin/lookCourse";
-	    var page = now+1;
-		location.href = encodeURI(url + "?page=" + page);
-	}	
-}
-function findCourse(){  /* 按课程名模糊查询课程信息  */
-	var input = document.getElementById("cnameInput");
-	var inputThing = input.value;
-	if(inputThing == ""){
-		alert("请输入课程名");
-	}else{
-		var url = "admin/lookCourse";
-	    var cn = inputThing;
-		location.href = encodeURI(url + "?cname=" + cn);
-	}
-}
-</script>
-<!-- 其他事件  结束   -->
 <script>
 jQuery(document).ready(function() {   
 	Metronic.init(); // init metronic core componets
@@ -457,6 +365,7 @@ jQuery(document).ready(function() {
 	Index.initChat();
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
+	changePar();
 	ajaxForMsg(Page,Rows,Cname);
 });
 </script>
