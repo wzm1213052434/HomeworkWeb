@@ -82,4 +82,16 @@ public class WorkServiceImplTest {
     	HandleJSON handleJSON = new HandleJSON();
     	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}
+	
+	/**
+	 * 测试：学生某个作业的详细信息
+	 */
+	@Test
+	public void getWorkDetailTest() {
+		ResponseBean result = workService.getWorkDetail("0000123456","(2017-2018-1)-09191430-104496-3-1");
+		
+		//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
 }

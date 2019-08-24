@@ -21,7 +21,7 @@ public interface WorkService {
 	/**
      * function:获得学生所选作业概况
      * @param 学生账号
-     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布
      */
 	ResponseBean getWorkSurvey(String username);
 	
@@ -30,4 +30,12 @@ public interface WorkService {
      * @return 作业 所属课程 开课老师 作业评分 公布人
      */
 	ResponseBean getPublishWorkSurvey();
+	
+	/**
+     * function:学生某个作业的详细信息
+     * @param username
+     * @param wno
+     * @return
+     */
+	ResponseBean getWorkDetail(String username,String wno);
 }

@@ -31,7 +31,7 @@ public interface WorkMapper {
 	/**
      * function:获得学生所选作业概况
      * @param 学生账号
-     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布
      */
     List<Map<String, Object>> getWorkSurvey(@Param("username") String username);
     
@@ -40,4 +40,12 @@ public interface WorkMapper {
      * @return 作业 所属课程 开课老师 作业评分 公布人
      */
     List<Map<String, Object>> getPublishWorkSurvey();
+    
+    /**
+     * function:学生某个作业的详细信息(Mybatis会去除重复列)
+     * @param username
+     * @param wno
+     * @return
+     */
+    List<Map<String, Object>> getWorkDetail(@Param("username") String username,@Param("wno") String wno);
 }

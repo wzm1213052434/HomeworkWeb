@@ -85,7 +85,7 @@ public class WorkServiceImpl implements WorkService{
 	/**
      * function:获得学生所选作业概况
      * @param 学生账号
-     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布
      */
 	public ResponseBean getWorkSurvey(String username) {
 		if (StringUtils.isEmpty(username)) {
@@ -121,5 +121,29 @@ public class WorkServiceImpl implements WorkService{
 		}
 		
 		return new ResponseBean(true, list, "获得公布的作业概况成功");
+	}
+	
+	/**
+     * function:学生某个作业的详细信息
+     * @param username
+     * @param wno
+     * @return
+     */
+	public ResponseBean getWorkDetail(String username,String wno) {
+		if (StringUtils.isEmpty(username) || StringUtils.isEmpty(wno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.workMapper.getWorkDetail(username, wno);
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "该学生没有该作业");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得学生某个作业的详细信息异常");
+		}
+		
+		return new ResponseBean(true, list, "获得学生某个作业的详细信息成功");
 	}
 }
