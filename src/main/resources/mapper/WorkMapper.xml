@@ -31,7 +31,7 @@
 	
 	<!-- 获得学生所选作业概况 -->
 	<select id="getWorkSurvey" parameterType="String" resultType="java.util.Map">
-		select w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',w.start_time '起始时间',w.end_time '截止时间',sw.times '剩余提交次数',sw.iscorrect '是否批改',sw.score '评分'
+		select sw.wno '作业号',w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',w.start_time '起始时间',w.end_time '截止时间',sw.times '剩余提交次数',sw.iscorrect '是否批改',sw.score '评分',sw.ispublish '是否公布'
 		from db_course c,db_teacher t,db_work w,db_studwork sw
 		where sw.sno = #{username} and sw.wno = w.wno and w.cno = c.cno and c.tno = t.tno
 		order by sw.times desc;

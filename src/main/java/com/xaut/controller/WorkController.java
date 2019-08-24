@@ -59,7 +59,7 @@ public class WorkController {
 	/**
      * function:获得学生所选作业概况
      * @param 学生账号
-     * @return 作业名	所属课程名	开课老师	起始时间	截止时间	剩余提交次数	是否批改	评分
+     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布
      */
 	@RequestMapping(value = "/getWorkSurvey", method = {RequestMethod.GET})
 	@ResponseBody

@@ -320,39 +320,28 @@
 	<div class="page-content-wrapper">
 		<!-- ！！！！开始真实内容(可随时变化)！！！！ -->
 		<div class="page-content" id="right">
-			<!-- 开始页首 -->
-			<div class="page-head">
-				<!-- 开始页标题 -->
-				<div class="page-title">
-					<h1>公告管理&nbsp;&nbsp;<small>所有公告</small></h1>
-				</div>
-				<!-- 结束页标题 -->
-			</div>
-			<!-- 结束页首 -->
-			
 			<!-- 开始页面内容内部 -->
 			<div class="row">
 				<div class="col-md-12 col-sm-12">
-					<!-- 开始组件-->
-					<div class="portlet light tasks-widget">
+					<div class="portlet grey-cascade box">
 						<div class="portlet-title">
-							<div class="caption caption-md">
-								<i class="icon-bar-chart theme-font-color hide"></i>
-								<span class="caption-subject theme-font-color bold uppercase">最新公告</span>
-								<span id="newAnnouncementCount" class="caption-helper">
-									<!-- 此处由最新公告填写 -->
-								</span>
+							<div class="caption">
+								<i class="fa fa-cogs"></i>
+								<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">所有公告</font></font>
+							</div>
+							<div class="actions">
+								<a href="javascript:;" class="btn btn-default btn-sm">
+									<font id="newAnnouncementCount" style="vertical-align: inherit;">
+										<!-- 此处由最新公告填写 -->
+									</font>
+								</a>
 							</div>
 						</div>
 						<div class="portlet-body">
-							<div class="task-content">
-								<div class="scroller" style="height: 282px;" data-always-visible="1" data-rail-visible1="0" data-handle-color="#D7DCE2">
-									<!-- 开始公告列表 -->
-									<ul class="task-list" id="task-list">
-										<!-- 说明：此处由JS动态插入 -->
-									</ul>
-									<!-- 结束公告列表 -->
-								</div>
+							<div class="table-responsive">
+								<table id="task-list" class="table table-striped table-bordered table-advance table-hover">
+									<!-- 说明：此处由JS动态插入 -->
+								</table>
 							</div>
 							<div class="task-footer">
 								<div class="btn-arrow-link">
@@ -363,7 +352,6 @@
 							</div>
 						</div>
 					</div>
-					<!-- 结束组件-->
 				</div>
 			</div>
 			<!-- 结束页内容内部 -->
@@ -483,11 +471,12 @@ function showPage(response){
 	var page_li = '';
 	
 	//1.输出首页和上一页
-	page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',1,' + response.pageSize + ')">首页</a></li>';
-	if(response.currentPage == 1){ //当前是第一页，不能点击上一页
+	if(response.currentPage == 1){ //当前是第一页，不能点击首页和上一页
+		page_li += '<li><a href="javascript:;">首页</a></li>';
 		page_li += '<li><a href="javascript:;">&laquo;</a></li>';
 	}
 	else{
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',1,' + response.pageSize + ')">首页</a></li>';
 		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage-1) + ',' + response.pageSize + ')">&laquo;</a></li>';
 	}
 	
@@ -502,13 +491,14 @@ function showPage(response){
 	}
 	
 	//3.输出下一页和末页
-	if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击下一页
+	if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击末页和下一页
 		page_li += '<li><a href="javascript:;">&raquo;</a></li>';
+		page_li += '<li><a href="javascript:;">末页</a></li>';
 	}
 	else{
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
 		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage+1) + ',' + response.pageSize + ')">&raquo;</a></li>';
 	}
-	page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
 	
 	//4.输出总页数
 	page_li += '<li><a style="color:black">共' + response.totalPage + '页</a></li>';
@@ -545,28 +535,32 @@ function showAnnouncement(){
         },
         success: function (response) {
         	//2.1.显示公告
-        	var ann_ul = $("#task-list");
-    		for(var i=0; i<response.list.length; i++){
-    			var ann_li = "";
-    			//拼接公告
-    			ann_li += '<li><div class="task-title"><span class="task-title-sp">' + response.list[i].aName + '</span>';
-    			if(response.list[i].isRead == false){ //未读公告
-    				ann_li += '<span class="label label-sm label-danger">new</span>';
-    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
-    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
-    				ann_li += '<a href="javascript:;" onclick="toRead(this,\'' + response.list[i].ano + '\')">&nbsp;&nbsp;标记已读</a></div>';
-    			}
-    			else { //已读公告
-    				ann_li += '<div style="display:inline;float:right"><small>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</small>';
-    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;查看</a>';
-    				ann_li += '<a href="javascript:;">&nbsp;&nbsp;已读</a></div>';
-    			}
-    			ann_li += '</div></li>';
-    			//添加公告到列表中
-    			ann_ul.append(ann_li);
-    		}
-    		
-    		//2.2.显示分页
+        	var ann_tr = '<thead><tr><th>公告名</th><th>状态</th><th>发布人</th><th>相关课程</th><th>发布时间</th><th></th><th></th></tr></thead>';
+        	for(var i=0; i<response.list.length; i++){
+        		ann_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.list[i].aName + '</a></td>';
+        		
+        		if(response.list[i].isRead == false){ //未读公告
+        			ann_tr += '<td><span class="label label-sm label-danger">new</span></td>';
+        		} else{ //已读公告
+        			ann_tr += '<td></td>';
+        		}
+        		
+        		ann_tr += '<td>' + '发布人' + '</td>';
+        		ann_tr += '<td>' + '相关课程' + '</td>';
+        		
+        		ann_tr += '<td>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</td>';
+        		
+        		if(response.list[i].isRead == false){ //未读公告
+        			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
+            		ann_tr += '<td><a href="javascript:;" class="primary-link" onclick="toRead(this,\'' + response.list[i].ano + '\')">标记已读</a></td></tr>';
+        		} else{ //已读公告
+        			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
+        			ann_tr += '<td><a href="javascript:;">已读</a></td></tr>';
+        		}
+        	}
+        	$("#task-list").html(ann_tr);
+        	
+        	//2.2.显示分页
     		showPage(response);
         }
 	})
@@ -615,7 +609,7 @@ function showNewAnnouncementCount(){
         async: false,
         data: {},
         success: function (response) {
-        	$("#newAnnouncementCount").text(response + "个")
+        	$("#newAnnouncementCount").text("最新公告：" + response + "个")
         }
 	})
 }
@@ -624,10 +618,10 @@ function showNewAnnouncementCount(){
  * function：标记已读
  */
 function toRead(obj,ano){
-	//1.将html中: 标记已读改为已读,并且禁止鼠标点击,去掉new
-	$(obj).removeAttr('onclick');
-	$(obj).text("  已读");
-	$(obj).parent().parent().find("span").eq(1).remove();
+	//1.html操作
+	$(obj).removeAttr('onclick'); //并且禁止鼠标点击
+	$(obj).text("已读"); //标记已读改为已读
+	$(obj).parent().parent().find("td").eq(1).find("span").remove(); //去掉new
 	
 	//2.将数据库公告改为已读
 	console.log(ano);
