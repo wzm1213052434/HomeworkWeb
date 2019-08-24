@@ -43,4 +43,11 @@
 		from db_work w,db_course c,db_teacher t,db_student s,db_studwork sw
 		where sw.ispublish = true and sw.wno = w.wno and w.cno = c.cno and c.tno = t.tno and sw.sno = s.sno;
 	</select>
+	
+	<!-- 学生某个作业的详细信息 -->
+	<select id="getWorkDetail" parameterType="String" resultType="java.util.Map">
+		select *
+		from db_studwork sw,db_work w,db_course c,db_teacher t
+		where sw.sno = #{username} and sw.wno = #{wno} and sw.wno = w.wno and w.cno = c.cno and c.tno = t.tno;
+	</select>
 </mapper>

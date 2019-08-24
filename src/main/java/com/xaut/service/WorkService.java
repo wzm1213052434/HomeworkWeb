@@ -30,4 +30,12 @@ public interface WorkService {
      * @return 作业 所属课程 开课老师 作业评分 公布人
      */
 	ResponseBean getPublishWorkSurvey();
+	
+	/**
+     * function:学生某个作业的详细信息
+     * @param username
+     * @param wno
+     * @return
+     */
+	ResponseBean getWorkDetail(String username,String wno);
 }

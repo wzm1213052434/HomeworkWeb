@@ -77,4 +77,18 @@ public class WorkController {
 	public ResponseBean getPublishWorkSurvey(HttpServletRequest request) {
 		return workService.getPublishWorkSurvey();
 	}
+	
+	/**
+     * function:学生某个作业的详细信息
+     * @param username
+     * @param wno
+     * @return
+     */
+	@RequestMapping(value = "/getWorkDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getWorkDetail(HttpServletRequest request) {
+		String username = request.getParameter("UserName");
+		String wno = request.getParameter("wno");
+		return workService.getWorkDetail(username, wno);
+	}
 }
