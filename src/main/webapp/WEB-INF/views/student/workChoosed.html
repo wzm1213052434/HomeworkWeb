@@ -108,7 +108,7 @@ function showUnsubmitWorkList(){
 	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 == 3){ //尚未提交的作业
-		        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
+	        			course_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">' + response.data[i].作业名 + '</a></td>';
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
@@ -135,10 +135,10 @@ function showSubmitWorkList(){
 	        	UserName: userName,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th><th>是否批改</th><th>评分</th><th></th></tr></thead>';
+	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th><th>是否批改</th><th>评分</th><th></th><th></th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 != 3){ //已经提交的作业
-		        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
+		        		course_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">' + response.data[i].作业名 + '</a></td>';
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
@@ -157,10 +157,11 @@ function showSubmitWorkList(){
 		        			course_tr += '<td>无</td>';
 		        		}
 		        		if(response.data[i].是否公布 == 0){
-		        			course_tr += '<td><a href="javascript:;" class="primary-link">公布</a></td></tr>';
+		        			course_tr += '<td><a href="javascript:;" class="primary-link">公布</a></td>';
 		        		} else if(response.data[i].是否公布 == 1){
-		        			course_tr += '<td><a href="javascript:;" class="primary-link">取消公布</a></td></tr>';
+		        			course_tr += '<td><a href="javascript:;" class="primary-link">取消公布</a></td>';
 		        		}
+		        		course_tr += '<td><a href="javascript:;" class="primary-link">在线查看</a></td></tr>';
 	        		}
 	        	}
 	        	$("#workList").html(course_tr);
@@ -168,6 +169,16 @@ function showSubmitWorkList(){
 		})
 };
 
+/**
+ * function:查看学生此作业详情
+ */
+function workDetail(wno){
+	var userName = sessionStorage.getItem('userName');
+	var url = '/HomeWorkWeb/student/studentOneWorkDetail';
+	
+	//发起请求
+	location.href = encodeURI(url + "?userName=" + userName + "&wno=" + wno);
+}
 /*
  * function:页面加载完成调用
  */

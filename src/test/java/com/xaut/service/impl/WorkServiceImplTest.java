@@ -88,7 +88,7 @@ public class WorkServiceImplTest {
 	 */
 	@Test
 	public void getWorkDetailTest() {
-		ResponseBean result = workService.getWorkDetail("0000123456","(2017-2018-1)-09191430-104496-3-1");
+		ResponseBean result = workService.getWorkDetail("0000123456","(2017-2018-2)-09191430-104492-4-1");
 		
 		//格式化输出
     	HandleJSON handleJSON = new HandleJSON();

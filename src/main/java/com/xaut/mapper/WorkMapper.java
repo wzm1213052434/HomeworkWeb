@@ -42,7 +42,8 @@ public interface WorkMapper {
     List<Map<String, Object>> getPublishWorkSurvey();
     
     /**
-     * function:学生某个作业的详细信息(Mybatis会去除重复列)
+     * function:学生某个作业的详细信息(学生作业表 + 作业表)
+     * description：多表连接时：Mybatis会去除重复列，去除空值的列
      * @param username
      * @param wno
      * @return

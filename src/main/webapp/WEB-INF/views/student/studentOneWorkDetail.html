@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<!-- 开始head -->
+<head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" defer="defer">
+	function addBasePath(){
+		//1.得到项目根路径：http://localhost:8080/myproject/
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		var localhostPaht = curWwwPath.substring(0,pos);
+		var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+		var realPath = localhostPaht + projectName;
+		var basePath = realPath + '/';
+		console.log(basePath);
+		
+		//2.添加根路径到html的base标签中
+		var $base = '<base href="' + basePath + '">';
+		$('head').prepend($base); //在头部添加
+	}
+	addBasePath();
+</script>
+<meta charset="utf-8"/>
+<title>学生主页</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- 0.最先：引入CSS -->
+<!-- 开始全局强制样式 -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- 结束全局强制样式 -->
+<!-- 开始页级插件样式 -->
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
+<link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+<!-- 结束页级插件样式 -->
+<!-- 开始页面样式 -->
+<link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<!-- 结束页面样式 -->
+<!-- 开始主题样式 -->
+<link href="assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="app/img/favicon.ico" rel="shortcut icon" />
+<!-- 结束主题样式 -->
+</head>
+<!-- 结束head -->
+<!-- 开始body -->
+<body style="weight:500px">
+<!-- 开始导航栏中间可变内容 -->
+<div class="portlet box green">
+	<div class="portlet-title">
+		<div id="title" class="caption">
+			<i class="fa fa-gift"></i>
+			<!-- 此处由JS填写 -->
+		</div>
+	</div>
+	<div class="portlet-body form">
+		<!-- BEGIN FORM-->
+		<form action="javascript:;" class="form-horizontal" role="form">
+			<div class="form-body">
+				<h3 class="form-section">作业信息</h3>
+				<div id="message">
+					<!-- 此处由JS展示 -->
+				</div>
+				<h3 class="form-section">提交作业</h3>
+				<div id="operate">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label class="control-label col-md-3">选择作业(pdf)：</label>
+								<div class="col-md-6">
+									<span class="btn green fileinput-button">
+										<i class="fa fa-plus"></i>
+										<span>添加文件...</span>
+										<input id="file" type="file" accept=".pdf">
+									</span>
+									<div class="showFileName"></div>
+									<div class="fileerrorTip"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-actions">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-md-offset-3 col-md-9">
+								<button type="submit" class="btn green" onclick="fileUpload()">提交</button>
+								<button type="reset" class="btn default" onclick="Undo()">取消</button>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+					</div>
+				</div>
+			</div>
+		</form>
+		<!-- END FORM-->
+	</div>
+</div>
+<!-- 结束导航栏中间可变内容 -->
+
+<!-- 9999.最后：引入JS -->
+<!-- 开始核心插件 -->
+<script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- 结束核心插件 -->
+<!-- 开始页级插件 -->
+<script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+<script src="assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<!-- 结束页级插件 -->
+<!-- 开始页级脚本 -->
+<script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="assets/admin/layout4/scripts/layout.js" type="text/javascript"></script>
+<script src="assets/admin/layout2/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<!-- 结束页级脚本 -->
+<!-- 开始自定义JS -->
+<script type="text/javascript">
+/**
+ * function:前端页面获取前端页面传来的参数
+ */
+function GetPar(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null)
+		return decodeURIComponent(r[2]);
+	return null;
+}
+
+/**
+ * function:构造一条要显示的信息
+ */
+function message_li(key,value){
+	var li = '';
+	li += '<div class="col-md-6"><div class="form-group">';
+	li += '<label class="control-label col-md-3">' + key + '</label>';
+	li += '<div class="col-md-9">';
+	if(!isNaN(value) && value.toString().length==13){ //处理时间毫秒类型
+		li += '<p class="form-control-static">' + new Date(value).toLocaleString() + '</p>';
+	} else{
+		li += '<p class="form-control-static">' + value + '</p>';
+	}
+	li += '</div></div></div>';
+	return li;
+};
+
+/**
+ * function:显示学生此作业的详细信息
+ */
+function showMessage(){
+	//1.得到账号和作业号
+	var userName = GetPar('userName');
+	var wno = GetPar("wno");
+	
+	//2.修改列表
+	$.ajax({
+        url: '/HomeWorkWeb/work/getWorkDetail',
+        type: 'GET',
+        async: false,
+        data: {
+        	userName: userName,
+        	wno: wno
+        },
+        success: function (response) {
+        	//2.1 修改title
+        	$("#title").append(response.data[0]['wname']);
+        	
+        	//2.2 修改作业信息
+        	//将要显示的信息列表
+        	var json = {"作业名：":'wname',"作业描述：":"description","起始时间：":"start_time","截止时间：":"end_time","提交文件：":"studentworkname","提交时间：":"subtime","是否批改：":"iscorrect","成绩：":"score","教师评论：":"comment","是否公开：":"ispublish","剩余提交次数：":"times"};
+        	
+        	//显示信息
+        	var i = 0;
+       		var count = Object.keys(json).length;
+        	var str = '<div class="row">';
+        	for(var key in json){
+        		str += message_li(key,response.data[0][json[key]]);
+        		if(i%2 != 0){ //已经拼接2条
+        			str += '</div>';
+            		$("#message").append(str);
+            		str = '<div class="row">';
+        		}
+        		else if(i == count-1){ //count为奇数：显示最后一条
+        			str += '</div>';
+            		$("#message").append(str);
+        		}
+        		i++;
+        	}
+        }
+	})
+};
+
+/**
+ * function:判断上传文件类型,并显示文件名
+ */
+function judgeTheType() {
+    $(".fileinput-button").on("change", "input[type='file']", function () {
+        var filePath = $(this).val();
+        if (filePath.indexOf("pdf") != -1) {
+            var arr = filePath.split('\\');
+            var fileName = arr[arr.length - 1];
+            $(".showFileName").html("<strong>" + fileName + "</strong>");
+            $(".fileerrorTip").html("").hide();
+            return true;
+        } else {
+            $(".showFileName").html("");
+            $(".fileerrorTip").html("<strong>您上传文件类型有误！</strong>").show();
+            return false;
+        }
+    });
+};
+
+/**
+ * function:取消按钮,不显示文件名
+ */
+function Undo(){
+	$(".showFileName").html("");
+}
+/**
+ * function:文件上传函数
+ */
+function fileUpload() {
+	 alert(123);
+	 var formData = new FormData();
+	 var name = $("#file").val();
+	 formData.append("file", $("#file")[0].files[0]);
+	 $.ajax({
+	     url: '/HomeWorkWeb/student/studentSubmitWork',
+	     type: 'POST',
+	     async: false,
+	     data: formData,
+         processData: false, //告诉jQuery不要去处理发送的数据
+         contentType: false, //告诉jQuery不要去设置Content-Type请求头
+	     success: function (response) {
+	     	if (response == true)
+	     		alert("导入成功");
+	         else
+	         	alert("导入失败");
+	     }
+	 });
+};
+
+/*
+ * function:页面加载完成调用
+ */
+$(document).ready(function () {
+	showMessage(); //显示学生此作业的详细信息
+	judgeTheType(); //判断上传文件类型
+});
+</script>
+</body>
+<!-- 结束body -->
+</html>
