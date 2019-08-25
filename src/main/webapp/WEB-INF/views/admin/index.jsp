@@ -130,7 +130,7 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li><a href="admin/myself"><i class="icon-user"></i>个人信息 </a></li>
-						<li><a href="login"><i class="icon-key"></i>退出登入</a></li>
+						<li><a href="logout"><i class="icon-key"></i>退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -186,7 +186,7 @@
 					</a>
 					<ul class="sub-menu">
 						<li><a href="admin/myself"><i class="icon-notebook"></i> 您的信息</a></li>
-						<li><a href="login"><i class="icon-key"></i> 退出登入</a></li>
+						<li><a href="logout"><i class="icon-key"></i> 退出登入</a></li>
 					</ul>
 				</li>
 			</ul>
