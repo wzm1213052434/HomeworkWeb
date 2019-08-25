@@ -3,6 +3,7 @@ package com.xaut.mapper;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,5 +71,34 @@ public class WorkMapperTest {
 		//格式化输出
     	HandleJSON handleJSON = new HandleJSON();
     	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
+	
+	/**
+	 * 测试：学生某个作业的详细信息
+	 */
+	@Test
+	public void getWorkDetailTest() {
+		Map<String, Object> map = workMapper.getWorkDetail("0000123456", "(2017-2018-2)-09191430-104492-4-1");
+		System.out.println(map);
+	}
+	
+	/**
+	 * 测试：动态sql更新学生作业表
+	 */
+	@Test
+	public void updateStudentWorkTest() {
+		Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("username","0000123456");
+    	map.put("wno","(2017-2018-1)-09191430-104496-3-1");
+    	map.put("studentWorkName","本次作业呀"); //提交作业文件名-更新
+    	map.put("subTime",new java.sql.Date(new Date().getTime())); //提交时间-更新
+    	map.put("times",1); //剩余提交次数-减1
+    	map.put("isCorrect","0"); //是否批改-为否
+    	map.put("comment","无"); //评论-清空
+    	map.put("score","无"); //成绩-清空
+		map.put("updateTime",new java.sql.Date(new Date().getTime())); //更新时间-更新
+		map.put("isPublish","0"); //是否发布-为否
+		workMapper.updateStudentWork(map);
+		System.out.println("动态sql更新学生作业表成功");
 	}
 }

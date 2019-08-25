@@ -15,6 +15,8 @@
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- 结束全局强制样式 -->
 <!-- 开始页级插件样式 -->
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
 <link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
@@ -33,88 +35,6 @@
 <!-- 结束主题样式 -->
 </head>
 <body>
-<div class="portlet box green">
-	<div class="portlet-title">
-		<div class="caption">
-			<i class="fa fa-gift"></i>
-			<font style="vertical-align: inherit;">
-				<font style="vertical-align: inherit;">
-					此处由JS填写
-				</font>
-			</font>
-		</div>
-	</div>
-	<div class="portlet-body form">
-		<!-- BEGIN FORM-->
-		<form action="#" class="form-horizontal">
-			<div class="form-body">
-				<!-- 信息展示 -->
-				<h3 class="form-section"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">作业信息</font></font></h3>
-					
-				<!-- 操作 -->
-				<h3 class="form-section"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提交作业</font></font></h3>
-				<!--/row-->
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label col-md-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">地址1</font></font></label>
-							<div class="col-md-9">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label col-md-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">地址2</font></font></label>
-							<div class="col-md-9">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label col-md-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">市</font></font></label>
-							<div class="col-md-9">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-					<!--/span-->
-					<div class="col-md-6">
-						<div class="form-group">
-							<label class="control-label col-md-3"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">州</font></font></label>
-							<div class="col-md-9">
-								<input type="text" class="form-control">
-							</div>
-						</div>
-					</div>
-					<!--/span-->
-				</div>
-				<!--/row-->
-			</div>
-			<div class="form-actions">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="row">
-							<div class="col-md-offset-3 col-md-9">
-								<button type="submit" class="btn green"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">提交</font></font></button>
-								<button type="button" class="btn default"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">取消</font></font></button>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-					</div>
-				</div>
-			</div>
-		</form>
-		<!-- END FORM-->
-	</div>
-</div>
-
-
-
 
 
 <!-- 最后：引入JS -->
@@ -131,6 +51,8 @@
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- 结束核心插件 -->
 <!-- 开始页级插件 -->
+<script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -153,14 +75,39 @@
 
 <script type="text/javascript">
 /**
- * 他人公布的作业
- 作业 所属课程 开课老师 老师评分 公布人
+ * function:构造一条要显示的信息
  */
+function message_li(key,value){
+	var li = '';
+	li += '<div class="col-md-6"><div class="form-group">';
+	li += '<label class="control-label col-md-3">' + key + '</label>';
+	li += '<div class="col-md-9">';
+	li += '<p class="form-control-static">' + value + '</p>';
+	li += '</div></div></div>';
+	return li;
+}
+
+/**
+ * function:显示学生此作业的详细信息
+ */
+function showMessage(){
+	for(var i=0;i<4;i++){
+		var str = '<div class="row">';
+		str += message_li('地址：' + i,'西安市');
+		if(i < 4-1){ //最后一条时：一行仅显示一列
+			str += message_li('地址：' + (i+1),'西安市');
+			i++;
+		}
+		str += '</div>';
+		$("#message").append(str);
+	}
+}
 
 /*
  * function:页面加载完成调用
  */
 $(document).ready(function () {
+	showMessage(); //显示学生此作业的详细信息
 });
 </script>
 </body>

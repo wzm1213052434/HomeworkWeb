@@ -3,17 +3,24 @@ package com.xaut.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.xaut.service.StudentService;
+import com.xaut.util.FileUtil;
 import com.xaut.util.ResponseBean;
 
 @RequestMapping(value = "/student")
 @Controller
 public class StudentController {
+	@Autowired
+	FileUtil fileUtil;
+	
 	@Autowired
 	private StudentService studentService;
 	
@@ -82,5 +89,51 @@ public class StudentController {
 		String isClassEnd = request.getParameter("isClassEnd");
 		
 		return studentService.getCourseSurvey(userName, isClassEnd);
+	}
+	
+	/**
+	 * function：学生提交作业
+	 * @param request
+	 * @return true | false
+	 */
+	@RequestMapping(value = "/studentSubmitWork", method = {RequestMethod.POST})
+	@ResponseBody
+	public boolean studentSubmitWork(HttpServletRequest request) throws Exception {
+		try {
+			//1.获取文件	和	文件名
+			MultipartHttpServletRequest mpRequest = (MultipartHttpServletRequest) request;  
+	        MultipartFile file = mpRequest.getFile("file");
+	        String originalFilename = file.getOriginalFilename();
+	        
+	        //2.设置文件保存的逻辑路径	和	新文件名
+	        String dirPath = "E:\\HomeWorkWeb\\student\\work";
+	        String newFileName = originalFilename;
+	        
+	        //3.文件上传
+	        fileUtil.fileUpload(dirPath,newFileName,file);
+	        
+	        //4.更新学生作业表
+	        String userName = request.getParameter("userName");
+			String wno = request.getParameter("wno");
+			studentService.studentSubmitWorkToUpdate(userName,wno,originalFilename);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * function：学生作业文件下载
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/fileDownLoad", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseEntity<byte[]> fileDownLoad(HttpServletRequest request){
+		String fileName = request.getParameter("fileName");
+		String dirPath = "E:\\HomeWorkWeb\\student\\work";
+		
+		return fileUtil.fileDownLoad(dirPath, fileName);
 	}
 }

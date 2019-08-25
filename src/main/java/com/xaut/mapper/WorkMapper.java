@@ -13,20 +13,20 @@ public interface WorkMapper {
 	 * 功能：教师新增作业
 	 * @param work
 	 */
-	public void addWork(Work work);
+	void addWork(Work work);
 	
 	/**
 	 * 功能：教师删除作业
 	 * @param wno
 	 */
-	public void deteteWork(String wno);
+	void deteteWork(String wno);
 	
 	/**
 	 * 功能：根据课程号查看发布作业次数
 	 * @param cno
 	 * @return
 	 */
-	public int findWorkTimesByCno(String cno);
+	int findWorkTimesByCno(String cno);
 	
 	/**
      * function:获得学生所选作业概况
@@ -42,10 +42,17 @@ public interface WorkMapper {
     List<Map<String, Object>> getPublishWorkSurvey();
     
     /**
-     * function:学生某个作业的详细信息(Mybatis会去除重复列)
+     * function:学生某个作业的详细信息(学生作业表 + 作业表)
+     * description：多表连接时：Mybatis会去除重复列，去除空值的列
      * @param username
      * @param wno
      * @return
      */
-    List<Map<String, Object>> getWorkDetail(@Param("username") String username,@Param("wno") String wno);
+    Map<String, Object> getWorkDetail(@Param("username") String username,@Param("wno") String wno);
+    
+    /**
+     * function:动态sql更新学生作业表
+     * @param map
+     */
+    void updateStudentWork(Map<String, Object> map);
 }

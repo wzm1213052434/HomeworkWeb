@@ -134,16 +134,16 @@ public class WorkServiceImpl implements WorkService{
 			return new ResponseBean(false, "参数为空");
 		}
     	
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		try {
-			list = this.workMapper.getWorkDetail(username, wno);
-			if (list.size() == 0) {
-				return new ResponseBean(true, list, "该学生没有该作业");
+			map = this.workMapper.getWorkDetail(username, wno);
+			if (map == null) {
+				return new ResponseBean(true, map, "该学生没有该作业");
 			}
 		} catch (Exception e) {
 			return new ResponseBean(false, "获得学生某个作业的详细信息异常");
 		}
 		
-		return new ResponseBean(true, list, "获得学生某个作业的详细信息成功");
+		return new ResponseBean(true, map, "获得学生某个作业的详细信息成功");
 	}
 }

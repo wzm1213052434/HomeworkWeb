@@ -87,7 +87,7 @@ public class WorkController {
 	@RequestMapping(value = "/getWorkDetail", method = {RequestMethod.GET})
 	@ResponseBody
 	public ResponseBean getWorkDetail(HttpServletRequest request) {
-		String username = request.getParameter("UserName");
+		String username = request.getParameter("userName");
 		String wno = request.getParameter("wno");
 		return workService.getWorkDetail(username, wno);
 	}

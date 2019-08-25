@@ -1,6 +1,8 @@
 package com.xaut.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import com.xaut.mapper.StudentMapper;
+import com.xaut.mapper.WorkMapper;
 import com.xaut.service.StudentService;
 import com.xaut.util.CommonString;
 import com.xaut.util.ResponseBean;
@@ -24,6 +27,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+    
+    @Autowired
+    private WorkMapper workMapper;
 
     /**
      *	根据课程号分页查询学生
@@ -90,5 +96,48 @@ public class StudentServiceImpl implements StudentService {
 		}
 		
 		return new ResponseBean(true, list, "获得学生所选课程概况成功");
+    }
+    
+    /**
+     * function:学生提交作业	前往改变	学生作业表
+     * @param userName
+     * @param wno
+     */
+    public ResponseBean studentSubmitWorkToUpdate(String userName,String wno,String originalFilename) {
+    	//1. 查询学生作业表
+    	Map<String,Object> data = workMapper.getWorkDetail(userName, wno);
+    	
+    	//2. 更新学生作业表
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("username",userName);
+    	map.put("wno",wno);
+    	map.put("studentWorkName",originalFilename); //提交作业文件名-更新
+    	map.put("subTime",new java.sql.Date(new Date().getTime())); //提交时间-更新
+    	map.put("times",Integer.parseInt((String) data.get("times"))-1); //剩余提交次数-减1
+    	map.put("isCorrect","0"); //是否批改-为否
+    	map.put("comment","无"); //评论-清空
+    	map.put("score","无"); //成绩-清空
+		map.put("updateTime",new java.sql.Date(new Date().getTime())); //更新时间-更新
+		map.put("isPublish","0"); //是否发布-为否
+		return updateStudentWork(map);
+    }
+    
+    /**
+     * function:更新学生作业表
+     * @param map
+     * @return
+     */
+    public ResponseBean updateStudentWork(Map<String, Object> map) {
+    	if(map == null) {
+    		return new ResponseBean(false, "参数为空");
+    	}
+    	
+    	try {
+    		workMapper.updateStudentWork(map);
+    	} catch(Exception e) {
+    		return new ResponseBean(false, "更新学生作业表异常");
+    	}
+    	
+    	return new ResponseBean(true, "更新学生作业表成功");
     }
 }
