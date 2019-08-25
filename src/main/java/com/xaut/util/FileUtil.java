@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -16,6 +17,10 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import com.xaut.controller.TeacherController;
@@ -42,11 +47,10 @@ public class FileUtil {
 	private Logger logger = LoggerFactory.getLogger(TeacherController.class);
 	
 	/**
-	 * 文件上传
+	 * function:文件上传
 	 * @param dirPath 保存路径
 	 * @param fileName 文件名
 	 * @param file 文件
-	 * @return 成功 | 失败
 	 */
 	public void fileUpload(String dirPath,String fileName,MultipartFile file) {
         //1.得到保存的路径的物理地址
@@ -64,6 +68,36 @@ public class FileUtil {
         	logger.error("上传文件异常: " +e);
         	e.printStackTrace();
         }
+	}
+	
+	/**
+	 * function:文件下传
+	 * @param dirPath 保存路径
+	 * @param fileName 文件名
+	 */
+	public ResponseEntity<byte[]> fileDownLoad(String dirPath,String fileName) {
+		//1.设置实体机构
+		File file = null;
+		byte[] body = null;
+		try {
+			fileName = new String(fileName.getBytes("UTF-8"),"ISO-8859-1"); //防止中文乱码
+			file = new File(dirPath + File.separator + fileName);
+			body = FileUtils.readFileToByteArray(file);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		//2.设置响应头
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentDispositionFormData("attachment", fileName);
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		
+		//3.设置状态码
+		HttpStatus statusCode = HttpStatus.OK;
+		
+		//4.返回下载数据
+		ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(body, headers, statusCode);
+        return response;
 	}
 	
 	/**

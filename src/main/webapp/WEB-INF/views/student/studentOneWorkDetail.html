@@ -98,7 +98,7 @@
 					<div class="col-md-6">
 						<div class="row">
 							<div class="col-md-offset-3 col-md-9">
-								<button type="submit" class="btn green" onclick="fileUpload()">提交</button>
+								<button id="submit" type="submit" class="btn green" onclick="fileUpload()">提交</button>
 								<button type="reset" class="btn default" onclick="Undo()">取消</button>
 							</div>
 						</div>
@@ -159,7 +159,7 @@ function GetPar(name) {
 	if(r != null)
 		return decodeURIComponent(r[2]);
 	return null;
-}
+};
 
 /**
  * function:构造一条要显示的信息
@@ -169,13 +169,24 @@ function message_li(key,value){
 	li += '<div class="col-md-6"><div class="form-group">';
 	li += '<label class="control-label col-md-3">' + key + '</label>';
 	li += '<div class="col-md-9">';
-	if(!isNaN(value) && value.toString().length==13){ //处理时间毫秒类型
+	if(!value){ //如果值为空
+		li += '<p class="form-control-static">无</p>';
+	} else if(!isNaN(value) && value.toString().length==13){ //处理时间毫秒类型
 		li += '<p class="form-control-static">' + new Date(value).toLocaleString() + '</p>';
+	} else if(key == "提交文件："){ //作业下载超链接
+		li += '<p class="form-control-static"><a href="javascript:;" onclick="workDownload(\'' + value + '\')">' + value + '</a></p>';
 	} else{
 		li += '<p class="form-control-static">' + value + '</p>';
 	}
 	li += '</div></div></div>';
 	return li;
+};
+
+/**
+ * function:作业文件下载
+ */
+function workDownload(fileName){
+	 location.href = '/HomeWorkWeb/student/fileDownLoad?fileName=' + fileName;
 };
 
 /**
@@ -220,12 +231,17 @@ function showMessage(){
         		}
         		i++;
         	}
+        	
+        	//2.3 设置提交按钮状态(禁止点击)
+        	if(response.data[0]['times'] <= 0){
+        		$("#submit").addClass('disabled');
+        	}
         }
 	})
 };
 
 /**
- * function:判断上传文件类型,并显示文件名
+ * function:监听上传文件类型,并显示文件名
  */
 function judgeTheType() {
     $(".fileinput-button").on("change", "input[type='file']", function () {
@@ -250,19 +266,25 @@ function judgeTheType() {
 function Undo(){
 	$(".showFileName").html("");
 }
+
 /**
- * function:文件上传函数
+ * function:学生提交作业
  */
 function fileUpload() {
-	 alert(123);
+	 //1.得到账号和作业号
+	 var userName = GetPar('userName');
+	 var wno = GetPar("wno");
+	 
+	 //2.学生上传作业
 	 var formData = new FormData();
-	 var name = $("#file").val();
 	 formData.append("file", $("#file")[0].files[0]);
+	 formData.append("userName",userName);
+	 formData.append("wno",wno);
 	 $.ajax({
 	     url: '/HomeWorkWeb/student/studentSubmitWork',
 	     type: 'POST',
 	     async: false,
-	     data: formData,
+	     data:formData,
          processData: false, //告诉jQuery不要去处理发送的数据
          contentType: false, //告诉jQuery不要去设置Content-Type请求头
 	     success: function (response) {
@@ -279,7 +301,7 @@ function fileUpload() {
  */
 $(document).ready(function () {
 	showMessage(); //显示学生此作业的详细信息
-	judgeTheType(); //判断上传文件类型
+	judgeTheType(); //监听上传文件类型,并显示文件名
 });
 </script>
 </body>

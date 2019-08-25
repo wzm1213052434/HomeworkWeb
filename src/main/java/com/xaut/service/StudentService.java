@@ -1,5 +1,7 @@
 package com.xaut.service;
 
+import java.util.Map;
+
 import com.xaut.util.ResponseBean;
 
 /**
@@ -29,4 +31,18 @@ public interface StudentService {
      * @return
      */
     ResponseBean getCourseSurvey(String username,String isClassEnd);
+    
+    /**
+     * function:学生提交作业	前往改变	学生作业表
+     * @param userName
+     * @param wno
+     */
+    ResponseBean studentSubmitWorkToUpdate(String userName,String wno,String originalFilename);
+    
+    /**
+     * function:更新学生作业表
+     * @param map
+     * @return
+     */
+    ResponseBean updateStudentWork(Map<String, Object> map);
 }
