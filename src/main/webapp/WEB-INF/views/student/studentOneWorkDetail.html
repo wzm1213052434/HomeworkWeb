@@ -22,7 +22,7 @@
 	addBasePath();
 </script>
 <meta charset="utf-8"/>
-<title>学生主页</title>
+<title>学生此作业详细信息</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- 0.最先：引入CSS -->
@@ -56,7 +56,7 @@
 </head>
 <!-- 结束head -->
 <!-- 开始body -->
-<body style="weight:500px">
+<body>
 <!-- 开始导航栏中间可变内容 -->
 <div class="portlet box green">
 	<div class="portlet-title">
@@ -151,6 +151,20 @@
 <!-- 开始自定义JS -->
 <script type="text/javascript">
 /**
+ * function:重写方法,自定义格式化日期
+ */
+Date.prototype.toLocaleString = function() {
+	// 补0   例如 2018/7/10 14:7:2  补完后为 2018/07/10 14:07:02
+    function addZero(num) {
+        if(num<10)
+            return "0" + num;
+        return num;
+    }
+    // 按自定义拼接格式返回
+    return this.getFullYear() + "/" + addZero(this.getMonth() + 1) + "/" + addZero(this.getDate());
+};
+
+/**
  * function:前端页面获取前端页面传来的参数
  */
 function GetPar(name) {
@@ -174,7 +188,7 @@ function message_li(key,value){
 	} else if(!isNaN(value) && value.toString().length==13){ //处理时间毫秒类型
 		li += '<p class="form-control-static">' + new Date(value).toLocaleString() + '</p>';
 	} else if(key == "提交文件："){ //作业下载超链接
-		li += '<p class="form-control-static"><a href="javascript:;" onclick="workDownload(\'' + value + '\')">' + value + '</a></p>';
+		li += '<p id="workName" class="form-control-static"><a href="javascript:;" onclick="workDownload(\'' + value + '\')">' + value + '</a></p>';
 	} else{
 		li += '<p class="form-control-static">' + value + '</p>';
 	}
@@ -208,7 +222,7 @@ function showMessage(){
         },
         success: function (response) {
         	//2.1 修改title
-        	$("#title").append(response.data[0]['wname']);
+        	$("#title").append(response.data['wname']);
         	
         	//2.2 修改作业信息
         	//将要显示的信息列表
@@ -219,7 +233,7 @@ function showMessage(){
        		var count = Object.keys(json).length;
         	var str = '<div class="row">';
         	for(var key in json){
-        		str += message_li(key,response.data[0][json[key]]);
+        		str += message_li(key,response.data[json[key]]);
         		if(i%2 != 0){ //已经拼接2条
         			str += '</div>';
             		$("#message").append(str);
@@ -233,7 +247,7 @@ function showMessage(){
         	}
         	
         	//2.3 设置提交按钮状态(禁止点击)
-        	if(response.data[0]['times'] <= 0){
+        	if(response.data['times'] <= 0){
         		$("#submit").addClass('disabled');
         	}
         }
@@ -271,15 +285,18 @@ function Undo(){
  * function:学生提交作业
  */
 function fileUpload() {
-	 //1.得到账号和作业号
+	 //1.得到账号 作业号 提交作业文件名
 	 var userName = GetPar('userName');
 	 var wno = GetPar("wno");
+	 var studentWorkName = $("#workName").text();
+	 alert(studentWorkName);
 	 
 	 //2.学生上传作业
 	 var formData = new FormData();
 	 formData.append("file", $("#file")[0].files[0]);
 	 formData.append("userName",userName);
 	 formData.append("wno",wno);
+	 formData.append("studentWorkName",studentWorkName);
 	 $.ajax({
 	     url: '/HomeWorkWeb/student/studentSubmitWork',
 	     type: 'POST',
@@ -289,9 +306,9 @@ function fileUpload() {
          contentType: false, //告诉jQuery不要去设置Content-Type请求头
 	     success: function (response) {
 	     	if (response == true)
-	     		alert("导入成功");
+	     		alert("提交成功");
 	         else
-	         	alert("导入失败");
+	         	alert("提交失败");
 	     }
 	 });
 };

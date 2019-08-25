@@ -1,5 +1,7 @@
 package com.xaut.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,10 +111,18 @@ public class StudentController {
 	        String dirPath = "E:\\HomeWorkWeb\\student\\work";
 	        String newFileName = originalFilename;
 	        
-	        //3.文件上传
+	        //3.删除上一次提交的作业文件(文件重名会自动进行覆盖)
+	        String studentWorkName = request.getParameter("studentWorkName");
+	        System.out.println(dirPath + "\\" + studentWorkName);
+	        File preview_file = new File(dirPath + "\\" + studentWorkName);
+	        if (preview_file.isFile() && preview_file.exists()) {
+	        	preview_file.delete();
+	        }
+	        
+	        //4.文件上传
 	        fileUtil.fileUpload(dirPath,newFileName,file);
 	        
-	        //4.更新学生作业表
+	        //5.更新学生作业表
 	        String userName = request.getParameter("userName");
 			String wno = request.getParameter("wno");
 			studentService.studentSubmitWorkToUpdate(userName,wno,originalFilename);

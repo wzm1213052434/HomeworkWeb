@@ -107,7 +107,7 @@ public class StudentServiceImpl implements StudentService {
     	//1. 查询学生作业表
     	Map<String,Object> data = workMapper.getWorkDetail(userName, wno);
     	
-    	//2. 更新学生作业表
+    	//2.更新学生作业表(评论,成绩保持为上一次的)
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("username",userName);
     	map.put("wno",wno);
@@ -115,8 +115,6 @@ public class StudentServiceImpl implements StudentService {
     	map.put("subTime",new java.sql.Date(new Date().getTime())); //提交时间-更新
     	map.put("times",Integer.parseInt((String) data.get("times"))-1); //剩余提交次数-减1
     	map.put("isCorrect","0"); //是否批改-为否
-    	map.put("comment","无"); //评论-清空
-    	map.put("score","无"); //成绩-清空
 		map.put("updateTime",new java.sql.Date(new Date().getTime())); //更新时间-更新
 		map.put("isPublish","0"); //是否发布-为否
 		return updateStudentWork(map);
