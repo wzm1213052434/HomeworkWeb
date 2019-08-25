@@ -56,36 +56,44 @@ function dataFirstToLast(message,p,r){  /* 更改页码显示  */
 }
 
 function jumpPage(dest){  /* 跳转分页  */
-	var url = document.getElementById("pageURL").innerHTML;
+	var obj = document.getElementById("pageURL");
+	var url = obj.innerHTML;
+	var name = obj.getAttribute("name");
     var page = dest;
-    location.href = encodeURI(url + "?page=" + page + "&cname=" + Cname);
+    location.href = encodeURI(url + "?page=" + page + "&"+name+"=" + TheName);
 }
 
 function jumpPrevPage(){  /* 跳转到上一页  */
-	var url = document.getElementById("pageURL").innerHTML;
+	var obj = document.getElementById("pageURL");
+	var url = obj.innerHTML;
+	var name = obj.getAttribute("name");
 	if(now > 1){
 	    var page = now-1;
-		location.href = encodeURI(url + "?page=" + page + "&cname=" + Cname);
+		location.href = encodeURI(url + "?page=" + page + "&"+name+"=" + TheName);
 	}	
 }
 
 function jumpNextPage(){  /* 跳转到下一页  */
-	var url = document.getElementById("pageURL").innerHTML;
+	var obj = document.getElementById("pageURL");
+	var url = obj.innerHTML;
+	var name = obj.getAttribute("name");
 	if(now < total){
 	    var page = now+1;
-		location.href = encodeURI(url + "?page=" + page + "&cname=" + Cname);
+		location.href = encodeURI(url + "?page=" + page + "&"+name+"=" + TheName);
 	}	
 }
 
 function findCourse(message){   /* 按输入模糊查询课程信息  */
-	var url = document.getElementById("pageURL").innerHTML;
+	var obj = document.getElementById("pageURL");
+	var url = obj.innerHTML;
+	var name = obj.getAttribute("name");
 	var input = document.getElementById("contentInput");
 	var inputThing = input.value;
 	if(inputThing == ""){
 		alert(message);
 	}else{
 	    var cn = inputThing;
-		location.href = encodeURI(url + "?cname=" + cn);
+		location.href = encodeURI(url + "?"+name+"=" + cn);
 	}
 }
 

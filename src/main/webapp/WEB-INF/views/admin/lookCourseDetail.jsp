@@ -39,6 +39,29 @@
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="images/favicon.ico"/>
+<style>
+.Gridborder{
+	height:60px;
+	padding:5% 10%;
+	text-align:center;
+	vertical-align:center;
+}
+a.studentGrid{
+	display:block;
+	height:100%;
+	width:100%;
+	background-color:#fafafa;
+	border:solid 1px #bababa;
+}
+a.studentGrid:hover {
+	display:block;
+	height:100%;
+	width:100%;
+	background-color:#efefef;
+	border:solid 1px gray;
+	text-decoration:none;
+}
+</style>
 </head>
 <body  class="page-header-fixed page-quick-sidebar-over-content page-sidebar-closed-hide-logo page-container-bg-solid">
 <!-- BEGIN HEADER -->
@@ -252,7 +275,7 @@
 					<div class="caption">
 						<span class="caption-subject font-red-sunglo bold">作业发布情况</span>
 						<span class="caption-helper">&nbsp;已发布</span>
-						<span id="courseWorkAmount">1</span>
+						<span id="courseWorkAmount">0</span>
 						<span class="caption-helper">次作业</span>
 					</div>
 				</div>
@@ -295,13 +318,54 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</div>
 				<hr color="gray"/>
 			</div>
 			<!-- 显示所有作业  结束 -->
+			<!-- 显示所有学生 开始 -->
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject font-red-sunglo bold">所选学生信息</span>
+						<span class="caption-helper">&nbsp;共</span>
+						<span id="studentAmount">0</span>
+						<span class="caption-helper">个学生</span>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td><div class="Gridborder"><a class="studentGrid">1213883121<br/>老五</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883122<br/>裤比勒</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883123<br/>浪</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883124<br/>拉布达</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883125<br/>加尼夫利</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883126<br/>尼古拉斯</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="Gridborder"><a class="studentGrid">1213883121<br/>老五</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883122<br/>裤比勒</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883123<br/>浪</a></div></td>
+								<td><div class="Gridborder"><a class="studentGrid">1213883124<br/>拉布达</a></div></td>
+								
+							</tr>
+						</tbody>
+					</table>
+						
+				</div>
+				<div class="portlet-title">
+					<ul class="pagination">
+						<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+						<li id="pageList"></li>
+						<li id="pageURL" style="display:none;" name="cno">admin/lookCourseDetail</li>
+						<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
+					</ul>
+				</div>
+			</div>
+			<!-- 显示所有学生  结束 -->
 			<!-- 内容由此增加 -->
 		</div>
 	</div>
@@ -356,15 +420,25 @@
 <!-- 自定义函数   结束 -->
 <!-- 获取内容  开始 -->
 <script>
-var cno = "";    	   /* 搜索信息所用课程号     */
+var Page = 1;      /* 搜索信息所用初始页号  */
+var Rows = 10;      /* 搜索信息所用每页条数  */
+var TheName = '';  /* 搜索信息所用课程名     */
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
 
 function changePar(){  /* 更改页面原始参数的函数  */
-	var para = GetPar("cno");
-	if(para != null){
-		cno = para;
+	var id1 = GetPar("page");
+	var id2 = GetPar("cno");
+	if(id1 != null){
+		var nowpage = parseInt(id1);
+		Page = nowpage;
+		now = Page;
 	}
-	document.getElementById("courseNo").innerHTML = cno;
-	document.getElementById("courseNo2").innerHTML = cno;
+	if(id2 != null){
+		TheName = id2;
+	}
+	document.getElementById("courseNo").innerHTML = TheName;
+	document.getElementById("courseNo2").innerHTML = TheName;
 }
 var ajaxForMsg = function (p,r,c) {
     $.ajax({

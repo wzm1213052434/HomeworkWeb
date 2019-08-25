@@ -244,7 +244,7 @@
 										<ul class="pagination">
 											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
 											<li id="pageList"></li>
-											<li id="pageURL" style="display:none;">admin/lookCourse</li>
+											<li id="pageURL" style="display:none;" name="cname">admin/lookCourse</li>
 											<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
@@ -311,9 +311,8 @@
 <!-- 获取内容  开始 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 10;     /* 搜索信息所用每页条数  */
-var Cname = '';    /* 搜索信息所用课程名     */
-
+var Rows = 10;      /* 搜索信息所用每页条数  */
+var TheName = '';  /* 搜索信息所用课程名     */
 var total = 1;  /* 记录总页数  */
 var now = 1;    /* 记录当前页  */
 
@@ -326,7 +325,7 @@ function changePar(){  /* 更改页面原始参数函数  */
 		now = Page;
 	}
 	if(id2 != null){
-		Cname = id2;
+		TheName = id2;
 	}
 }
 var ajaxForMsg = function (p,r,c) {
@@ -378,7 +377,7 @@ jQuery(document).ready(function() {
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
 	changePar();
-	ajaxForMsg(Page,Rows,Cname);
+	ajaxForMsg(Page,Rows,TheName);
 });
 </script>
 </body>
