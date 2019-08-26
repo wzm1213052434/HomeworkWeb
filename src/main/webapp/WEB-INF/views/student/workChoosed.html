@@ -78,7 +78,7 @@
 <!-- 开始自定义JS -->
 <script type="text/javascript">
 /**
- * 重写方法,自定义格式化日期
+ * function:重写方法,自定义格式化日期
  */
 Date.prototype.toLocaleString = function() {
 	// 补0   例如 2018/7/10 14:7:2  补完后为 2018/07/10 14:07:02
@@ -177,7 +177,7 @@ function workDetail(wno){
 	var url = '/HomeWorkWeb/student/studentOneWorkDetail';
 	
 	//发起请求
-	location.href = encodeURI(url + "?userName=" + userName + "&wno=" + wno);
+	window.open(encodeURI(url + "?userName=" + userName + "&wno=" + wno));
 }
 /*
  * function:页面加载完成调用
