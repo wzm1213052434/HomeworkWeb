@@ -251,12 +251,7 @@ a.studentGrid:hover {
 										<div style="width:25%;position:absolute;top:18px;">课程描述</div>
 										<div style="width:80%;position:absolute;left:70px;top:10px;">
 											<div class="list-group-item" style="height:200px;word-wrap: break-word;overflow:auto;">
-												<span>
-												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-												lalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalalala
-												</span>
+												<span>暂无课程介绍</span>
 											</div>
 										</div>
 									</div>
@@ -328,14 +323,14 @@ a.studentGrid:hover {
 			<div class="portlet light bordered">
 				<div class="portlet-title">
 					<div class="caption">
-						<span class="caption-subject font-red-sunglo bold">所选学生信息</span>
+						<span class="caption-subject font-red-sunglo bold">学生选课情况</span>
 						<span class="caption-helper">&nbsp;共</span>
 						<span id="studentAmount">0</span>
 						<span class="caption-helper">个学生</span>
 					</div>
 				</div>
 				<div class="portlet-body">
-					<table class="table">
+					<table class="table table-bordered">
 						<tbody>
 							<tr>
 								<td><div class="Gridborder"><a class="studentGrid">1213883121<br/>老五</a></div></td>

@@ -212,7 +212,7 @@
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
 										<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按课程名查询">
-										<button class="form-control input-inline" onclick="findCourse('请输入课程名');">查询</button>
+										<button class="form-control input-inline" onclick="findInform('请输入课程名');">查询</button>
 										<button class="form-control input-inline" onclick="location.href='admin/lookCourse';">显示所有</button>
 									</div>
 								</div>
@@ -240,7 +240,7 @@
 							</div>
 							<div class="row" id="pages">
 								<div class="col-md-4 col-sm-5 pull-right">
-									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+									<div class="dataTables_paginate paging_bootstrap_full_number">
 										<ul class="pagination">
 											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
 											<li id="pageList"></li>

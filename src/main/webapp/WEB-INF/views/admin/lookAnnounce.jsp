@@ -216,23 +216,24 @@
 							<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>公告信息总览</div>
 							<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
 								<a href="javascript:;" class="collapse" title="折叠"></a>
-								<a href="javascript:;" class="reload" title="刷新"></a>
 							</div>
 						</div>
 						<div class="portlet-body">
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
 									<div id="sample_editable_1_filter" class="dataTables_filter">
-										<form>
-											<input type="search" class="form-control input-big input-inline" placeholder="按公告号查询" aria-controls="sample_editable_1">
-											<button type="submit" class="form-control input-inline">查询</button>
-										</form>
+										<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按课程号查询">
+										<button class="form-control input-inline" onclick="findInform('请输入课程号');">查询</button>
+										<button class="form-control input-inline" onclick="location.href='admin/lookAnnounce';">显示所有</button>
 									</div>
 								</div>
 							</div>
 							<div class="table-scrollable">
 								<table class="table table-striped table-hover">
 									<thead>
+										<tr id="displayMessage" style="display:none;">
+											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
+										</tr>
 										<tr>
 											<th style="width:15%;">公告号</th>
 											<th style="width:15%;">课程号</th>
@@ -242,33 +243,17 @@
 											<th style="width:5%;">操作</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td>123456789</td>
-											<td>123456789</td>
-											<td>123456789</td>
-											<td>今天不上课今天不上课今天必胜客今天不上课今天不上课今天必胜客</td>
-											<td>20**1219</td>
-											<td><a class="edit" href="javascript:;">删除</a></td>
-										</tr>
-									</tbody>
+									<tbody id="contentList"></tbody>
 								</table>
 							</div>
-							<div class="row">
+							<div class="row" id="pages">
 								<div class="col-md-4 col-sm-5 pull-right">
-									<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+									<div class="dataTables_paginate paging_bootstrap_full_number">
 										<ul class="pagination">
-											<li class="prev disabled">
-												<a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
-											</li>
-											<li><a href="#">first</a></li>
-											<li class="active"><a>---</a></li>
-											<li class="active"><a>now</a></li>
-											<li class="active"><a>---</a></li>
-											<li><a href="#">last</a></li>
-											<li class="next">
-												<a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-											</li>
+											<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+											<li id="pageList"></li>
+											<li id="pageURL" style="display:none;" name="cno">admin/lookAnnounce</li>
+											<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 										</ul>
 									</div>
 								</div>
@@ -278,7 +263,6 @@
 				</div>
 			</div>
 			<!-- 显示表格部分-结束-->
-			
 		</div>
 	</div>
 </div>
@@ -329,20 +313,75 @@
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageLook/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
+<!-- 获取内容  开始 -->
+<script>
+var Page = 1;      /* 搜索信息所用初始页号  */
+var Rows = 10;     /* 搜索信息所用每页条数  */
+var TheName = '';  /* 搜索信息所用课程号     */
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
+
+function changePar(){  /* 更改页面原始参数函数  */
+	var id1 = GetPar("page");
+	var id2 = GetPar("cno");
+	if(id1 != null){
+		var nowpage = parseInt(id1);
+		Page = nowpage;
+		now = Page;
+	}
+	if(id2 != null){
+		TheName = id2;
+	}
+}
+var ajaxForMsg = function (p,r,c) {
+    $.ajax({
+        url:'/HomeWorkWeb/admin/lookAnnounceMsg',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            page:p,
+            rows:r,
+            cno:c
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	dataFirstToLast(data.message,p,r);
+	       	dataList(data.data);
+        }
+    })
+}
+function dataList(info){  /* 将信息写到列表中  */
+	var cList = $('#contentList');
+	for(var j=0;j<info.length;j++){
+		var newNode=$('<tr><td>'+info[j].ano+'</td><td>'+info[j].cno+'</td><td>'+info[j].aname+'</td><td>'+info[j].desc+'</td><td>'+info[j].occurtime+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+		cList.append(newNode);
+	}
+}
+</script>
+<!-- 获取内容  结束 -->
 <script>
 jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-   Index.init();   
-   Index.initDashboardDaterange();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Tasks.initDashboardWidget();
+    Metronic.init(); // init metronic core componets
+    Layout.init(); // init layout
+    QuickSidebar.init(); // init quick sidebar
+    Demo.init(); // init demo features
+    Index.init();   
+    Index.initDashboardDaterange();
+    Index.initJQVMAP(); // init index page's custom scripts
+    Index.initCalendar(); // init index page's custom scripts
+    Index.initCharts(); // init index page's custom scripts
+    Index.initChat();
+    Index.initMiniCharts();
+    Tasks.initDashboardWidget();
+	changePar();
+	ajaxForMsg(Page,Rows,TheName);
 });
 </script>
 </body>
