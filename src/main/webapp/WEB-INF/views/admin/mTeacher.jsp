@@ -6,8 +6,7 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%> 
-<%User user=(User)request.getSession().getAttribute("user");%>
+%>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -205,9 +204,7 @@
 					<li>教师管理</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				教师管理 <small>查看所有教师用户的信息</small>
-			</h3>
+			<h3 class="page-title">教师管理 <small>查看所有教师用户的信息</small></h3>
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
@@ -219,48 +216,31 @@
 				</div>
 				<div class="portlet-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div id="sample_editable_1_filter" class="dataTables_filter">
-								<form>
-									<input type="search" class="form-control input-big input-inline" placeholder="按教师工号查询" aria-controls="sample_editable_1">
-									<button type="submit" class="form-control input-inline">查询</button>
-								</form>
+						<div class="col-md-6 col-sm-6">
+							<div class="dataTables_filter">
+								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按学号查询">
+								<button class="form-control input-inline" onclick=";">查询</button>
+								<button class="form-control input-inline" onclick="location.href='admin/mTeacher';">显示所有</button>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">	
 							<div class="pull-right">
-								<a class="edit" data-toggle="modal" href="#large2">
-									<button class="form-control input-inline">增加教师</button>
-								</a>
+								<a class="edit" data-toggle="modal" href="#large2"><button class="form-control input-inline">增加教师</button></a>
 							</div>
 						</div>
 					</div>
 					<div id="able_1_wrapper" class="dataTables_wrapper no-footer">
 						<div class="table-scrollable">
-							<table class="table table-striped table-hover table-bordered dataTable no-footer" id="able_1" style="text-align:center;">
+							<table class="table table-striped table-hover table-bordered text-center" id="able_1">
 								<thead>
 									<tr role="row">
-										<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-											 
-										</th>
-										<th class="sorting" tabindex="1" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-									 		教师工号
-										</th>
-										<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-											姓名
-										</th>
-										<th class="sorting" tabindex="2" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				所属学院
-										</th>
-										<th class="sorting" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-											账号密码
-										</th>
-										<th class="sorting" tabindex="3" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				使用状态
-										</th>
-										<th class="sorting" tabindex="4" aria-controls="sample_editable_1" rowspan="1" colspan="3" style="text-align:center;">
-							 				可用操作
-										</th>
+										<th class="text-center" tabindex="0" rowspan="1" colspan="1"></th>
+										<th class="text-center" tabindex="1" rowspan="1" colspan="1">教师工号</th>
+										<th class="text-center" tabindex="0" rowspan="1" colspan="1">姓名</th>
+										<th class="text-center" tabindex="2" rowspan="1" colspan="1">所属学院</th>
+										<th class="text-center" tabindex="0" rowspan="1" colspan="1">账号密码</th>
+										<th class="text-center" tabindex="3" rowspan="1" colspan="1">使用状态</th>
+										<th class="text-center" tabindex="4" rowspan="1" colspan="3">可用操作</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -278,21 +258,14 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="row">
+						<div class="row" id="pages">
 							<div class="col-md-4 col-sm-5 pull-right">
-								<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+								<div class="dataTables_paginate paging_bootstrap_full_number">
 									<ul class="pagination">
-										<li class="prev disabled">
-											<a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
-										</li>
-										<li><a href="#">first</a></li>
-										<li class="active"><a>---</a></li>
-										<li class="active"><a>now</a></li>
-										<li class="active"><a>---</a></li>
-										<li><a href="#">last</a></li>
-										<li class="next">
-											<a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-										</li>
+										<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+										<li id="pageList"></li>
+										<li id="pageURL" style="display:none;" name="tno">admin/mTeacher</li>
+										<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -343,7 +316,7 @@
             	</div>
             </div>
             <!-- 修改信息模态框1  结束-->
-            <!-- 修改信息模态框2   开始-->
+            <!-- 修改信息模态框2  开始-->
             <div id="large" class="modal fade" tabindex="-1" data-width="850">
             	<div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
