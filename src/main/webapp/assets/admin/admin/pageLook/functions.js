@@ -83,7 +83,7 @@ function jumpNextPage(){  /* 跳转到下一页  */
 	}	
 }
 
-function findCourse(message){   /* 按输入模糊查询课程信息  */
+function findInform(message){   /* 按输入模糊查询信息  */
 	var obj = document.getElementById("pageURL");
 	var url = obj.innerHTML;
 	var name = obj.getAttribute("name");
