@@ -37,6 +37,8 @@
 <link href="assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
 <link href="assets/admin/layout/css/themes/darkblue.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="images/favicon.ico"/>
 </head>
@@ -213,7 +215,7 @@
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div id="able_1_wrapper" class="dataTables_wrapper no-footer">
+					<div  class="dataTables_wrapper no-footer">
 						<div class="table-scrollable">
 							<table class="table table-striped table-hover table-bordered dataTable no-footer" id="able_1" style="text-align:center;">
 								<thead>
@@ -243,33 +245,30 @@
 				</div>
 			</div>
 			<!-- 信息表格  结束 -->
-			<!-- 修改信息模态框  开始-->
-            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+			<!-- 修改信息模态框   开始-->
+            <div id="large" class="modal fade" tabindex="-1" data-width="850">
+            	<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h3 class="modal-title"><i class="fa fa-gift"></i>修改密码</h3>
+                </div>
             	<div class="modal-body">
-            		<div class="portlet box blue">
-						<div class="portlet-title">
-							<div class="caption" style="margin:10px 0;">
-								<i class="fa fa-gift"></i>修改密码
-							</div>
+            		<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-1 col-md-1 control-label">密码</label>
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+				            </div>
 						</div>
-						<div class="portlet-body form">
-							<form role="form">
-								<div class="form-body">
-									<div class="form-group">
-										<label>密码</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-								</div>
-								<div class="form-actions right">
-									<button type="button" class="btn default">Cancel</button>
-									<button type="submit" class="btn green">Submit</button>
-								</div>
-							</form>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11">
+								<button type="button" data-dismiss="modal" class="btn default">取消</button>
+								<button type="submit" class="btn green">提交</button>
+				            </div>
 						</div>
-					</div>
+					</form>
             	</div>
             </div>
-            <!-- 修改信息模态框  结束-->
+            <!-- 修改信息模态框   结束-->
 		</div>
 	</div>
 </div>
@@ -319,21 +318,25 @@
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
-jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-   Index.init();   
-   Index.initDashboardDaterange();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Tasks.initDashboardWidget();
+jQuery(document).ready(function() {     
+	Metronic.init(); // init metronic core componets
+	Layout.init(); // init layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	UIExtendedModals.init();//模态框函数
+	Index.init();   
+	Index.initJQVMAP(); // init index page's custom scripts
+	Index.initCalendar(); // init index page's custom scripts
+	Index.initCharts(); // init index page's custom scripts
+	Index.initDashboardDaterange();
+	Index.initChat();
+	Index.initMiniCharts();
+	Tasks.initDashboardWidget();
 });
 </script>
 </body>

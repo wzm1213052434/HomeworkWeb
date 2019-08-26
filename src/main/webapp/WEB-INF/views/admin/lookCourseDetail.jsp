@@ -331,7 +331,13 @@ a.studentGrid:hover {
 				</div>
 				<div class="portlet-body">
 					<table class="table table-bordered">
-						<tbody>
+						<thead>
+							<tr id="displayMessage" style="display:none;">
+								<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
+							</tr>
+							<tr id="displayContent"></tr>
+						</thead>
+						<tbody id="contentList">
 							<tr>
 								<td><div class="Gridborder"><a class="studentGrid">1213883121<br/>老五</a></div></td>
 								<td><div class="Gridborder"><a class="studentGrid">1213883122<br/>裤比勒</a></div></td>
@@ -351,13 +357,17 @@ a.studentGrid:hover {
 					</table>
 						
 				</div>
-				<div class="portlet-title">
-					<ul class="pagination">
-						<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
-						<li id="pageList"></li>
-						<li id="pageURL" style="display:none;" name="cno">admin/lookCourseDetail</li>
-						<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
-					</ul>
+				<div class="row" id="pages">
+					<div class="col-md-4 col-sm-5 pull-right">
+						<div class="dataTables_paginate paging_bootstrap_full_number">
+							<ul class="pagination">
+								<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+								<li id="pageList"></li>
+								<li id="pageURL" style="display:none;" name="cno">admin/lookCourseDetail</li>
+								<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- 显示所有学生  结束 -->
@@ -416,7 +426,7 @@ a.studentGrid:hover {
 <!-- 获取内容  开始 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 10;      /* 搜索信息所用每页条数  */
+var Rows = 30;      /* 搜索信息所用每页条数  */
 var TheName = '';  /* 搜索信息所用课程名     */
 var total = 1;  /* 记录总页数  */
 var now = 1;    /* 记录当前页  */
@@ -437,14 +447,15 @@ function changePar(){  /* 更改页面原始参数的函数  */
 }
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
-        url:'/HomeWorkWeb/admin/lookCourseMsg',
+        url:'/HomeWorkWeb/student/getByCno',
         type:'GET',
         async:false,
         traditional : true,
         data:{
             page:p,
             rows:r,
-            cname:c
+            cno:c,
+            isPage:true
         },
         dataType : 'JSON',
         beforeSend: function () {
@@ -484,7 +495,7 @@ jQuery(document).ready(function() {
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
 	changePar();
-	//ajaxForMsg(Page,Rows,Cname);
+	ajaxForMsg(Page,Rows,TheName);
 });
 </script>
 </body>

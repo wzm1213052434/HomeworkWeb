@@ -7,7 +7,6 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %> 
-<%User user=(User)request.getSession().getAttribute("user");%>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -22,6 +21,8 @@
 <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
 <link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
@@ -203,9 +204,7 @@
 					<li>管理员管理</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				管理员管理 <small>查看所有管理员用户的信息</small>
-			</h3>
+			<h3 class="page-title">管理员管理 <small>查看所有管理员用户的信息</small></h3>
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
@@ -213,17 +212,15 @@
 					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>管理员用户信息</div>
 					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
 						<a href="javascript:;" class="collapse" title="折叠"></a>
-						<a href="javascript:;" class="reload" title="刷新"></a>
 					</div>
 				</div>
 				<div class="portlet-body">
 					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div id="sample_editable_1_filter" class="dataTables_filter">
-								<form>
-									<input type="search" class="form-control input-big input-inline" placeholder="按账号查询" aria-controls="sample_editable_1">
-									<button type="submit" class="form-control input-inline">查询</button>
-								</form>
+						<div class="col-md-6 col-sm-6">
+							<div class="dataTables_filter">
+								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按账号查询">
+								<button class="form-control input-inline" onclick=";">查询</button>
+								<button class="form-control input-inline" onclick="location.href='admin/mAdmin';">显示所有</button>
 							</div>
 						</div>
 						<div class="col-md-6 col-sm-6">	
@@ -234,36 +231,22 @@
 					</div>
 					<div id="able_1_wrapper" class="dataTables_wrapper no-footer">
 						<div class="table-scrollable">
-							<table class="table table-striped table-hover table-bordered dataTable no-footer" id="able_1" style="text-align:center;">
+							<table class="table table-striped table-hover table-bordered text-center" id="able_1">
 								<thead>
 									<tr role="row">
-										<th class="sorting_asc" tabindex="0" aria-controls="sample_editable_1" rowspan="1" colspan="1">
-											 
-										</th>
-										<th class="sorting" tabindex="1" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-									 		账号
-										</th>
-										<th class="sorting" tabindex="2" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				密码
-										</th>
-										<th class="sorting" tabindex="3" aria-controls="sample_editable_1" rowspan="1" colspan="1" style="text-align:center;">
-							 				使用状态
-										</th>
-										<th class="sorting" tabindex="4" aria-controls="sample_editable_1" rowspan="1" colspan="3" style="text-align:center;">
-							 				可用操作
-										</th>
+										<th class="text-center" tabindex="0" rowspan="1" colspan="1"></th>
+										<th class="text-center" tabindex="1" rowspan="1" colspan="1">账号</th>
+										<th class="text-center" tabindex="2" rowspan="1" colspan="1">密码</th>
+										<th class="text-center" tabindex="3" rowspan="1" colspan="1">使用状态</th>
+										<th class="text-center" tabindex="4" rowspan="1" colspan="3">可用操作</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr role="row" class="odd">
-										<td class="sorting_1">1</td>
-										<td class="sorting_1">admin</td>
+										<td>1</td>
+										<td>admin</td>
 										<td>123456</td>
-										<td>
-											<span class="label label-sm label-success">
-												 正常
-											</span>
-										</td>
+										<td><span class="label label-sm label-success">正常</span></td>
 										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
@@ -272,11 +255,7 @@
 										<td class="sorting_1">2</td>
 										<td class="sorting_1">admin2</td>
 										<td>456789</td>
-										<td>
-											<span class="label label-sm label-danger">
-												冻结
-											</span>
-										</td>
+										<td><span class="label label-sm label-danger">冻结</span></td>
 										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
@@ -284,21 +263,14 @@
 								</tbody>
 							</table>
 						</div>
-						<div class="row">
+						<div class="row" id="pages">
 							<div class="col-md-4 col-sm-5 pull-right">
-								<div class="dataTables_paginate paging_bootstrap_full_number" id="sample_1_paginate">
+								<div class="dataTables_paginate paging_bootstrap_full_number">
 									<ul class="pagination">
-										<li class="prev disabled">
-											<a href="#" title="Prev"><i class="fa fa-angle-left"></i></a>
-										</li>
-										<li><a href="#">first</a></li>
-										<li class="active"><a>---</a></li>
-										<li class="active"><a>now</a></li>
-										<li class="active"><a>---</a></li>
-										<li><a href="#">last</a></li>
-										<li class="next">
-											<a href="#" title="Next"><i class="fa fa-angle-right"></i></a>
-										</li>
+										<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+										<li id="pageList"></li>
+										<li id="pageURL" style="display:none;" name="username">admin/mAdmin</li>
+										<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -308,60 +280,62 @@
 			</div>
 			<!-- 信息表格  结束 -->	
 			<!-- 修改信息模态框1   开始-->
-            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+            <div id="large" class="modal fade" tabindex="-1" data-focus-on="input:first" data-width="850">
+            	<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h3 class="modal-title"><i class="fa fa-gift"></i>增加管理员</h3>
+                </div>
             	<div class="modal-body">
-            		<div class="portlet box blue">
-						<div class="portlet-title">
-							<div class="caption" style="margin:10px 0;">
-								<i class="fa fa-gift"></i>增加管理员
-							</div>
+            		<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-1 col-md-1 control-label">账号</label>
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control mandatory" placeholder="input-sm">
+				            </div>
 						</div>
-						<div class="portlet-body form">
-							<form role="form">
-								<div class="form-body">
-									<div class="form-group">
-										<label>账号</label>
-										<input type="text" class="form-control input-sm mandatory" placeholder="input-sm">
-									</div>
-									<div class="form-group">
-										<label>密码</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-								</div>
-								<div class="form-actions right">
-									<button type="button" class="btn default">Cancel</button>
-									<button type="submit" class="btn green">Submit</button>
-								</div>
-							</form>
+						<div class="form-group">
+							<label class="col-sm-1 col-md-1 control-label">密码</label>
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control" placeholder="input-sm">
+				            </div>
 						</div>
-					</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11">
+								<button type="button" data-dismiss="modal" class="btn default">取消</button>
+								<button type="submit" class="btn green">提交</button>
+				            </div>
+						</div>
+					</form>
             	</div>
             </div>
             <!-- 修改信息模态框1  结束-->	
-            <!-- 修改信息模态框2  开始-->
-            <div id="large2" class="modal fade" tabindex="-1" data-focus-on="input:first" style="left:35%;width:400px;">
+            <!-- 修改信息模态框2 开始-->
+            <div id="large2" class="modal fade" tabindex="-1" data-focus-on="input:first" data-width="850">
+            	<div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h3 class="modal-title"><i class="fa fa-gift"></i>修改密码</h3>
+                </div>
             	<div class="modal-body">
-            		<div class="portlet box blue">
-						<div class="portlet-title">
-							<div class="caption" style="margin:10px 0;">
-								<i class="fa fa-gift"></i>修改密码
-							</div>
+            		<form role="form" class="form-horizontal">
+						<div class="form-group">
+							<label class="col-sm-1 col-md-1 control-label">账号</label>
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control" placeholder="input-sm">
+				            </div>
 						</div>
-						<div class="portlet-body form">
-							<form role="form">
-								<div class="form-body">
-									<div class="form-group">
-										<label>密码</label>
-										<input type="text" class="form-control input-sm" placeholder="input-sm">
-									</div>
-								</div>
-								<div class="form-actions right">
-									<button type="button" class="btn default">Cancel</button>
-									<button type="submit" class="btn green">Submit</button>
-								</div>
-							</form>
+						<div class="form-group">
+							<label class="col-sm-1 col-md-1 control-label">密码</label>
+							<div class="col-sm-11 col-md-11">
+								<input type="text" class="form-control" placeholder="input-sm">
+				            </div>
 						</div>
-					</div>
+						<div class="form-group">
+							<div class="col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11">
+								<button type="button" data-dismiss="modal" class="btn default">取消</button>
+								<button type="submit" class="btn green">提交</button>
+				            </div>
+						</div>
+					</form>
             	</div>
             </div>
             <!-- 修改信息模态框2  结束-->	
@@ -410,26 +384,27 @@
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
 <script src="assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/index.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
 jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   QuickSidebar.init(); // init quick sidebar
-Demo.init(); // init demo features
-   Index.init();   
-   Index.initDashboardDaterange();
-   Index.initJQVMAP(); // init index page's custom scripts
-   Index.initCalendar(); // init index page's custom scripts
-   Index.initCharts(); // init index page's custom scripts
-   Index.initChat();
-   Index.initMiniCharts();
-   Tasks.initDashboardWidget();
+	Metronic.init(); // init metronic core componets
+	Layout.init(); // init layout
+	QuickSidebar.init(); // init quick sidebar
+	Demo.init(); // init demo features
+	UIExtendedModals.init();//模态框函数
+	Index.init();   
+	Index.initDashboardDaterange();
+	Index.initChat();
+	Index.initMiniCharts();
+	Tasks.initDashboardWidget();
 });
 </script>
 </body>
