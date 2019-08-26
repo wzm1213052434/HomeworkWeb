@@ -283,18 +283,9 @@
     <!-- END PAGE LEVEL SCRIPTS -->
     <script>
 
-        let datas = [];
-        let mediaHref = "";
         let getPdf = () => {
-        	$.ajax({
-                url:"/HomeWorkWeb/teacher/readOfficeOnline?fileName=0000123456-Python1.pdf",
-                type: "GET",
-                data:{},
-                success:function(res) {
-                	$('.media').attr("href",res);
-                    $('.media').media({ width: "100%", height: 600 });
-                }
-            })
+        	$('.media').attr("href","HomeWorkWeb/student/work/0000123456-Python1.pdf");
+            $('.media').media({ width: "100%", height: 600 });
         }
         
         let getStudentInfo = () => {

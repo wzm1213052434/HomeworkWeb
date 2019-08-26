@@ -85,7 +85,7 @@ public class WorkServiceImpl implements WorkService{
 	/**
      * function:获得学生所选作业概况
      * @param 学生账号
-     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布
+     * @return 作业号 作业名 所属课程名 开课老师 起始时间 截止时间 剩余提交次数 是否批改 评分 是否公布 提交作业文件名
      */
 	public ResponseBean getWorkSurvey(String username) {
 		if (StringUtils.isEmpty(username)) {

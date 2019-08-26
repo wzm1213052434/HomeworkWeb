@@ -31,7 +31,7 @@
 	
 	<!-- 获得学生所选作业概况 -->
 	<select id="getWorkSurvey" parameterType="String" resultType="java.util.Map">
-		select sw.wno '作业号',w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',w.start_time '起始时间',w.end_time '截止时间',sw.times '剩余提交次数',sw.iscorrect '是否批改',sw.score '评分',sw.ispublish '是否公布'
+		select sw.wno '作业号',w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',w.start_time '起始时间',w.end_time '截止时间',sw.times '剩余提交次数',sw.iscorrect '是否批改',sw.score '评分',sw.ispublish '是否公布',sw.studentworkname '提交作业文件名'
 		from db_course c,db_teacher t,db_work w,db_studwork sw
 		where sw.sno = #{username} and sw.wno = w.wno and w.cno = c.cno and c.tno = t.tno
 		order by sw.times desc;
@@ -55,28 +55,28 @@
 	<update id="updateStudentWork" parameterType="java.util.Map">
 		update db_studwork sw
 		<set>
-			<if test="studentWorkName != null">
+			<if test="studentWorkName!=null and studentWorkName!=''">
 				sw.studentworkname = #{studentWorkName},
 			</if>
-			<if test="subTime != null">
+			<if test="subTime!=null and subTime!=''">
 				sw.subtime = #{subTime},
 			</if>
-			<if test="times != null">
+			<if test="times!=null and times!=''">
 				sw.times = #{times},
 			</if>
-			<if test="isCorrect != null">
+			<if test="isCorrect!=null and isCorrect!=''">
 				sw.iscorrect = #{isCorrect},
 			</if>
-			<if test="comment != null">
+			<if test="comment!=null and comment!=''">
 				sw.comment = #{comment},
 			</if>
-			<if test="score != null">
+			<if test="score!=null and score!=''">
 				sw.score = #{score},
 			</if>
-			<if test="updateTime != null">
+			<if test="updateTime!=null and updateTime!=''">
 				sw.updatetime = #{updateTime},
 			</if>
-			<if test="isPublish != null">
+			<if test="isPublish!=null and isPublish!=''">
 				sw.ispublish = #{isPublish},
 			</if>
 		</set>

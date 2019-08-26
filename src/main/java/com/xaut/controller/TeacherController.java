@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.xaut.service.TeacherService;
+import com.xaut.util.CommonString;
 import com.xaut.util.FileUtil;
 import com.xaut.util.ResponseBean;
 
@@ -62,7 +61,7 @@ public class TeacherController {
 	        String originalFilename = file.getOriginalFilename();
 	        
 	        //2.设置文件保存的逻辑路径	和	新文件名
-	        String dirPath = "E:\\HomeWorkWeb\\teacher\\excel";
+	        String dirPath = CommonString.TEACHERCOURSEPATH;
 	        String newFileName = originalFilename;
 	        
 	        //3.文件上传

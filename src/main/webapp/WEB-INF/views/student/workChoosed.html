@@ -161,13 +161,21 @@ function showSubmitWorkList(){
 		        		} else if(response.data[i].是否公布 == 1){
 		        			course_tr += '<td><a href="javascript:;" class="primary-link">取消公布</a></td>';
 		        		}
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">在线查看</a></td></tr>';
+		        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
 	        		}
 	        	}
 	        	$("#workList").html(course_tr);
 	        }
 		})
 };
+
+/**
+ * function:点击在线查看作业
+ */
+function lookOnline(fileName){
+	var url = '/HomeWorkWeb/student/lookStudentWorkOnline';
+	window.open(encodeURI(url + "?fileName=" + fileName));
+}
 
 /**
  * function:查看学生此作业详情
@@ -179,6 +187,7 @@ function workDetail(wno){
 	//发起请求
 	window.open(encodeURI(url + "?userName=" + userName + "&wno=" + wno));
 }
+
 /*
  * function:页面加载完成调用
  */

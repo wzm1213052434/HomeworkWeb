@@ -56,59 +56,63 @@
 </head>
 <!-- 结束head -->
 <!-- 开始body -->
-<body>
+<body style="background-color:white">
 <!-- 开始导航栏中间可变内容 -->
-<div class="portlet box green">
-	<div class="portlet-title">
-		<div id="title" class="caption">
-			<i class="fa fa-gift"></i>
-			<!-- 此处由JS填写 -->
-		</div>
-	</div>
-	<div class="portlet-body form">
-		<!-- BEGIN FORM-->
-		<form action="javascript:;" class="form-horizontal" role="form">
-			<div class="form-body">
-				<h3 class="form-section">作业信息</h3>
-				<div id="message">
-					<!-- 此处由JS展示 -->
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+		<div class="portlet box green">
+			<div class="portlet-title">
+				<div id="title" class="caption">
+					<i class="fa fa-gift"></i>
+					<!-- 此处由JS填写 -->
 				</div>
-				<h3 class="form-section">提交作业</h3>
-				<div id="operate">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label class="control-label col-md-3">选择作业(pdf)：</label>
+			</div>
+			<div class="portlet-body form">
+				<!-- BEGIN FORM-->
+				<form action="javascript:;" class="form-horizontal" role="form">
+					<div class="form-body">
+						<h3 class="form-section">作业信息</h3>
+						<div id="message">
+							<!-- 此处由JS展示 -->
+						</div>
+						<h3 class="form-section">提交作业</h3>
+						<div id="operate">
+							<div class="row">
 								<div class="col-md-6">
-									<span class="btn green fileinput-button">
-										<i class="fa fa-plus"></i>
-										<span>添加文件...</span>
-										<input id="file" type="file" accept=".pdf">
-									</span>
-									<div class="showFileName"></div>
-									<div class="fileerrorTip"></div>
+									<div class="form-group">
+										<label class="control-label col-md-3">选择作业(pdf)：</label>
+										<div class="col-md-6">
+											<span class="btn green fileinput-button">
+												<i class="fa fa-plus"></i>
+												<span>添加文件...</span>
+												<input id="file" type="file" accept=".pdf">
+											</span>
+											<div class="showFileName"></div>
+											<div class="fileerrorTip"></div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="form-actions">
-				<div class="row">
-					<div class="col-md-6">
+					<div class="form-actions">
 						<div class="row">
-							<div class="col-md-offset-3 col-md-9">
-								<button id="submit" type="submit" class="btn green" onclick="fileUpload()">提交</button>
-								<button type="reset" class="btn default" onclick="Undo()">取消</button>
+							<div class="col-md-6">
+								<div class="row">
+									<div class="col-md-offset-3 col-md-9">
+										<button id="submit" type="submit" class="btn green" onclick="fileUpload()">提交</button>
+										<button type="reset" class="btn default" onclick="Undo()">取消</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
-					</div>
-				</div>
+				</form>
+				<!-- END FORM-->
 			</div>
-		</form>
-		<!-- END FORM-->
+		</div>
 	</div>
 </div>
 <!-- 结束导航栏中间可变内容 -->

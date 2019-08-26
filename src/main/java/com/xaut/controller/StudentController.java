@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.xaut.service.StudentService;
+import com.xaut.util.CommonString;
 import com.xaut.util.FileUtil;
 import com.xaut.util.ResponseBean;
 
@@ -108,7 +109,7 @@ public class StudentController {
 	        String originalFilename = file.getOriginalFilename();
 	        
 	        //2.设置文件保存的逻辑路径	和	新文件名
-	        String dirPath = "E:\\HomeWorkWeb\\student\\work";
+	        String dirPath = CommonString.STUDENTHOMEWORKPATH;
 	        String newFileName = originalFilename;
 	        
 	        //3.删除上一次提交的作业文件(文件重名会自动进行覆盖)

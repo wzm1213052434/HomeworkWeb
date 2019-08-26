@@ -2,7 +2,25 @@
 <html lang="en" class="no-js">
 <!-- 开始head -->
 <head>
-<base href="http://localhost:8080/HomeWorkWeb/">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" defer="defer">
+	function addBasePath(){
+		//1.得到项目根路径：http://localhost:8080/myproject/
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		var localhostPaht = curWwwPath.substring(0,pos);
+		var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+		var realPath = localhostPaht + projectName;
+		var basePath = realPath + '/';
+		console.log(basePath);
+		
+		//2.添加根路径到html的base标签中
+		var $base = '<base href="' + basePath + '">';
+		$('head').prepend($base); //在头部添加
+	}
+	addBasePath();
+</script>
 <meta charset="utf-8"/>
 <title>在线查看学生作业</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,18 +56,28 @@
 </head>
 <!-- 结束head -->
 <!-- 开始body -->
-<body>
-<div class="panel panel-primary">
-	<div class="panel-heading" align="center">
-		预览pdf文件
-	</div>
-	<div class="panel-body">
-		<a id="media" class="media" href=""></a> 
+<body style="background-color:white">
+<!-- 开始导航栏中间可变内容 -->
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+		<!-- BEGIN PORTLET-->
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-cogs"></i>
+					在线查看作业
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="table-responsive">
+					<a class="media" href=""></a>
+				</div>
+			</div>
+		</div>
+		<!-- END PORTLET-->
 	</div>
 </div>
-
-
-
+<!-- 结束导航栏中间可变内容 -->
 
 <!-- 9999.最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -67,7 +95,6 @@
 <!-- 开始页级插件 -->
 <script src="assets/admin/pages/scripts/jquery.media.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -89,12 +116,33 @@
 <!-- 结束页级脚本 -->
 <!-- 开始自定义JS -->
 <script type="text/javascript">
+/**
+ * function:前端页面获取前端页面传来的参数
+ */
+function GetPar(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null)
+		return decodeURIComponent(r[2]);
+	return null;
+};
+
+/**
+ * function:展示作业pdf
+ */
+function showHomework(){
+	var dirPath = 'HomeWorkWeb/student/work/';
+	var fileName = GetPar('fileName');
+	
+	$('.media').attr('href',dirPath + fileName);
+	$('.media').media({width:"100%", height:700});
+};
+
 /*
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	$('.media').attr('href','HomeWorkWeb/student/work/0000123456-Python1.pdf');
-	$('.media').media({width:800, height:600});
+	showHomework(); //展示作业pdf
 });
 </script>
 </body>
