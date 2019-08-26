@@ -97,7 +97,7 @@ function showCollegeCourseList(){
 	        		course_tr += '<td>' + response.data[i].开课学期 + '</td>';
 	        		course_tr += '<td>' + response.data[i].开课学年 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].老师学院 + '</a></td></tr>';
+	        		course_tr += '<td>' + response.data[i].老师学院 + '</td></tr>';
 	        	}
 	        	$("#ourCollegeCourseList").html(course_tr);
 	        }
