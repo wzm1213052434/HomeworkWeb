@@ -55,4 +55,13 @@
 		from db_course c,db_teacher t,db_student s
 		where s.sno = #{username} and s.company = t.company and c.tno = t.tno;
 	</select>
+	
+	<!-- 课程的详细信息 -->
+	<select id="getCourseDetail" parameterType="String" resultType="java.util.Map">
+		select c.*,t.*
+		,(select count(*) from db_studcour sc where c.cno = sc.cno) '选课人数'
+		,(select count(*) from db_work w where c.cno = w.cno) '布置作业数'
+		from db_course c,db_teacher t
+		where c.cno = #{cno} and c.tno = t.tno;
+	</select>
 </mapper>

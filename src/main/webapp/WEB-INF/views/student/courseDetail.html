@@ -22,7 +22,7 @@
 	addBasePath();
 </script>
 <meta charset="utf-8"/>
-<title>在线查看学生作业</title>
+<title>教师课程详细信息</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- 0.最先：引入CSS -->
@@ -56,25 +56,92 @@
 </head>
 <!-- 结束head -->
 <!-- 开始body -->
-<body style="background-color:white">
+<body class="page-container-bg-solid">
 <!-- 开始导航栏中间可变内容 -->
 <div class="row">
 	<div class="col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2">
-		<!-- BEGIN PORTLET-->
-		<div class="portlet box blue">
+		<!-- 1..开始课程基本信息 -->
+		<div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-cogs"></i>
-					在线查看作业
+					<i class="fa fa-picture"></i>
+					<span class="caption-subject font-red-sunglo bold">课程基本信息</span>
 				</div>
 			</div>
 			<div class="portlet-body">
-				<div class="table-responsive">
-					<a class="media" href=""></a>
+				<div class="list-group">
+					<div class="row">
+						<!-- 开始左部信息 -->
+						<div class="col-md-6 col-sm-12">
+							<div class="portlet light bordered">
+								<div class="portlet-body">
+									<table id="basicLeftMessage" class="table table-bordered table-hover">
+										<!-- 此处由JS填写 -->
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 结束左部信息 -->
+						<!-- 开始右部信息 -->
+						<div class="col-md-6 col-sm-12">
+							<div class="portlet light bordered">
+								<div style="font-size:15px;margin-left:7px">课程描述</div>
+								<div class="portlet-body">
+									<table class="table table-bordered table-hover">
+										<tbody>
+											<tr><td>暂无课程描述</td></tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 结束右部信息 -->
+					</div>
 				</div>
 			</div>
 		</div>
-		<!-- END PORTLET-->
+		<!-- 1..结束课程基本信息 -->
+		<!-- 2..开始课程相关信息 -->
+		<div class="portlet light bordered">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-picture"></i>
+					<span class="caption-subject font-red-sunglo bold">课程相关信息</span>
+				</div>
+			</div>
+			<div class="portlet-body">
+				<div class="list-group">
+					<div class="row">
+						<!-- 开始左部信息 -->
+						<div class="col-md-6 col-sm-12">
+							<div class="portlet light bordered">
+								<div class="portlet-body">
+									<table id="relevantLeftMessage" class="table table-bordered table-hover">
+										<!-- 此处由JS填写 -->
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 结束左部信息 -->
+						<!-- 开始右部信息 -->
+						<div class="col-md-6 col-sm-12">
+							<div class="portlet light bordered">
+								<div style="font-size:15px;margin-left:7px">老师描述</div>
+								<div class="portlet-body">
+									<table class="table table-bordered table-hover">
+										<tbody>
+											<tr><td>暂无老师描述</td></tr>								
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 结束右部信息 -->
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 2..结束课程相关信息 -->
 	</div>
 </div>
 <!-- 结束导航栏中间可变内容 -->
@@ -93,8 +160,8 @@
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- 结束核心插件 -->
 <!-- 开始页级插件 -->
-<script src="assets/admin/pages/scripts/jquery.media.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -128,21 +195,51 @@ function GetPar(name) {
 };
 
 /**
- * function:展示作业pdf
+ * function:展示课程详细信息
  */
-function showHomework(){
-	var dirPath = 'HomeWorkWeb/student/work/';
-	var fileName = GetPar('fileName');
+function showCourseDetail(){
+	//1.获得参数
+	var cno = GetPar("cno");
 	
-	$('.media').attr('href',dirPath + fileName);
-	$('.media').media({width:"100%", height:700});
-};
+	//2.将数据写到页面
+	$.ajax({
+        url: '/HomeWorkWeb/course/getCourseDetail',
+        type: 'GET',
+        async: false,
+        data: {
+        	cno: cno
+        },
+        success: function (response) {
+        	//2.1 填写作业基本信息
+        	var basic_l_tr = '';
+        	basic_l_tr += '<tbody>';
+        	basic_l_tr += '<tr><td>课程名</td><td>' + response.data['cname'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>学年</td><td>' + response.data['year'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>学期</td><td>' + response.data['term'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>上课时间</td><td>' + response.data['time'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>上课地点</td><td>' + response.data['place'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>是否结课</td><td>' + response.data['isclassend'] + '</td></tr>';
+        	basic_l_tr += '</tbody>';
+        	$("#basicLeftMessage").html(basic_l_tr);
+        	
+        	//2.2 填写作业相关信息
+        	var relevant_l_tr = '';
+        	relevant_l_tr += '<tbody>';
+        	relevant_l_tr += '<tr><td>课程教师</td><td>' + response.data['tname'] + '</td></tr>';
+        	relevant_l_tr += '<tr><td>老师学院</td><td>' + response.data['company'] + '</td></tr>';
+        	relevant_l_tr += '<tr><td>选课人数</td><td>' + response.data['选课人数'] + '</td></tr>';
+        	relevant_l_tr += '<tr><td>布置作业数</td><td>' + response.data['布置作业数'] + '</td></tr>';
+        	relevant_l_tr += '</tbody>';
+        	$("#relevantLeftMessage").html(relevant_l_tr);
+        }
+	})
+}
 
 /*
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	showHomework(); //展示作业pdf
+	showCourseDetail(); //展示课程详细信息
 });
 </script>
 </body>

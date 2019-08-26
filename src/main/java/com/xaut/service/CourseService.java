@@ -25,4 +25,11 @@ public interface CourseService {
      * @return 课程名 开课学期 开课学年 开课老师 老师学院
      */
     ResponseBean getOurCollegeCourse(String username);
+    
+    /**
+     * function:课程的详细信息
+     * @param cno
+     * @return
+     */
+    ResponseBean getCourseDetail(String cno);
 }

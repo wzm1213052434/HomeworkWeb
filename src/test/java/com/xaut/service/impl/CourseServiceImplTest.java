@@ -66,4 +66,14 @@ public class CourseServiceImplTest {
 		String jsonString = JSON.toJSONString(bean); //将JSON对象	转化为	JSON字符串
 		System.out.println(handleJSON.print_JSON(jsonString)); //将JSON字符串格式化输出
     }
+    
+    /**
+     * 测试：
+     */
+    @Test
+     public void getCourseDetailTest() {
+    	ResponseBean bean = this.service.getCourseDetail("(2017-2018-2)-09191430-104496-3");
+ 		String jsonString = JSON.toJSONString(bean); //将JSON对象	转化为	JSON字符串
+ 		System.out.println(handleJSON.print_JSON(jsonString)); //将JSON字符串格式化输出
+     }
 }

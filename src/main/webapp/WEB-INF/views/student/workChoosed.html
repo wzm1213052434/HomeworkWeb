@@ -109,8 +109,8 @@ function showUnsubmitWorkList(){
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 == 3){ //尚未提交的作业
 	        			course_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">' + response.data[i].作业名 + '</a></td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
+	        			course_tr += '<td><a href="javascript:;" class="primary-link" onclick="courseDetail(\'' + response.data[i].所属课程号 + '\')">' + response.data[i].所属课程名 + '</a></td>';
+	        			course_tr += '<td><a href="javascript:;" class="primary-link" onclick="teacherDetail(\'' + response.data[i].开课老师号 + '\')">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + new Date(response.data[i].截止时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + response.data[i].剩余提交次数 + '</td>';
@@ -140,8 +140,8 @@ function showSubmitWorkList(){
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 != 3){ //已经提交的作业
 		        		course_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">' + response.data[i].作业名 + '</a></td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
+		        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="courseDetail(\'' + response.data[i].所属课程号 + '\')">' + response.data[i].所属课程名 + '</a></td>';
+		        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="teacherDetail(\'' + response.data[i].开课老师号 + '\')">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + new Date(response.data[i].截止时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + response.data[i].剩余提交次数 + '</td>';
@@ -213,10 +213,25 @@ function lookOnline(fileName){
  */
 function workDetail(wno){
 	var userName = sessionStorage.getItem('userName');
-	var url = '/HomeWorkWeb/student/studentOneWorkDetail';
+	var url = '/HomeWorkWeb/student/studentWorkDetail';
 	
 	//发起请求
 	window.open(encodeURI(url + "?userName=" + userName + "&wno=" + wno));
+}
+
+/**
+ * function:查看老师详细详情
+ */
+function teacherDetail(tno){
+	alert(tno);
+}
+
+/**
+ * function:查看课程详细详情
+ */
+function courseDetail(cno){
+	var url = '/HomeWorkWeb/student/courseDetail';
+	window.open(encodeURI(url + "?cno=" + cno));
 }
 
 /*

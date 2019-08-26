@@ -1,6 +1,7 @@
 package com.xaut.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -102,5 +103,28 @@ public class CourseServiceImpl implements CourseService {
 		}
 		
 		return new ResponseBean(true, list, "获得学生本院老师已开课程成功");
+    }
+    
+    /**
+     * function:课程的详细信息
+     * @param cno
+     * @return
+     */
+    public ResponseBean getCourseDetail(String cno) {
+    	if (StringUtils.isEmpty(cno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			map = this.courseMapper.getCourseDetail(cno);
+			if (map == null) {
+				return new ResponseBean(true, map, "没有该课程");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得课程的详细信息异常");
+		}
+		
+		return new ResponseBean(true, map, "获得课程的详细信息成功");
     }
 }

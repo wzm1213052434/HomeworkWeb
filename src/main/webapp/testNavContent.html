@@ -35,12 +35,49 @@
 <!-- 结束主题样式 -->
 </head>
 <body>
-<div class="panel panel-primary">
-	<div class="panel-heading" align="center">
-		预览pdf文件
+<div class="portlet box green">
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-picture"></i>
+			课程基本信息
+		</div>
 	</div>
-	<div class="panel-body">
-		<a id="media" class="media" href=""></a> 
+	<div class="portlet-body">
+		<div class="list-group">
+			<div class="row">
+				<!-- 开始左部信息 -->
+				<div class="col-md-6 col-sm-12">
+					<div class="portlet light bordered">
+						<div class="portlet-body">
+							<table class="table table-bordered table-hover">
+								<tbody>
+									<tr><td>课程号</td><td>***</td></tr>
+									<tr><td>课程名</td><td>***</td></tr>
+									<tr><td>课程教师</td><td>***</td></tr>
+									<tr><td>发布作业数</td><td>***</td></tr>
+									<tr><td>学生人数</td><td>***</td></tr>												
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 结束左部信息 -->
+				<!-- 开始右部信息 -->
+				<div class="col-md-6 col-sm-12">
+					<div class="portlet light bordered">
+						<div style="font-size:15px;margin-left:7px">课程描述</div>
+						<div class="portlet-body">
+							<table class="table table-bordered table-hover">
+								<tbody>
+									<tr><td>暂无课程描述</td></tr>											
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<!-- 结束右部信息 -->
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -87,8 +124,6 @@
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	$('.media').attr('href','E://HomeWorkWeb/student/work/0000123456-Python1.pdf');
-	$('.media').media({width:800, height:600});
 });
 </script>
 </body>

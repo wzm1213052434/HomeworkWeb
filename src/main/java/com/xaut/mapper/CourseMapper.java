@@ -14,26 +14,26 @@ import org.springframework.stereotype.Repository;
 public interface CourseMapper {
 
 	/**
-     * 功能：新增课程
+     * function:新增课程
      * @param course
      */
     void addCourse(Course course);
     
     /**
-     * 功能：删除课程
+     * function:删除课程
      * @param cno
      */
     void deleteCourse(String cno);
     
 	/**
-	 * 查找教师所开的课程信息
+	 *function:查找教师所开的课程信息
 	 * @param tno
 	 * @return 教师所开的课程集合
 	 */
     List<Course> findCourseByTeacherTno(@Param("tno") String tno) throws Exception;
 
 	/**
-	 * 根据课程名分页获取课程
+	 *function:根据课程名分页获取课程
 	 * @param courseName
 	 * @param startPage
 	 * @param rows
@@ -45,14 +45,14 @@ public interface CourseMapper {
 												  @Param("rows") Integer rows) throws Exception;
 
     /**
-     * 为分页查询课程提供总数
+     * function:为分页查询课程提供总数
      * @return
      * @throws Exception
      */
     int countCourse() throws Exception;
     
     /**
-     * 为分页模糊查询课程提供总数
+     * function:为分页模糊查询课程提供总数
      * @return
      * @throws Exception
      */
@@ -64,4 +64,11 @@ public interface CourseMapper {
      * @return 课程名 开课学期 开课学年 开课老师 老师学院
      */
     List<Map<String, Object>> getOurCollegeCourse(@Param("username") String username);
+    
+    /**
+     * function:课程的详细信息
+     * @param cno
+     * @return
+     */
+    Map<String, Object> getCourseDetail(@Param("cno") String cno);
 }

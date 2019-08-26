@@ -27,7 +27,7 @@ public class CourseController {
 	@RequestMapping(value = "/findCourseByTeacherTno",method=RequestMethod.GET)
 	@ResponseBody
 	public ResponseBean findCourseByTeacherTno(HttpServletRequest request,HttpServletResponse response) {
-		String tno = request.getParameter("teacherId").toString();
+		String tno = request.getParameter("teacherId");
 		return courseService.findCourseByTeacherTno(tno); // 调用Service完成功能
 	}
 	
@@ -39,7 +39,19 @@ public class CourseController {
 	@RequestMapping(value = "/getOurCollegeCourse", method = {RequestMethod.GET})
 	@ResponseBody
 	public ResponseBean getOurCollegeCourse(HttpServletRequest request) {
-		String userName = request.getParameter("userName").toString();
+		String userName = request.getParameter("userName");
 		return courseService.getOurCollegeCourse(userName);
+	}
+	
+	/**
+	 * function:课程的详细信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getCourseDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getCourseDetail(HttpServletRequest request) {
+		String cno = request.getParameter("cno");
+		return courseService.getCourseDetail(cno);
 	}
 }
