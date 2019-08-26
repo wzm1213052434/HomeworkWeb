@@ -289,7 +289,6 @@ function fileUpload() {
 	 var userName = GetPar('userName');
 	 var wno = GetPar("wno");
 	 var studentWorkName = $("#workName").text();
-	 alert(studentWorkName);
 	 
 	 //2.学生上传作业
 	 var formData = new FormData();
@@ -305,10 +304,13 @@ function fileUpload() {
          processData: false, //告诉jQuery不要去处理发送的数据
          contentType: false, //告诉jQuery不要去设置Content-Type请求头
 	     success: function (response) {
-	     	if (response == true)
+	     	if (response == true){
 	     		alert("提交成功");
-	         else
-	         	alert("提交失败");
+	     		//刷新页面
+	     		location.reload();
+	     	} else {
+	     		alert("提交失败");
+	     	}
 	     }
 	 });
 };
