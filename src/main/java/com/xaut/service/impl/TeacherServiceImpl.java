@@ -1,6 +1,7 @@
 package com.xaut.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,4 +64,27 @@ public class TeacherServiceImpl implements TeacherService {
 		
 		return new ResponseBean(true, list, "根据学号获得本院老师成功");
 	}
+	
+	/**
+     * function:老师详细信息
+     * @param tno
+     * @return
+     */
+    public ResponseBean getTeacherDetail(String tno) {
+    	if (StringUtils.isEmpty(tno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			map = teacherMapper.getTeacherDetail(tno);
+			if (map == null) {
+				return new ResponseBean(true, map, "没有该老师");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得老师详细信息异常");
+		}
+		
+		return new ResponseBean(true, map, "获得老师详细信息成功");
+    }
 }

@@ -75,7 +75,7 @@ public class WorkController {
 	
 	/**
      * function:公布的作业概况
-     * @return 作业 所属课程 开课老师 作业评分 公布人 提交作业文件名
+     * @return 作业号 作业名  所属课程号 所属课程 开课老师号 开课老师 作业评分 公布人学号 公布人 提交作业文件名
      */
 	@RequestMapping(value = "/getPublishWorkSurvey", method = {RequestMethod.GET})
 	@ResponseBody

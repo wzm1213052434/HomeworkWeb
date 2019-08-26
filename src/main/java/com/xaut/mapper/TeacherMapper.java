@@ -5,6 +5,7 @@ import com.xaut.entity.Teacher;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -36,4 +37,11 @@ public interface TeacherMapper {
      * @return 教师名 所属院系 开课数
      */
     List<Map<String, Object>> getCollegeTeacherByUsername(String username);
+    
+    /**
+     * function:老师详细信息
+     * @param tno
+     * @return
+     */
+    Map<String, Object> getTeacherDetail(@Param("tno") String tno);
 }

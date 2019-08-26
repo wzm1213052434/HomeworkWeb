@@ -107,7 +107,7 @@ public class WorkServiceImpl implements WorkService{
 	
 	/**
      * function:公布的作业概况
-     * @return 作业 所属课程 开课老师 作业评分 公布人 提交作业文件名
+     * @return 作业号 作业名  所属课程号 所属课程 开课老师号 开课老师 作业评分 公布人学号 公布人 提交作业文件名
      */
 	public ResponseBean getPublishWorkSurvey() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

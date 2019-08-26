@@ -38,4 +38,15 @@ public class StudentServiceImplTest {
 		System.out.println(handleJSON.print_JSON(jsonString)); //将JSON字符串格式化输出
 		System.out.println("测试获得学生所选课程概况通过");
 	}
+	
+	/**
+	 * test:学生详细信息
+	 */
+	@Test
+	public void getStudentDetailTest() {
+		ResponseBean result = studentService.getStudentDetail("0000123456");
+		//格式化输出
+		HandleJSON handleJSON = new HandleJSON();
+		System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
 }

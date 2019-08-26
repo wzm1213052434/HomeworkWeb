@@ -104,4 +104,11 @@
 		where sc.sno = #{username} and sc.cno = c.cno and c.isclassend = #{isClassEnd} and c.tno = t.tno and c.cno = w.cno
 		group by w.cno;
 	</select>
+	
+	<!-- 学生详细信息 -->
+	<select id="getStudentDetail" parameterType="String" resultType="java.util.Map">
+		select s.*,count(sc.cno) '学生选课数'
+		from db_student s,db_studcour sc
+		where s.sno = #{sno} and s.sno = sc.sno;
+	</select>
 </mapper>

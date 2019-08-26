@@ -92,13 +92,21 @@ function showPublishedWorkList(){
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].作业评分 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].公布人 + '</a></td>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="studentDetail(\'' + response.data[i].sno + '\')">' + response.data[i].公布人 + '</a></td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
 	        	}
 	        	$("#publishWorkList").html(course_tr);
 	        }
 		})
 };
+
+/**
+ * function:查看学生详细详情
+ */
+function studentDetail(sno){
+	var url = '/HomeWorkWeb/student/studentDetail';
+	window.open(encodeURI(url + "?sno=" + sno));
+}
 
 /**
  * function:点击在线查看作业

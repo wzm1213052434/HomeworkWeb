@@ -147,4 +147,16 @@ public class StudentController {
 		
 		return fileUtil.fileDownLoad(dirPath, fileName);
 	}
+	
+	/**
+     * function:学生详细信息
+     * @param sno
+     * @return
+     */
+	@RequestMapping(value = "/getStudentDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getStudentDetail(HttpServletRequest request) {
+		String sno = request.getParameter("sno");
+		return studentService.getStudentDetail(sno);
+	}
 }

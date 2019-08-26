@@ -33,4 +33,11 @@
 		where s.sno = #{username} and s.company = t.company
 		group by t.tno;
 	</select>
+	
+	<!-- 老师详细信息 -->
+	<select id="getTeacherDetail" parameterType="String" resultType="java.util.Map">
+		select t.*,count(c.cno) '所开课程数'
+		from db_teacher t,db_course c
+		where t.tno = #{tno} and t.tno = c.tno;
+	</select>
 </mapper>

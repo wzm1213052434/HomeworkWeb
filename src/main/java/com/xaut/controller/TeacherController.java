@@ -85,7 +85,7 @@ public class TeacherController {
 	@RequestMapping(value = "/getTeacherByUsername", method = {RequestMethod.GET})
 	@ResponseBody
 	public ResponseBean getTeacherByUsername(HttpServletRequest request){
-		String userName = request.getParameter("userName").toString();
+		String userName = request.getParameter("userName");
 		
 		return teacherService.getTeacherByUsername(userName);
 	}
@@ -98,8 +98,21 @@ public class TeacherController {
 	@RequestMapping(value = "/getCollegeTeacherByUsername", method = {RequestMethod.GET})
 	@ResponseBody
 	public ResponseBean getCollegeTeacherByUsername(HttpServletRequest request){
-		String userName = request.getParameter("userName").toString();
+		String userName = request.getParameter("userName");
 		
 		return teacherService.getCollegeTeacherByUsername(userName);
+	}
+	
+	/**
+     * function:老师详细信息
+     * @param tno
+     * @return
+     */
+	@RequestMapping(value = "/getTeacherDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getTeacherDetail(HttpServletRequest request){
+		String tno = request.getParameter("tno").toString();
+		
+		return teacherService.getTeacherDetail(tno);
 	}
 }

@@ -45,4 +45,11 @@ public interface StudentService {
      * @return
      */
     ResponseBean updateStudentWork(Map<String, Object> map);
+    
+    /**
+     * function:学生详细信息
+     * @param sno
+     * @return
+     */
+    ResponseBean getStudentDetail(String sno);
 }

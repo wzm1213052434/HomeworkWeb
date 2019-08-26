@@ -223,7 +223,8 @@ function workDetail(wno){
  * function:查看老师详细详情
  */
 function teacherDetail(tno){
-	alert(tno);
+	var url = '/HomeWorkWeb/student/teacherDetail';
+	window.open(encodeURI(url + "?tno=" + tno));
 }
 
 /**

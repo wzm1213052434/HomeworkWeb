@@ -41,4 +41,15 @@ public class TeacherServiceImplTest {
     	HandleJSON handleJSON = new HandleJSON();
     	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}
+	
+	/**
+	 * 测试：老师详细信息
+	 */
+	@Test
+	public void getTeacherDetailTest() {
+		ResponseBean result = teacherServiceImpl.getTeacherDetail("104496");
+		//格式化输出
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
 }

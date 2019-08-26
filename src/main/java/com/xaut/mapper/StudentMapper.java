@@ -81,4 +81,11 @@ public interface StudentMapper {
      * @return (结/未结)课程名	开课学期	开课学年	开课老师	老师学院	此课程作业数
      */
     List<Map<String, Object>> getCourseSurvey(@Param("username") String username,@Param("isClassEnd") String isClassEnd);
+    
+    /**
+     * function:学生详细信息
+     * @param sno
+     * @return
+     */
+    Map<String, Object> getStudentDetail(@Param("sno") String sno);
 }

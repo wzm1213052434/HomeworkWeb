@@ -22,7 +22,7 @@
 	addBasePath();
 </script>
 <meta charset="utf-8"/>
-<title>课程详细信息</title>
+<title>学生详细信息</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- 0.最先：引入CSS -->
@@ -65,7 +65,7 @@
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-picture"></i>
-					<span class="caption-subject font-red-sunglo bold">课程基本信息</span>
+					<span class="caption-subject font-red-sunglo bold">学生基本信息</span>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -85,11 +85,11 @@
 						<!-- 开始右部信息 -->
 						<div class="col-md-6 col-sm-12">
 							<div class="portlet light bordered">
-								<div style="font-size:15px;margin-left:7px">课程描述</div>
+								<div style="font-size:15px;margin-left:7px">学生描述</div>
 								<div class="portlet-body">
 									<table class="table table-bordered table-hover">
 										<tbody>
-											<tr><td>暂无课程描述</td></tr>
+											<tr><td>暂无学生描述</td></tr>
 										</tbody>
 									</table>
 								</div>
@@ -106,7 +106,7 @@
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-picture"></i>
-					<span class="caption-subject font-red-sunglo bold">课程相关信息</span>
+					<span class="caption-subject font-red-sunglo bold">学生相关信息</span>
 				</div>
 			</div>
 			<div class="portlet-body">
@@ -123,20 +123,6 @@
 							</div>
 						</div>
 						<!-- 结束左部信息 -->
-						<!-- 开始右部信息 -->
-						<div class="col-md-6 col-sm-12">
-							<div class="portlet light bordered">
-								<div style="font-size:15px;margin-left:7px">老师描述</div>
-								<div class="portlet-body">
-									<table class="table table-bordered table-hover">
-										<tbody>
-											<tr><td>暂无老师描述</td></tr>								
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-						<!-- 结束右部信息 -->
 					</div>
 				</div>
 			</div>
@@ -195,41 +181,35 @@ function GetPar(name) {
 };
 
 /**
- * function:展示课程详细信息
+ * function:展示学生详细信息
  */
-function showCourseDetail(){
+function showStudentDetail(){
 	//1.获得参数
-	var cno = GetPar("cno");
+	var sno = GetPar("sno");
 	
 	//2.将数据写到页面
 	$.ajax({
-        url: '/HomeWorkWeb/course/getCourseDetail',
+        url: '/HomeWorkWeb/student/getStudentDetail',
         type: 'GET',
         async: false,
         data: {
-        	cno: cno
+        	sno: sno
         },
         success: function (response) {
         	//2.1 填写基本信息
         	var basic_l_tr = '';
         	basic_l_tr += '<tbody>';
-        	basic_l_tr += '<tr><td>课程名</td><td>' + response.data['cname'] + '</td></tr>';
-        	basic_l_tr += '<tr><td>学年</td><td>' + response.data['year'] + '</td></tr>';
-        	basic_l_tr += '<tr><td>学期</td><td>' + response.data['term'] + '</td></tr>';
-        	basic_l_tr += '<tr><td>上课时间</td><td>' + response.data['time'] + '</td></tr>';
-        	basic_l_tr += '<tr><td>上课地点</td><td>' + response.data['place'] + '</td></tr>';
-        	basic_l_tr += '<tr><td>是否结课</td><td>' + response.data['isclassend'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>学号</td><td>' + response.data['sno'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>姓名</td><td>' + response.data['sname'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>学院</td><td>' + response.data['company'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>系</td><td>' + response.data['depart'] + '</td></tr>';
         	basic_l_tr += '</tbody>';
         	$("#basicLeftMessage").html(basic_l_tr);
         	
         	//2.2 填写相关信息
         	var relevant_l_tr = '';
         	relevant_l_tr += '<tbody>';
-        	relevant_l_tr += '<tr><td>课程教师</td><td>' + response.data['tname'] + '</td></tr>';
-        	relevant_l_tr += '<tr><td>老师学院</td><td>' + response.data['company'] + '</td></tr>';
-        	relevant_l_tr += '<tr><td>选课人数</td><td>' + response.data['选课人数'] + '</td></tr>';
-        	relevant_l_tr += '<tr><td>布置作业数</td><td>' + response.data['布置作业数'] + '</td></tr>';
-        	relevant_l_tr += '<tr><td>课程公告数</td><td>' + response.data['课程公告数'] + '</td></tr>';
+        	relevant_l_tr += '<tr><td>学生选课数</td><td>' + response.data['学生选课数'] + '</td></tr>';
         	relevant_l_tr += '</tbody>';
         	$("#relevantLeftMessage").html(relevant_l_tr);
         }
@@ -240,7 +220,7 @@ function showCourseDetail(){
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	showCourseDetail(); //展示课程详细信息
+	showStudentDetail(); //展示学生详细信息
 });
 </script>
 </body>

@@ -138,4 +138,27 @@ public class StudentServiceImpl implements StudentService {
     	
     	return new ResponseBean(true, "更新学生作业表成功");
     }
+    
+    /**
+     * function:学生详细信息
+     * @param sno
+     * @return
+     */
+    public ResponseBean getStudentDetail(String sno) {
+    	if (StringUtils.isEmpty(sno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			map = studentMapper.getStudentDetail(sno);
+			if (map == null) {
+				return new ResponseBean(true, map, "没有该学生");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得学生详细信息异常");
+		}
+		
+		return new ResponseBean(true, map, "获得学生详细信息成功");
+    }
 }

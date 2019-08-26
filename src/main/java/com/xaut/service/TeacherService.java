@@ -16,4 +16,11 @@ public interface TeacherService {
      * @return 教师名 所属院系 开课数
      */
 	ResponseBean getCollegeTeacherByUsername(String username);
+	
+	/**
+     * function:老师详细信息
+     * @param tno
+     * @return
+     */
+    ResponseBean getTeacherDetail(String tno);
 }
