@@ -95,7 +95,7 @@ function showChoosedTeacherList(){
 	        	for(var i=0; i<response.data.length; i++){
 	        		course_tr += '<tr><td>' + response.data[i].教工号 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].教师名 + '</a></td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属院系 + '</a></td>';
+	        		course_tr += '<td>' + response.data[i].所属院系 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课数 + '</a></td></tr>';
 	        	}
 	        	$("#choosedTeacherList").html(course_tr);

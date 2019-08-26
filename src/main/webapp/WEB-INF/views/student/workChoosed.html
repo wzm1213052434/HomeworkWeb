@@ -15,14 +15,14 @@
 			<div class="portlet-title">
 				<div class="caption">
 					<i class="fa fa-cogs"></i>
-					<font style="vertical-align: inherit;"><font style="vertical-align: inherit;">已选作业</font></font>
+					已选作业
 				</div>
 				<div class="actions">
 					<div class="btn-group btn-group-devided" data-toggle="buttons">
-						<label class="btn btn-transparent grey-salsa btn-circle btn-sm active" onclick="showUnsubmitWorkList()">
+						<label id="label1" class="btn btn-transparent grey-salsa btn-circle btn-sm active" onclick="showUnsubmitWorkList()">
 							<input type="radio" name="options" class="toggle" id="option1">未提交作业
 						</label>
-						<label class="btn btn-transparent grey-salsa btn-circle btn-sm" onclick="showSubmitWorkList()">
+						<label id="label2" class="btn btn-transparent grey-salsa btn-circle btn-sm" onclick="showSubmitWorkList()">
 							<input type="radio" name="options" class="toggle" id="option2">已提交作业
 						</label>
 					</div>
@@ -105,7 +105,7 @@ function showUnsubmitWorkList(){
 	        	UserName: userName,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th></tr></thead>';
+	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>起始时间</th><th>截止时间</th><th>剩余提交次数</th><th></th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		if(response.data[i].剩余提交次数 == 3){ //尚未提交的作业
 	        			course_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">' + response.data[i].作业名 + '</a></td>';
@@ -113,7 +113,8 @@ function showUnsubmitWorkList(){
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + new Date(response.data[i].截止时间).toLocaleString() + '</td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].剩余提交次数 + '</a></td></tr>';
+		        		course_tr += '<td>' + response.data[i].剩余提交次数 + '</td>';
+		        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="workDetail(\'' + response.data[i].作业号 + '\')">前往提交</a></td></tr>';
 	        		}
 	        	}
 	        	$("#workList").html(course_tr);
@@ -143,7 +144,7 @@ function showSubmitWorkList(){
 		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 		        		course_tr += '<td>' + new Date(response.data[i].起始时间).toLocaleString() + '</td>';
 		        		course_tr += '<td>' + new Date(response.data[i].截止时间).toLocaleString() + '</td>';
-		        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].剩余提交次数 + '</a></td>';
+		        		course_tr += '<td>' + response.data[i].剩余提交次数 + '</td>';
 		        		if(response.data[i].是否批改 == 0){
 		        			course_tr += '<td>否</td>';
 		        		}
@@ -157,9 +158,9 @@ function showSubmitWorkList(){
 		        			course_tr += '<td>无</td>';
 		        		}
 		        		if(response.data[i].是否公布 == 0){
-		        			course_tr += '<td><a href="javascript:;" class="primary-link">公布</a></td>';
+		        			course_tr += '<td><a href="javascript:;" class="primary-link" onclick="PublishWork(\'' + response.data[i].作业号 + '\',0)">公布</a></td>';
 		        		} else if(response.data[i].是否公布 == 1){
-		        			course_tr += '<td><a href="javascript:;" class="primary-link">取消公布</a></td>';
+		        			course_tr += '<td><a href="javascript:;" class="primary-link" onclick="PublishWork(\'' + response.data[i].作业号 + '\',1)">取消公布</a></td>';
 		        		}
 		        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
 	        		}
@@ -169,6 +170,36 @@ function showSubmitWorkList(){
 		})
 };
 
+/**
+ * function:公布作业 | 取消公布作业
+ * parameter：作业号 公告当前状态
+ */
+ function PublishWork(wno,now){
+	 //1.得到参数
+	 var userName = sessionStorage.getItem('userName');
+	 
+	 //2.更新数据库
+	 $.ajax({
+	     url: '/HomeWorkWeb/work/doUndoPublishWork',
+	     type: 'GET',
+	     async: false,
+	     data:{
+	    	 userName: userName,
+	    	 wno: wno,
+	    	 now: now
+	     },
+	     success: function (response) {
+	     	if (response == true){
+	     		alert("成功");
+	     		//3.重新加载(自动点击已提交作业)
+	     		$("#label2").trigger('click');
+	     	} else {
+	     		alert("失败");
+	     	}
+	     }
+	 });
+ }
+ 
 /**
  * function:点击在线查看作业
  */

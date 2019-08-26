@@ -86,18 +86,27 @@ function showPublishedWorkList(){
 	        async: false,
 	        data: {},
 	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>作业评分</th><th>公布人</th></tr></thead>';
+	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>作业评分</th><th>公布人</th><th></th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
-	        		course_tr += '<tr><td>' + response.data[i].作业名 + '</td>';
+	        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].作业评分 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].公布人 + '</a></td></tr>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].公布人 + '</a></td>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
 	        	}
 	        	$("#publishWorkList").html(course_tr);
 	        }
 		})
 };
+
+/**
+ * function:点击在线查看作业
+ */
+function lookOnline(fileName){
+	var url = '/HomeWorkWeb/student/lookStudentWorkOnline';
+	window.open(encodeURI(url + "?fileName=" + fileName));
+}
 
 /*
  * function:页面加载完成调用

@@ -39,7 +39,7 @@
 	
 	<!-- 公布的作业概况 -->
 	<select id="getPublishWorkSurvey" resultType="java.util.Map">
-		select w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',sw.score '作业评分',s.sname '公布人'
+		select w.wname '作业名',c.cname '所属课程名',t.tname '开课老师',sw.score '作业评分',s.sname '公布人',sw.studentworkname '提交作业文件名'
 		from db_work w,db_course c,db_teacher t,db_student s,db_studwork sw
 		where sw.ispublish = true and sw.wno = w.wno and w.cno = c.cno and c.tno = t.tno and sw.sno = s.sno;
 	</select>

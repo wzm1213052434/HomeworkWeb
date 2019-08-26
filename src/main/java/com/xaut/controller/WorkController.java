@@ -3,6 +3,7 @@ package com.xaut.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.xaut.entity.Work;
+import com.xaut.service.StudentService;
 import com.xaut.service.WorkService;
 import com.xaut.util.ResponseBean;
 
@@ -20,6 +22,9 @@ import com.xaut.util.ResponseBean;
 public class WorkController {
 	@Autowired
 	private WorkService workService;
+	
+	@Autowired
+	private StudentService studentService;
 	
 	/**
 	 * 功能：教师发布作业
@@ -70,7 +75,7 @@ public class WorkController {
 	
 	/**
      * function:公布的作业概况
-     * @return 作业 所属课程 开课老师 作业评分 公布人
+     * @return 作业 所属课程 开课老师 作业评分 公布人 提交作业文件名
      */
 	@RequestMapping(value = "/getPublishWorkSurvey", method = {RequestMethod.GET})
 	@ResponseBody
@@ -90,5 +95,33 @@ public class WorkController {
 		String username = request.getParameter("userName");
 		String wno = request.getParameter("wno");
 		return workService.getWorkDetail(username, wno);
+	}
+	
+	/**
+	 * function:公布作业 | 取消公布作业
+	 * @param request
+	 * @return true | false
+	 */
+	@RequestMapping(value = "/doUndoPublishWork", method = {RequestMethod.GET})
+	@ResponseBody
+	public boolean doUndoPublishWork(HttpServletRequest request) {
+		//1.获得参数
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("username",request.getParameter("userName"));
+    	map.put("wno",request.getParameter("wno"));
+    	if(Integer.parseInt(request.getParameter("now")) == 0) { //点击发布
+    		map.put("isPublish","1");
+    	} else { //点击取消发布
+    		map.put("isPublish","0");
+    	}
+    	
+		//2.更新数据库
+		try {
+			studentService.updateStudentWork(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 }
