@@ -1,6 +1,6 @@
 /**
- *  admin/look*** 系列函数
- *  在管理员界面 look开头的所有页面中引用
+ *  admin/m*** 系列函数
+ *  在管理员界面 m开头的所有页面中引用
  */
 
 function GetPar(name) {  /* 获取参数函数 */
@@ -83,19 +83,6 @@ function jumpNextPage(){  /* 跳转到下一页  */
 	}	
 }
 
-function findInform(message){   /* 按输入模糊查询信息  */
-	var obj = document.getElementById("pageURL");
-	var url = obj.innerHTML;
-	var name = obj.getAttribute("name");
-	var input = document.getElementById("contentInput");
-	var inputThing = input.value;
-	if(inputThing == ""){
-		alert(message);
-	}else{
-	    var cn = inputThing;
-		location.href = encodeURI(url + "?"+name+"=" + cn);
-	}
-}
 
 function changeIcon(i){     /* 展示与隐藏内容过程后更改小图标  */
 	var name = "listIcon" + i;
@@ -110,4 +97,11 @@ function changeIcon(i){     /* 展示与隐藏内容过程后更改小图标  */
 var openAndClose = function (i){  /* 点击标题，展示与隐藏内容  */
 	var name = ".listContent" + i;
 	$(name).slideToggle(500,changeIcon(i));
+}
+
+function removeAllChild(strId){  /* 删除节点的所有子节点  */
+    var div = document.getElementById(strId);
+    while(div.hasChildNodes()){
+        div.removeChild(div.firstChild);
+    }
 }

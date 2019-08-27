@@ -205,9 +205,7 @@
 					<li>学生管理</li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				学生管理 <small>查看所有学生用户的信息</small>
-			</h3>
+			<h3 class="page-title">学生管理 <small>查看所有学生用户的信息</small></h3>
 			<!-- END PAGE HEADER-->
 			<!-- 信息表格 开始 -->
 			<div class="portlet box green">
@@ -215,7 +213,6 @@
 					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>学生用户信息</div>
 					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
 						<a href="javascript:;" class="collapse" title="折叠"></a>
-						<a href="javascript:;" class="reload" title="刷新"></a>
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -223,7 +220,7 @@
 						<div class="col-md-6 col-sm-6">
 							<div class="dataTables_filter">
 								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按学号查询">
-								<button class="form-control input-inline" onclick=";">查询</button>
+								<button class="form-control input-inline" onclick="findInform('请输入学号');">查询</button>
 								<button class="form-control input-inline" onclick="location.href='admin/mStudent';">显示所有</button>
 							</div>
 						</div>
@@ -248,7 +245,7 @@
 										<th class="text-center" tabindex="4" rowspan="1" colspan="3">可用操作</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="contentList">
 									<tr role="row" class="odd">
 										<td class="sorting_1">1</td>
 										<td>3160661515</td>
@@ -434,6 +431,61 @@
 <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageM/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
+<!-- 获取内容  开始 -->
+<script>
+var Page = 1;      /* 搜索信息所用的初始页号  */
+var Rows = 10;     /* 搜索信息所用的每页条数  */
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
+
+function changePar(){  /* 更改页面原始参数函数  */
+	var id1 = GetPar("page");
+	if(id1 != null){
+		var nowpage = parseInt(id1);
+		Page = nowpage;
+		now = Page;
+	}
+}
+function findInform(message){   /* 按输入模糊查询信息  */
+	var input = document.getElementById("contentInput");
+	var inputThing = input.value;
+	if(inputThing == ""){
+		alert(message);
+	}else{
+		ajaxForInfomStudent(inputThing);
+	}
+}
+var ajaxForInfomStudent = function (s) {
+    $.ajax({
+        url:'/HomeWorkWeb/student/getStudentDetail',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            sno:s
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	dataList(data.data);
+        }
+    })
+}
+function dataList(info){  /* 将信息写到列表中  */
+	var pages = document.getElementById("pages");
+	pages.style.display = "none";
+	removeAllChild("contentList");
+	var cList = $('#contentList');
+	var newNode=$('<tr role="row" class="odd"><td>1</td><td>'+info.sno+'</td><td>'+info.sname+'</td><td><a href="admin/mStudentDetail?depart="'+info.depart+'">'+info.depart+'</a></td><td></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+	cList.append(newNode);
+}
+</script>
+<!-- 获取内容  结束 -->
 <script>
 jQuery(document).ready(function() {    
 	Metronic.init(); // init metronic core componets
