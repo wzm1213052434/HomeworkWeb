@@ -2,6 +2,8 @@ package com.xaut.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.xaut.entity.Announcement;
 
 /**
@@ -30,4 +32,10 @@ public interface AnnouncementMapper {
 	 * function：动态sql更新公告
 	 */
 	void updateAnnouncement(Announcement announcement);
+	
+	/**
+	 * function:查询某课程的公告
+	 * @return
+	 */
+	List<Announcement> getCourseAnnouncement(@Param("cno") String cno);
 }

@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/main/webapp/WEB-INF/404.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/student/aboutUs.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/student/courseChoosed.html=UTF-8
 encoding//src/main/webapp/WEB-INF/views/student/index.html=UTF-8

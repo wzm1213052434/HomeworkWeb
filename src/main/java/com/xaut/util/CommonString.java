@@ -26,4 +26,9 @@ public class CommonString {
     //4---资源路径
     public static final String STUDENTHOMEWORKPATH = "E:\\HomeWorkWeb\\student\\work"; // 保存学生作业的路径
     public static final String TEACHERCOURSEPATH = "E:\\HomeWorkWeb\\teacher\\excel"; // 保存教师课程表的路径
+    
+    //5.系统错误
+    public static final String ERROR_404 = "404";
+    public static final String ERROR_500 = "500";
+    public static final String ERROR_505 = "505";
 }

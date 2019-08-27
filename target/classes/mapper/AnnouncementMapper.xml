@@ -13,6 +13,13 @@
 		select count(*) from db_announcement;
 	</select>
 	
+	<!-- 查询某课程的公告 -->
+	<select id="getCourseAnnouncement" parameterType="String" resultType="com.xaut.entity.Announcement">
+		select *
+		from db_announcement a
+		where a.cno = #{cno};
+	</select>
+	
 	<!-- 查询新公告记录数 -->
 	<select id="countNewAnnouncement" resultType="int">
 		select count(*) from db_announcement where isread = '0';
