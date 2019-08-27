@@ -146,4 +146,27 @@ public class WorkServiceImpl implements WorkService{
 		
 		return new ResponseBean(true, map, "获得学生某个作业的详细信息成功");
 	}
+	
+	/**
+     * function:课程所布置作业列表的详细信息
+     * @param cno
+     * @return
+     */
+	public ResponseBean getWorkListDetail(String cno) {
+		if (StringUtils.isEmpty(cno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+		
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.workMapper.getWorkListDetail(cno);
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "该课程没有布置作业");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得课程所布置作业列表的详细信息异常");
+		}
+		
+		return new ResponseBean(true, list, "获得课程所布置作业列表的详细信息成功");
+	}
 }

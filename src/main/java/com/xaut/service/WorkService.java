@@ -38,4 +38,11 @@ public interface WorkService {
      * @return
      */
 	ResponseBean getWorkDetail(String username,String wno);
+	
+	/**
+     * function:课程所布置作业列表的详细信息
+     * @param cno
+     * @return
+     */
+	ResponseBean getWorkListDetail(String cno);
 }

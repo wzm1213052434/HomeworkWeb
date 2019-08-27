@@ -55,4 +55,11 @@ public interface WorkMapper {
      * @param map
      */
     void updateStudentWork(Map<String, Object> map);
+    
+    /**
+     * function:课程所布置作业列表的详细信息
+     * @param cno
+     * @return
+     */
+    List<Map<String, Object>> getWorkListDetail(@Param("cno") String cno);
 }

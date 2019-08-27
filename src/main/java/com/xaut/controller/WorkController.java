@@ -124,4 +124,16 @@ public class WorkController {
 		}
 		return true;
 	}
+	
+	/**
+     * function:课程所布置作业列表的详细信息
+     * @param cno
+     * @return
+     */
+	@RequestMapping(value = "/getWorkListDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getWorkListDetail(HttpServletRequest request) {
+		String cno = request.getParameter("cno");
+		return workService.getWorkListDetail(cno);
+	}
 }

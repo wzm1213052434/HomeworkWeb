@@ -82,4 +82,13 @@
 		</set>
 		where sw.sno = #{username} and sw.wno = #{wno};
 	</update>
+	
+	<!-- 课程所布置作业列表的详细信息 -->
+	<select id="getWorkListDetail" parameterType="String" resultType="java.util.Map">
+		select c.*,w.*
+		,(select count(*) from db_studcour sc where c.cno = sc.cno) '选课人数'
+		,(select count(*) from db_studwork sw where w.wno = sw.wno) '已交作业人数'
+		from db_course c,db_work w
+		where c.cno = #{cno} and c.cno = w.cno;
+	</select>
 </mapper>
