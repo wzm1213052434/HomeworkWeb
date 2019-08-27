@@ -1,6 +1,7 @@
 package com.xaut.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -14,7 +15,7 @@ public interface AnnouncementMapper {
 	 * 功能：查询所有公告(先根据'是否已读'升序,再根据'发布时间'降序)
 	 * @return
 	 */
-	List<Announcement> getAllAnnouncement() throws Exception;
+	List<Map<String, Object>> getAllAnnouncement() throws Exception;
 	
 	/**
 	 * 功能：查询所有公告总记录数
@@ -34,8 +35,15 @@ public interface AnnouncementMapper {
 	void updateAnnouncement(Announcement announcement);
 	
 	/**
-	 * function:查询某课程的公告
+	 * function:查询某课程的所有公告详情
 	 * @return
 	 */
-	List<Announcement> getCourseAnnouncement(@Param("cno") String cno);
+	List<Map<String, Object>> getCourseAnnouncement(@Param("cno") String cno);
+	
+	/**
+	 * function:查询某个公告详细信息
+	 * @param ano
+	 * @return
+	 */
+	List<Map<String, Object>> getAnnouncementDetail(@Param("ano") String ano);
 }

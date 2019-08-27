@@ -2,12 +2,11 @@ package com.xaut.mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import com.xaut.entity.Announcement;
 
 /*
  * 单元测试
@@ -22,17 +21,14 @@ public class AnnouncementMapperTest {
 	 */
 	@Test
 	public void getAllAnnouncementTest() {
-		List<Announcement> announcement = new ArrayList<Announcement>();
+		List<Map<String, Object>> announcement = new ArrayList<Map<String, Object>>();
 		
 		try {
 			announcement = announcementMapper.getAllAnnouncement();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		for (Announcement ann : announcement) {
-			System.out.println(ann);
-		}
+		System.out.println(announcement);
 		System.out.println("分页查询所有公告成功");
 	}
 	

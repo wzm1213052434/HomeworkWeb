@@ -4,8 +4,11 @@
 
 <mapper namespace="com.xaut.mapper.AnnouncementMapper">	
 	<!-- 查询所有公告(先根据'是否已读'升序,再根据'发布时间'降序) -->
-	<select id="getAllAnnouncement" resultType="com.xaut.entity.Announcement">
-		select * from db_announcement order by isread,occurtime desc;
+	<select id="getAllAnnouncement" resultType="java.util.Map">
+		select a.*,c.cname,t.tname
+		from db_announcement a,db_course c,db_teacher t
+		where a.cno = c.cno and c.tno = t.tno
+		order by a.isread,a.occurtime desc;
 	</select>
 
 	<!-- 查询所有公告总记录数 -->
@@ -13,11 +16,11 @@
 		select count(*) from db_announcement;
 	</select>
 	
-	<!-- 查询某课程的公告 -->
-	<select id="getCourseAnnouncement" parameterType="String" resultType="com.xaut.entity.Announcement">
-		select *
-		from db_announcement a
-		where a.cno = #{cno};
+	<!-- 查询某课程的所有公告详情 -->
+	<select id="getCourseAnnouncement" parameterType="String" resultType="java.util.Map">
+		select a.*,c.cname,t.tname
+		from db_announcement a,db_course c,db_teacher t
+		where a.cno = #{cno} and a.cno = c.cno and c.tno = t.tno;
 	</select>
 	
 	<!-- 查询新公告记录数 -->
@@ -25,7 +28,7 @@
 		select count(*) from db_announcement where isread = '0';
 	</select>
 	
-	<!-- 动态sql更新公告 -->
+	<!-- 动态sql更新公告（注意：有些非字符串的不能判断!=''） -->
 	<update id="updateAnnouncement" parameterType="com.xaut.entity.Announcement">
 		update db_announcement
 		<set>
@@ -38,16 +41,23 @@
 			<if test="desc!=null and desc!=''">
 				db_announcement.desc = #{desc},
 			</if>
-			<if test="occurTime!=null">
+			<if test="occurTime != null">
 				db_announcement.occurtime = #{occurTime},
 			</if>
-			<if test="updateTime!=null">
+			<if test="updateTime != null">
 				db_announcement.updatetime = #{updateTime},
 			</if>
-			<if test="isRead!=null">
+			<if test="isRead != null">
 				db_announcement.isread = #{isRead}
 			</if>
 		</set>
 		where db_announcement.ano = #{ano};
 	</update>
+	
+	<!-- 查询某个公告详细信息 -->
+	<select id="getAnnouncementDetail" parameterType="String" resultType="java.util.Map">
+		select a.*,c.cname,t.tname
+		from db_announcement a,db_course c,db_teacher t
+		where a.ano = #{ano} and a.cno = c.cno and c.tno = t.tno;
+	</select>
 </mapper>

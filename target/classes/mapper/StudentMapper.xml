@@ -37,7 +37,7 @@
     <delete id="studentUndoCourse">
     	delete
 		from db_studcour
-		where db_studcour.sno = #{sno} and db_studcour.cno = #{cno}
+		where db_studcour.sno = #{sno} and db_studcour.cno = #{cno};
     </delete>
     
     <!-- 学生选作业 -->
@@ -99,7 +99,8 @@
 	
 	<!-- 获得学生所选课程概况 -->
 	<select id="getCourseSurvey" parameterType="String" resultType="java.util.Map">
-		select c.cname '课程名',c.year '开课学年',c.term '开课学期',t.tname '开课老师',t.company '老师学院',count(*) '此课程作业数'
+		select c.cno,c.cname '课程名',c.year '开课学年',c.term '开课学期',t.tno,t.tname '开课老师',t.company '老师学院',count(*) '此课程作业数'
+		,(select count(*) from db_announcement a where c.cno = a.cno) '课程公告数'
 		from db_studcour sc,db_course c,db_teacher t,db_work w
 		where sc.sno = #{username} and sc.cno = c.cno and c.isclassend = #{isClassEnd} and c.tno = t.tno and c.cno = w.cno
 		group by w.cno;

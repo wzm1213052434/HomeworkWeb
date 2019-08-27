@@ -45,14 +45,6 @@ public class StudentController {
 	}
 	
 	/**
-	 * 功能：学生上传作业
-	 */
-	@RequestMapping(value = "/workUpload", method = {RequestMethod.GET})
-	@ResponseBody
-	public void workUpload(HttpServletRequest request, HttpServletResponse response) throws Exception {
-	}
-
-	/**
 	 * 根据课程号分页查询学生
 	 * @param request
 	 * @return

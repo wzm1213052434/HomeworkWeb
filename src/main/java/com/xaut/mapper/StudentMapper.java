@@ -78,7 +78,7 @@ public interface StudentMapper {
     /**
      * function:获得学生所选课程概况
      * @param 学生账号 结课/未结课
-     * @return (结/未结)课程名	开课学期	开课学年	开课老师	老师学院	此课程作业数
+     * @return 课程号 课程名 开课学期 开课学年 教工号 开课老师 老师学院 此课程作业数 课程公告数
      */
     List<Map<String, Object>> getCourseSurvey(@Param("username") String username,@Param("isClassEnd") String isClassEnd);
     

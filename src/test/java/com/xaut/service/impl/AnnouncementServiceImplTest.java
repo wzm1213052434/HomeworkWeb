@@ -1,6 +1,8 @@
 package com.xaut.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ public class AnnouncementServiceImplTest {
 	private AnnouncementService announcementService;
 	
 	@Autowired
-	private GetListByPage<Announcement> getListByPage;
+	private GetListByPage<Map<String, Object>> getListByPage;
 	
 	HandleJSON handleJSON = new HandleJSON();
 	
@@ -28,7 +30,7 @@ public class AnnouncementServiceImplTest {
 	 */
 	@Test
 	public void findAllAnnouncementByPageTest() {
-		List<Announcement> announcement = announcementService.findAllAnnouncement();
+		List<Map<String, Object>> announcement = announcementService.findAllAnnouncement();
 		ResponseBean result = getListByPage.getListByPage(announcement, 1, 3);
 		
         String jsonString = JSON.toJSONString(handleJSON.to_JSON(result));
@@ -40,7 +42,7 @@ public class AnnouncementServiceImplTest {
 	 */
 	@Test
 	public void getCourseAnnouncementTest() {
-		List<Announcement> announcement = announcementService.getCourseAnnouncement("(2017-2018-2)-09191430-104496-3");
+		List<Map<String, Object>> announcement = announcementService.getCourseAnnouncement("(2017-2018-2)-09191430-104496-3");
 		ResponseBean result = getListByPage.getListByPage(announcement,1,2);
 		
 		String jsonString = JSON.toJSONString(result);

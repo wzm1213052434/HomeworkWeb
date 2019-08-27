@@ -22,7 +22,7 @@
 	addBasePath();
 </script>
 <meta charset="utf-8"/>
-<title>课程所布置作业列表的详细信息</title>
+<title>公告详细信息</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- 0.最先：引入CSS -->
@@ -60,17 +60,33 @@
 <!-- 开始导航栏中间可变内容 -->
 <div class="row">
 	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-		<div class="portlet box purple">
+		<!-- 1..开始基本信息 -->
+		<div class="portlet light bordered">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-comments"></i>
-					课程所布置作业列表的详细信息
+					<i class="fa fa-picture"></i>
+					<span class="caption-subject font-red-sunglo bold">公告详细信息</span>
 				</div>
 			</div>
-			<div id="courseList" class="portlet-body">
-				<!-- 此处由JS编写 -->
+			<div class="portlet-body">
+				<div class="list-group">
+					<div class="row">
+						<!-- 开始左部信息 -->
+						<div class="col-md-12 col-sm-12">
+							<div class="portlet light bordered">
+								<div class="portlet-body">
+									<table id="basicLeftMessage" class="table table-bordered table-hover">
+										<!-- 此处由JS填写 -->
+									</table>
+								</div>
+							</div>
+						</div>
+						<!-- 结束左部信息 -->
+					</div>
+				</div>
 			</div>
 		</div>
+		<!-- 1..结束基本信息 -->
 	</div>
 </div>
 <!-- 结束导航栏中间可变内容 -->
@@ -113,7 +129,7 @@
 <!-- 开始自定义JS -->
 <script type="text/javascript">
 /**
- * 重写方法,自定义格式化日期
+ * function:重写方法,自定义格式化日期
  */
 Date.prototype.toLocaleString = function() {
 	// 补0   例如 2018/7/10 14:7:2  补完后为 2018/07/10 14:07:02
@@ -124,19 +140,6 @@ Date.prototype.toLocaleString = function() {
     }
     // 按自定义拼接格式返回
     return this.getFullYear() + "/" + addZero(this.getMonth() + 1) + "/" + addZero(this.getDate());
-};
-
-/**
- * function:打开|关闭数据表
- */
-function openOrClose(obj){
-	if($(obj).children("i").attr("class") == "fa fa-angle-up"){ //点击打开
-		$(obj).children("i").attr("class","fa fa-angle-down");
-		$(obj).parent().parent().next().slideToggle(500);
-	}else{ //点击关闭
-		$(obj).children("i").attr("class","fa fa-angle-up");
-		$(obj).parent().parent().next().slideToggle(500);
-	}
 };
 
 /**
@@ -151,54 +154,40 @@ function GetPar(name) {
 };
 
 /**
- * function:展示教师所开课程详细信息
+ * function:展示作业详细信息
  */
-function showCourseListDetail(){
+function showAnnouncementDetail(){
 	//1.获得参数
-	var cno = GetPar("cno");
+	var ano = GetPar("ano");
 	
-	//2.展示数据
+	//2.将数据写到页面
 	$.ajax({
-        url: '/HomeWorkWeb/work/getWorkListDetail',
+        url: '/HomeWorkWeb/announcement/getAnnouncementDetail',
         type: 'GET',
         async: false,
         data: {
-        	cno: cno
+        	ano: ano
         },
         success: function (response) {
-        	if(response.data.length == 0){
-        		var str = '<h4>' + response.message + '</h4>';
-        		$("#courseList").html(str);
-        	}
-        	for(var i=0; i<response.data.length; i++){
-        		var div = '';
-        		div += '<div class="portlet light bordered"><div class="portlet-title">';
-        		div += '<div class="caption">' + response.data[i].wname + '</div>';
-        		div += '<div class="actions"><a href="javascript:;" class="btn btn-default btn-sm" onclick="openOrClose(this)"><i class="fa fa-angle-up"></i></a></div></div>';
-        		div += '<div class="portlet-body" style="display: none;"><div class="table-scrollable"><table class="table table-bordered table-hover">';
-        		div += '<tbody>';
-        		div += '<tr><th>作业名</th><th>' + response.data[i].wname + '</th></tr>';
-        		div += '<tr><th>作业描述</th><th>' + response.data[i].description + '</th></tr>';
-        		div += '<tr><th>所属课程</th><th>' + response.data[i].cname + '</th></tr>';
-        		div += '<tr><th>是否结课</th><th>' + response.data[i].isclassend + '</th></tr>';
-        		div += '<tr><th>起始时间</th><th>' + new Date(response.data[i].start_time).toLocaleString() + '</th></tr>';
-        		div += '<tr><th>截止时间</th><th>' + new Date(response.data[i].end_time).toLocaleString() + '</th></tr>';
-        		div += '<tr><th>选课人数</th><th>' + response.data[i]['选课人数'] + '</th></tr>';
-        		div += '<tr><th>已交作业人数</th><th>' + response.data[i]['已交作业人数'] + '</th></tr>';
-        		div += '</tbody>';
-        		div += '</table></div></div></div>';
-        		$("#courseList").append(div);
-        	}
+        	//2.1 填写作业信息
+        	var basic_l_tr = '';
+        	basic_l_tr += '<tbody>';
+        	basic_l_tr += '<tr><td>公告名</td><td>' + response.data[0]['aname'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>公告描述</td><td>' + response.data[0]['desc'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>发布时间</td><td>' + new Date(response.data[0]['occurtime']).toLocaleString() + '</td></tr>';
+        	basic_l_tr += '<tr><td>发布人</td><td>' + response.data[0]['tname'] + '</td></tr>';
+        	basic_l_tr += '<tr><td>相关课程</td><td>' + response.data[0]['cname'] + '</td></tr>';
+        	basic_l_tr += '</tbody>';
+        	$("#basicLeftMessage").html(basic_l_tr);
         }
 	})
-};
+}
 
 /*
  * function:页面加载完成调用
  */
 $(document).ready(function () {
-	Metronic.init();
-	showCourseListDetail(); //展示教师所开课程详细信息
+	showAnnouncementDetail(); //展示作业详细信息
 });
 </script>
 </body>

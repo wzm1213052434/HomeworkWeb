@@ -95,14 +95,15 @@ function showUnfinishedCourseList(){
 	        	isClassEnd: 0,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>课程名</th><th>学年</th><th>学期</th><th>开课老师</th><th>老师学院</th><th>布置作业数</th></tr></thead>';
+	        	var course_tr = '<thead><tr><th>课程名</th><th>学年</th><th>学期</th><th>开课老师</th><th>老师学院</th><th>布置作业数</th><th>发布公告数</th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].课程名 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].开课学年 + '</td>';
 	        		course_tr += '<td>' + response.data[i].开课学期 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].老师学院 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].此课程作业数 + '</a></td></tr>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="workListDetail(\'' + response.data[i].cno + '\')">' + response.data[i].此课程作业数 + '</a></td>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="announcementListDetail(\'' + response.data[i].cno + '\')">' + response.data[i].课程公告数 + '</a></td></tr>';
 	        	}
 	        	$("#courseList").html(course_tr);
 	        }
@@ -127,19 +128,36 @@ function showFinishedCourseList(){
 	        	isClassEnd: 1,
 	        },
 	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>课程名</th><th>学年</th><th>学期</th><th>开课老师</th><th>老师学院</th><th>布置作业数</th></tr></thead>';
+	        	var course_tr = '<thead><tr><th>课程名</th><th>学年</th><th>学期</th><th>开课老师</th><th>老师学院</th><th>布置作业数</th><th>发布公告数</th></tr></thead>';
 	        	for(var i=0; i<response.data.length; i++){
 	        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].课程名 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].开课学年 + '</td>';
 	        		course_tr += '<td>' + response.data[i].开课学期 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].老师学院 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].此课程作业数 + '</a></td></tr>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="workListDetail(\'' + response.data[i].cno + '\')">' + response.data[i].此课程作业数 + '</a></td>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="announcementListDetail(\'' + response.data[i].cno + '\')">' + response.data[i].课程公告数 + '</a></td></tr>';
 	        	}
 	        	$("#courseList").html(course_tr);
 	        }
 		})
 };
+
+/**
+ * function:查看课程布置作业列表详细信息
+ */
+function workListDetail(cno){
+	var url = '/HomeWorkWeb/student/workListDetail';
+	window.open(encodeURI(url + "?cno=" + cno));
+}
+
+/**
+ * function:查看课程发布公告列表详细信息
+ */
+function announcementListDetail(cno){
+	var url = '/HomeWorkWeb/student/announcementListDetail';
+	window.open(encodeURI(url + "?cno=" + cno));
+}
 
 /*
  * function:页面加载完成调用

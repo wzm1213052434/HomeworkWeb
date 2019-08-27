@@ -225,7 +225,7 @@
 			<!-- 开始侧边栏菜单 -->
 			<ul id="menulist" class="page-sidebar-menu " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
 				<li class="start active">
-					<a href="/HomeWorkWeb/announcement/index">
+					<a href="/HomeWorkWeb/student/index">
 						<i class="icon-home"></i>
 						<span class="title">公告管理</span>
 					</a>
@@ -527,24 +527,23 @@ function showAnnouncement(){
         	//2.1.显示公告
         	var ann_tr = '<thead><tr><th>公告名</th><th>状态</th><th>发布人</th><th>相关课程</th><th>发布时间</th><th></th><th></th></tr></thead>';
         	for(var i=0; i<response.data.list.length; i++){
-        		ann_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data.list[i].aName + '</a></td>';
+        		ann_tr += '<tr><td><a href="javascript:;" class="primary-link" onclick="announcementDetail(\'' + response.data.list[i].ano + '\')">' + response.data.list[i].aname + '</a></td>';
         		
-        		if(response.data.list[i].isRead == false){ //未读公告
+        		if(response.data.list[i].isread == false){ //未读公告
         			ann_tr += '<td><span class="label label-sm label-danger">new</span></td>';
         		} else{ //已读公告
         			ann_tr += '<td></td>';
         		}
         		
-        		ann_tr += '<td>' + '发布人' + '</td>';
-        		ann_tr += '<td>' + '相关课程' + '</td>';
+        		ann_tr += '<td>' + response.data.list[i].tname + '</td>';
+        		ann_tr += '<td>' + response.data.list[i].cname + '</td>';
         		
-        		ann_tr += '<td>' + new Date(response.data.list[i].occurTime).toLocaleString() + '</td>';
+        		ann_tr += '<td>' + new Date(response.data.list[i].occurtime).toLocaleString() + '</td>';
+        		ann_tr += '<td><a href="javascript:;" class="primary-link" onclick="announcementDetail(\'' + response.data.list[i].ano + '\')">查看</a></td>';
         		
-        		if(response.data.list[i].isRead == false){ //未读公告
-        			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
+        		if(response.data.list[i].isread == false){ //未读公告
             		ann_tr += '<td><a href="javascript:;" class="primary-link" onclick="toRead(this,\'' + response.data.list[i].ano + '\')">标记已读</a></td></tr>';
         		} else{ //已读公告
-        			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
         			ann_tr += '<td><a href="javascript:;">已读</a></td></tr>';
         		}
         	}
@@ -555,6 +554,14 @@ function showAnnouncement(){
         }
 	})
 };
+
+/**
+ * function:查看公告详细详情
+ */
+function announcementDetail(ano){
+	var url = '/HomeWorkWeb/student/announcementDetail';
+	window.open(encodeURI(url + "?ano=" + ano));
+}
 
 /**
  * function:切换导航栏内容

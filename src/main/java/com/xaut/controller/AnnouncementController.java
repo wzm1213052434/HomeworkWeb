@@ -2,6 +2,7 @@ package com.xaut.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,15 +24,7 @@ public class AnnouncementController {
 	private AnnouncementService announcementService;
 	
 	@Autowired
-	private GetListByPage<Announcement> getListByPage;
-	
-	/**
-	 * function：重定向到学生主页(公告管理)
-	 */
-	@RequestMapping(value = "/index",method = {RequestMethod.GET})
-	public String gotoStudentIndex() {
-		return "forward:/WEB-INF/views/student/index.html";
-	}
+	private GetListByPage<Map<String, Object>> getListByPage;
 	
 	/**
 	 * 功能：查询新公告记录数
@@ -56,12 +49,30 @@ public class AnnouncementController {
 		Integer pageSize = Integer.parseInt(request.getParameter("pageSize")); //每页记录数
         
         //2..返回结果
-		List<Announcement> announcement = announcementService.findAllAnnouncement();
+		List<Map<String, Object>> announcement = announcementService.findAllAnnouncement();
 		return getListByPage.getListByPage(announcement, currentPage, pageSize);
 	}
 	
 	/**
-	 * function：分页课程公告信息
+	 * function：课程发布公告列表详细信息(1不分页)
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getAnnouncementListDetail", method = {RequestMethod.GET})
+    @ResponseBody
+	public ResponseBean getAnnouncementListDetail(HttpServletRequest request) {
+		String cno = request.getParameter("cno");
+		
+		List<Map<String, Object>> list = announcementService.getCourseAnnouncement(cno);
+		if (list.size() == 0) {
+			return new ResponseBean(true, list, "此课程无公告");
+		}
+		
+		return new ResponseBean(true, list, "查询课程发布公告列表详细信息成功");
+	}
+	
+	/**
+	 * function：某课程的所有公告详情(2分页)
 	 * @param request
 	 * @return
 	 */
@@ -74,7 +85,7 @@ public class AnnouncementController {
 		Integer pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		
 		//2..返回结果
-		List<Announcement> announcement = new ArrayList<Announcement>();
+		List<Map<String, Object>> announcement = new ArrayList<Map<String, Object>>();
 		//2.1 cno为空时：分页显示所有公告信息
 		if("".equals(cno)) {
 			announcement = announcementService.findAllAnnouncement();
@@ -104,5 +115,17 @@ public class AnnouncementController {
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * function:查询某个公告详细信息
+	 * @param ano
+	 * @return
+	 */
+	@RequestMapping(value = "/getAnnouncementDetail",method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getAnnouncementDetail(HttpServletRequest request) {
+		String ano = request.getParameter("ano");
+		return announcementService.getAnnouncementDetail(ano);
 	}
 }
