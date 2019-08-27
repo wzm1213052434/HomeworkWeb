@@ -6,8 +6,7 @@
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
-%> 
-<%User user=(User)request.getSession().getAttribute("user");%>
+%>
 <head>
 <base href="<%=basePath%>">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -232,13 +231,7 @@ a.studentGrid:hover {
 								<div class="portlet light bordered">
 									<div class="portlet-body">
 										<table class="table table-bordered table-hover">
-											<tbody>
-												<tr><td>课程号</td><td id="courseNo2"></td></tr>
-												<tr><td>课程名</td><td>***</td></tr>
-												<tr><td>课程教师</td><td>***</td></tr>
-												<tr><td>发布作业数</td><td>***</td></tr>
-												<tr><td>学生人数</td><td>***</td></tr>												
-											</tbody>
+											<tbody id="courseContent"></tbody>
 										</table>
 									</div>
 								</div>
@@ -426,7 +419,7 @@ a.studentGrid:hover {
 <!-- 获取内容  开始 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
-var Rows = 30;      /* 搜索信息所用每页条数  */
+var Rows = 30;     /* 搜索信息所用每页条数  */
 var TheName = '';  /* 搜索信息所用课程名     */
 var total = 1;  /* 记录总页数  */
 var now = 1;    /* 记录当前页  */
@@ -443,8 +436,38 @@ function changePar(){  /* 更改页面原始参数的函数  */
 		TheName = id2;
 	}
 	document.getElementById("courseNo").innerHTML = TheName;
-	document.getElementById("courseNo2").innerHTML = TheName;
 }
+
+var ajaxForInfomCourse = function(c){
+	$.ajax({
+        url:'/HomeWorkWeb/course/getCourseDetail',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            cno:c
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	addCourseInfo(data.data);
+        }
+    })
+}
+function addCourseInfo(info){
+	var cList = $('#courseContent');
+	var newNode=$('<tr><td>课程号</td><td>'+info.cno+'</td></tr><tr><td>课程名</td><td>'+info.cname+'</td></tr>');
+	cList.append(newNode);
+	newNode=$('<tr><td>课程教师</td><td>'+info.tname+'</td></tr><tr><td>发布作业数</td><td>'+info.布置作业数+'</td></tr>');
+	cList.append(newNode);
+	newNode=$('<tr><td>学生人数</td><td>'+info.选课人数+'</td></tr><tr><td>学年学期</td><td>'+info.year+'年__第 '+info.term+' 学期</td></tr>');
+	cList.append(newNode);
+	newNode=$('<tr><td>上课时间</td><td>'+info.time+'</td></tr><tr><td>上课地点</td><td>'+info.place+'</td></tr>');
+	cList.append(newNode);
+}
+
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
         url:'/HomeWorkWeb/student/getByCno',
@@ -495,7 +518,8 @@ jQuery(document).ready(function() {
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
 	changePar();
-	ajaxForMsg(Page,Rows,TheName);
+	ajaxForInfomCourse(TheName);
+	//ajaxForMsg(Page,Rows,TheName);
 });
 </script>
 </body>

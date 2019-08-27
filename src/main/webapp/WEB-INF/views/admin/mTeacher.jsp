@@ -248,7 +248,7 @@
 										<td class="sorting_1">1</td>
 										<td>331700</td>
 										<td>大兵</td>
-										<td>计算机科学与工程</td>
+										<td><a href="admin/mTeacherDetail?company=计算机科学与工程">计算机科学与工程</a></td>
 										<td>123456</td>
 										<td><span class="label label-sm label-success">正常</span></td>
 										<td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td>
