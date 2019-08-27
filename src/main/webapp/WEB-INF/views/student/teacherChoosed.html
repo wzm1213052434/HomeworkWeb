@@ -96,12 +96,20 @@ function showChoosedTeacherList(){
 	        		course_tr += '<tr><td>' + response.data[i].教工号 + '</td>';
 	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].教师名 + '</a></td>';
 	        		course_tr += '<td>' + response.data[i].所属院系 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课数 + '</a></td></tr>';
+	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="courseListDetail(\'' + response.data[i].教工号 + '\')">' + response.data[i].开课数 + '</a></td></tr>';
 	        	}
 	        	$("#choosedTeacherList").html(course_tr);
 	        }
 		})
 };
+
+/**
+ * function:显示教师所开课程列表的详细信息
+ */
+function courseListDetail(tno){
+	var url = '/HomeWorkWeb/student/courseListDetail';
+	window.open(encodeURI(url + "?tno=" + tno));
+}
 
 /*
  * function:页面加载完成调用

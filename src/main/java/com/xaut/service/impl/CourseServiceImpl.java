@@ -127,4 +127,27 @@ public class CourseServiceImpl implements CourseService {
 		
 		return new ResponseBean(true, map, "获得课程的详细信息成功");
     }
+    
+    /**
+     * function:教师所开课程列表的详细信息
+     * @param tno
+     * @return
+     */
+    public ResponseBean getCourseListDetail(String tno) {
+    	if (StringUtils.isEmpty(tno)) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+    	List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		try {
+			list = this.courseMapper.getCourseListDetail(tno);
+			if (list.size() == 0) {
+				return new ResponseBean(true, list, "该教师未开课程");
+			}
+		} catch (Exception e) {
+			return new ResponseBean(false, "获得教师所开课程列表的详细信息异常");
+		}
+		
+		return new ResponseBean(true, list, "获得教师所开课程列表的详细信息成功");
+    }
 }

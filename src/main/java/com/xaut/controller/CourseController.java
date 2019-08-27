@@ -54,4 +54,16 @@ public class CourseController {
 		String cno = request.getParameter("cno");
 		return courseService.getCourseDetail(cno);
 	}
+	
+	/**
+	 * function:教师所开课程列表的详细信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getCourseListDetail", method = {RequestMethod.GET})
+	@ResponseBody
+	public ResponseBean getCourseListDetail(HttpServletRequest request) {
+		String tno = request.getParameter("tno");
+		return courseService.getCourseListDetail(tno);
+	}
 }

@@ -465,7 +465,7 @@ function showPage(response){
 	var page_li = '';
 	
 	//1.输出首页和上一页
-	if(response.currentPage == 1){ //当前是第一页，不能点击首页和上一页
+	if(response.data.currentPage == 1){ //当前是第一页，不能点击首页和上一页
 		page_li += '<li><a href="javascript:;">首页</a></li>';
 		page_li += '<li><a href="javascript:;">&laquo;</a></li>';
 	}

@@ -32,4 +32,11 @@ public interface CourseService {
      * @return
      */
     ResponseBean getCourseDetail(String cno);
+    
+    /**
+     * function:教师所开课程列表的详细信息
+     * @param tno
+     * @return
+     */
+    ResponseBean getCourseListDetail(String tno);
 }

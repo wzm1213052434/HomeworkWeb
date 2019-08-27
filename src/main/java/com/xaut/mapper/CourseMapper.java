@@ -71,4 +71,11 @@ public interface CourseMapper {
      * @return
      */
     Map<String, Object> getCourseDetail(@Param("cno") String cno);
+    
+    /**
+     * function:教师所开课程列表的详细信息
+     * @param tno
+     * @return
+     */
+    List<Map<String, Object>> getCourseListDetail(@Param("tno") String tno);
 }
