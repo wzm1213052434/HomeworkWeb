@@ -174,7 +174,7 @@
 						<span class="arrow"></span>
 					</a>
 					<ul class="sub-menu">
-						<li class="active"><a href="javascript:;"><i class="icon-user-follow"></i>学生管理</a></li>
+						<li class="active"><a href="admin/mStudent"><i class="icon-user-follow"></i>学生管理</a></li>
 						<li><a href="admin/mTeacher"><i class="icon-user-follow"></i>教师管理</a></li>
 						<li><a href="admin/mAdmin"><i class="icon-user-follow"></i>管理员管理</a></li>
 					</ul>
@@ -201,185 +201,79 @@
 			<!-- BEGIN PAGE HEADER-->
 			<div class="page-bar">
 				<ul class="page-breadcrumb">
-					<li><i class="fa fa-home"></i>用户管理<i class="fa fa-angle-right"></i></li>
-					<li>学生管理</li>
+					<li><a href="admin/mStudent"><i class="fa fa-angle-left"></i>返回学生总览</a></li>
 				</ul>
 			</div>
-			<h3 class="page-title">
-				学生管理 <small>查看所有学生用户的信息</small>
-			</h3>
+			<h3 class="page-title">专业信息详情 &nbsp;<small id="departName"></small></h3>
 			<!-- END PAGE HEADER-->
-			<!-- 信息表格 开始 -->
-			<div class="portlet box green">
-				<div class="portlet-title" style="vertical-align:middle;position:relative;">
-					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>学生用户信息</div>
-					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
-						<a href="javascript:;" class="collapse" title="折叠"></a>
-						<a href="javascript:;" class="reload" title="刷新"></a>
+			<!-- 显示所有学生 开始 -->
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject font-red-sunglo bold">专业学生情况</span>
+						<span class="caption-helper">&nbsp;共</span>
+						<span id="courseWorkAmount">0</span>
+						<span class="caption-helper">名学生</span>
 					</div>
 				</div>
 				<div class="portlet-body">
-					<div class="row">
-						<div class="col-md-6 col-sm-6">
-							<div class="dataTables_filter">
-								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按学号查询">
-								<button class="form-control input-inline" onclick=";">查询</button>
-								<button class="form-control input-inline" onclick="location.href='admin/mStudent';">显示所有</button>
-							</div>
-						</div>
-						<div class="col-md-6 col-sm-6">	
-							<div class="pull-right">
-								<a class="edit" data-toggle="modal" href="#large2"><button class="form-control input-inline">增加学生</button></a>
-							</div>
-						</div>
-					</div>
-					<div id="able_1_wrapper" class="dataTables_wrapper no-footer">
-						<div class="table-scrollable">
-							<table class="table table-striped table-hover table-bordered text-center" id="able_1">
-								<thead>
-									<tr role="row">
-										<th class="text-center" tabindex="0" rowspan="1" colspan="1"></th>
-										<th class="text-center" tabindex="1" rowspan="1" colspan="1">学号</th>
-										<th class="text-center" tabindex="0" rowspan="1" colspan="1">姓名</th>
-										<th class="text-center" tabindex="2" rowspan="1" colspan="1">专业</th>
-										<th class="text-center" tabindex="2" rowspan="1" colspan="1">邮箱</th>
-										<th class="text-center" tabindex="0" rowspan="1" colspan="1">账号密码</th>
-										<th class="text-center" tabindex="3" rowspan="1" colspan="1">使用状态</th>
-										<th class="text-center" tabindex="4" rowspan="1" colspan="3">可用操作</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr role="row" class="odd">
-										<td class="sorting_1">1</td>
-										<td>3160661515</td>
-										<td>小兵</td>
-										<td><a href="admin/mStudentDetail?depart='计算机科学与技术'">计算机科学与技术</a></td>
-										<td>无</td>
-										<td>123456</td>
-										<td>
-											<span class="label label-sm label-success">
-												 正常
-											</span>
-										</td>
-										<td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td>
-										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
-										<td><a class="edit" href="javascript:;">删除</a></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="row" id="pages">
-							<div class="col-md-4 col-sm-5 pull-right">
-								<div class="dataTables_paginate paging_bootstrap_full_number">
-									<ul class="pagination">
-										<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
-										<li id="pageList"></li>
-										<li id="pageURL" style="display:none;" name="sno">admin/mStudent</li>
-										<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
-									</ul>
+					<div class="rows">
+						<div class="list-group" style="width:60%;margin:0 auto;">
+							<div>
+								<a href="javascript:;" class="list-group-item listHead" onclick="openAndClose(0);">
+									<span>学号：</span><span>***</span>
+									<span>姓名：</span><span>***</span>
+									|<i class="fa fa-angle-left" name="listIcon0"></i>
+								</a>
+								<div class="portlet light bordered listContent0" style="display:none;">
+									<div class="portlet-body">
+										<table class="table table-bordered">
+											<tbody>
+												<tr><td>邮箱</td><td>***</td></tr>
+												<tr><td>密码</td><td>***</td></tr>
+												<tr><td>状态</td><td>***</td></tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
+							<div>
+								<a href="javascript:;" class="list-group-item listHead" onclick="openAndClose(1);">
+									<span>学号：</span><span>***</span>
+									<span>姓名：</span><span>***</span>
+									|<i class="fa fa-angle-left" name="listIcon1"></i>
+								</a>
+								<div class="portlet light bordered listContent1" style="display:none;">
+									<div class="portlet-body">
+										<table class="table table-bordered">
+											<tbody>
+												<tr><td>邮箱</td><td>***</td></tr>
+												<tr><td>密码</td><td>***</td></tr>
+												<tr><td>状态</td><td>***</td></tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<hr color="gray"/>
+				<div class="row" id="pages">
+					<div class="col-md-2 col-sm-2 col-md-offset-10 col-sm-offset-10">
+						<div class="dataTables_paginate paging_bootstrap_full_number">
+							<ul class="pagination">
+								<li><a href="javascript:;" title="上一页" onclick="jumpPrevPage();"><i class="fa fa-angle-left"></i></a></li>
+								<li id="pageList"></li>
+								<li id="pageURL" style="display:none;" name="dapart">admin/mStudentDetail</li>
+								<li><a href="javascript:;" title="下一页" onclick="jumpNextPage();"><i class="fa fa-angle-right"></i></a></li>
+							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
-			<!-- 信息表格  结束 -->
-			<!-- 修改信息模态框1   开始-->
-            <div id="large2" class="modal fade" tabindex="-1" data-width="850">
-            	<div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h3 class="modal-title"><i class="fa fa-gift"></i>增加学生</h3>
-                </div>
-            	<div class="modal-body">
-            		<form role="form" class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">学号</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">姓名</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">专业</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">邮箱</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">密码</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11">
-								<button type="button" data-dismiss="modal" class="btn default">取消</button>
-								<button type="submit" class="btn green">提交</button>
-				            </div>
-						</div>
-					</form>
-            	</div>
-            </div>
-            <!-- 修改信息模态框1  结束-->	
-            <!-- 修改信息模态框2  开始-->
-            <div id="large" class="modal fade" tabindex="-1" data-width="850">
-            	<div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h3 class="modal-title"><i class="fa fa-gift"></i>修改信息</h3>
-                </div>
-            	<div class="modal-body">
-            		<form role="form" class="form-horizontal">
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">学号</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">姓名</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">专业</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">邮箱</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-1 col-md-1 control-label">密码</label>
-							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
-				            </div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11">
-								<button type="button" data-dismiss="modal" class="btn default">取消</button>
-								<button type="submit" class="btn green">提交</button>
-				            </div>
-						</div>
-					</form>
-            	</div>
-            </div>
-            <!-- 修改信息模态框2  结束-->	
+			<!-- 显示所有学生  结束 -->
 			
 			<!-- 老刘的分界线 -->
 		</div>
@@ -434,7 +328,24 @@
 <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageM/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
 <script>
+var Page = 1;      /* 搜索信息所用初始页号  */
+var Rows = 30;     /* 搜索信息所用每页条数  */
+var TheName = '';  /* 搜索信息所用课程名     */
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
+
+function changePar(){  /* 更改页面原始参数的函数  */
+	var id2 = GetPar("depart");
+	if(id2 != null){
+		TheName = id2;
+	}
+	document.getElementById("departName").innerHTML = TheName;
+}
+
 jQuery(document).ready(function() {    
 	Metronic.init(); // init metronic core componets
 	Layout.init(); // init layout
@@ -449,13 +360,9 @@ jQuery(document).ready(function() {
 	Index.initChat();
 	Index.initMiniCharts();
 	Tasks.initDashboardWidget();
+	changePar();
 });
 
-function checkSno(val){  /* 检查学生学号是否为十位的函数  */
-	var str = val.value;
-	if(str.length != 10)
-		alert("学号需为十位数字");
-}
 </script>
 </body>
 </html>
