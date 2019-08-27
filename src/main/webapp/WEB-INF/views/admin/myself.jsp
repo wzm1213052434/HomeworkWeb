@@ -256,7 +256,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">密码</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+								<input type="text" class="form-control" value="<%= user.getSalt() %>" placeholder="input-sm">
 				            </div>
 						</div>
 						<div class="form-group">

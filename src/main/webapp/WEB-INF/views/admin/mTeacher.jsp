@@ -218,8 +218,8 @@
 					<div class="row">
 						<div class="col-md-6 col-sm-6">
 							<div class="dataTables_filter">
-								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按学号查询">
-								<button class="form-control input-inline" onclick=";">查询</button>
+								<input id="contentInput" type="search" class="form-control input-big input-inline" placeholder="按工号查询">
+								<button class="form-control input-inline" onclick="findInform('请输入工号');">查询</button>
 								<button class="form-control input-inline" onclick="location.href='admin/mTeacher';">显示所有</button>
 							</div>
 						</div>
@@ -233,7 +233,10 @@
 						<div class="table-scrollable">
 							<table class="table table-striped table-hover table-bordered text-center" id="able_1">
 								<thead>
-									<tr role="row">
+									<tr id="displayMessage" style="display:none;">
+										<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
+									</tr>
+									<tr id="displayContent" role="row">
 										<th class="text-center" tabindex="0" rowspan="1" colspan="1"></th>
 										<th class="text-center" tabindex="1" rowspan="1" colspan="1">教师工号</th>
 										<th class="text-center" tabindex="0" rowspan="1" colspan="1">姓名</th>
@@ -243,7 +246,7 @@
 										<th class="text-center" tabindex="4" rowspan="1" colspan="3">可用操作</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="contentList">
 									<tr role="row" class="odd">
 										<td class="sorting_1">1</td>
 										<td>331700</td>
@@ -285,7 +288,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">工号</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+								<input type="text" class="form-control" placeholder="输入 6 位数字作为工号">
 				            </div>
 						</div>
 						<div class="form-group">
@@ -327,7 +330,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">工号</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+								<abbr title="工号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
@@ -412,6 +415,68 @@
 <script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageM/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
+<!-- 获取内容  开始 -->
+<script>
+var Page = 1;      /* 搜索信息所用的初始页号  */
+var Rows = 10;     /* 搜索信息所用的每页条数  */
+var total = 1;     /* 记录总页数  */
+var now = 1;       /* 记录当前页  */
+
+function changePar(){  /* 更改页面原始参数函数  */
+	var id1 = GetPar("page");
+	if(id1 != null){
+		var nowpage = parseInt(id1);
+		Page = nowpage;
+		now = Page;
+	}
+}
+function findInform(message){   /* 按输入模糊查询信息  */
+	var input = document.getElementById("contentInput");
+	var obj = document.getElementById("displayMessage");
+	obj.style.display = "none";
+	var inputThing = input.value;
+	if(inputThing == ""){
+		alert(message);
+	}else{
+		ajaxForInfomTeacher(inputThing);
+	}
+}
+var ajaxForInfomTeacher = function (t) {
+    $.ajax({
+        url:'/HomeWorkWeb/teacher/getTeacherDetail',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            tno:t
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	if(typeof(data.data.tno) == "undefined"){
+				var message = "未找到工号为 " + t + " 的教师";
+        		displayError(message);
+        	}else{
+        		dataList(data.data);
+        	}
+        }
+    })
+}
+function dataList(info){  /* 将信息写到列表中  */
+	var pages = document.getElementById("pages");
+	pages.style.display = "none";
+	removeAllChild("contentList");
+	var cList = $('#contentList');
+	var newNode=$('<tr role="row" class="odd"><td>1</td><td>'+info.tno+'</td><td>'+info.tname+'</td><td><a href="admin/mTeacherDetail?company="'+info.company+'">'+info.company+'</a></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+	cList.append(newNode);
+}
+</script>
+<!-- 获取内容  结束 -->
 <script>
 jQuery(document).ready(function() {       
 	Metronic.init(); // init metronic core componets

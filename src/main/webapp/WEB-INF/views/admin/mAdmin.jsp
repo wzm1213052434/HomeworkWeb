@@ -320,7 +320,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">账号</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<abbr title="账号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
