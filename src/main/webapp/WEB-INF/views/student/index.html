@@ -470,32 +470,32 @@ function showPage(response){
 		page_li += '<li><a href="javascript:;">&laquo;</a></li>';
 	}
 	else{
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (1) + ','  + response.pageSize + ')">首页</a></li>';
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.currentPage-1) + ',' + response.pageSize + ')">&laquo;</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (1) + ','  + response.data.pageSize + ')">首页</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.data.currentPage-1) + ',' + response.data.pageSize + ')">&laquo;</a></li>';
 	}
 	
 	//2.循环输出中间页码
-	for(var i=response.start; i<response.start+response.pageNo; i++){
-		if(i == response.currentPage){ //给当前页标记,进行区分
-			page_li += '<li class="active"><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+	for(var i=response.data.start; i<response.data.start+response.data.pageNo; i++){
+		if(i == response.data.currentPage){ //给当前页标记,进行区分
+			page_li += '<li class="active"><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.data.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
 		}
 		else{
-			page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+			page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.data.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
 		}
 	}
 	
 	//3.输出下一页和末页
-	if(response.currentPage == response.totalPage){ //当前是最后一页，不能点击末页和下一页
+	if(response.data.currentPage == response.data.totalPage){ //当前是最后一页，不能点击末页和下一页
 		page_li += '<li><a href="javascript:;">&raquo;</a></li>';
 		page_li += '<li><a href="javascript:;">末页</a></li>';
 	}
 	else{
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.currentPage+1) + ',' + response.pageSize + ')">&raquo;</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + response.data.totalPage + ',' + response.data.pageSize + ')">末页</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.data.currentPage+1) + ',' + response.data.pageSize + ')">&raquo;</a></li>';
 	}
 	
 	//4.输出总页数
-	page_li += '<li><a style="color:black">共' + response.totalPage + '页</a></li>';
+	page_li += '<li><a style="color:black">共' + response.data.totalPage + '页</a></li>';
 	$("#paging").html(page_li);
 }
 
@@ -526,10 +526,10 @@ function showAnnouncement(){
         success: function (response) {
         	//2.1.显示公告
         	var ann_tr = '<thead><tr><th>公告名</th><th>状态</th><th>发布人</th><th>相关课程</th><th>发布时间</th><th></th><th></th></tr></thead>';
-        	for(var i=0; i<response.list.length; i++){
-        		ann_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.list[i].aName + '</a></td>';
+        	for(var i=0; i<response.data.list.length; i++){
+        		ann_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data.list[i].aName + '</a></td>';
         		
-        		if(response.list[i].isRead == false){ //未读公告
+        		if(response.data.list[i].isRead == false){ //未读公告
         			ann_tr += '<td><span class="label label-sm label-danger">new</span></td>';
         		} else{ //已读公告
         			ann_tr += '<td></td>';
@@ -538,11 +538,11 @@ function showAnnouncement(){
         		ann_tr += '<td>' + '发布人' + '</td>';
         		ann_tr += '<td>' + '相关课程' + '</td>';
         		
-        		ann_tr += '<td>' + new Date(response.list[i].occurTime.time).toLocaleString() + '</td>';
+        		ann_tr += '<td>' + new Date(response.data.list[i].occurTime).toLocaleString() + '</td>';
         		
-        		if(response.list[i].isRead == false){ //未读公告
+        		if(response.data.list[i].isRead == false){ //未读公告
         			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
-            		ann_tr += '<td><a href="javascript:;" class="primary-link" onclick="toRead(this,\'' + response.list[i].ano + '\')">标记已读</a></td></tr>';
+            		ann_tr += '<td><a href="javascript:;" class="primary-link" onclick="toRead(this,\'' + response.data.list[i].ano + '\')">标记已读</a></td></tr>';
         		} else{ //已读公告
         			ann_tr += '<td><a href="javascript:;" class="primary-link">查看</a></td>';
         			ann_tr += '<td><a href="javascript:;">已读</a></td></tr>';
