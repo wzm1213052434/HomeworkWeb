@@ -63,4 +63,18 @@
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>
     </filter-mapping>
+    
+    <!-- 配置错误处理页面 -->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500</location>
+    </error-page>
+    <error-page>
+        <error-code>505</error-code>
+        <location>/error/505</location>
+    </error-page>
 </web-app>
