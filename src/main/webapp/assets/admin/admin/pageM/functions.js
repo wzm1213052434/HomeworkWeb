@@ -10,6 +10,59 @@ function GetPar(name) {  /* 获取参数函数 */
 	return null;
 }
 
+function changeIcon(i){     /* 展示与隐藏内容过程后更改小图标  */
+	var name = "listIcon" + i;
+	var icon = document.getElementsByName(name);
+	if(icon[0].getAttribute("class") == "fa fa-angle-left"){
+		icon[0].setAttribute("class","fa fa-angle-down");
+	}else{
+		icon[0].setAttribute("class","fa fa-angle-left");
+	}
+}
+
+var openAndClose = function (i){  /* 点击标题，展示与隐藏内容  */
+	var name = ".listContent" + i;
+	$(name).slideToggle(500,changeIcon(i));
+}
+
+function removeAllChild(strId){  /* 删除节点的所有子节点  */
+    var div = document.getElementById(strId);
+    while(div.hasChildNodes()){
+        div.removeChild(div.firstChild);
+    }
+}
+function displayError(message){
+	removeAllChild("contentList");
+	var obj = document.getElementById("displayMessage");
+	obj.style.display = "table-row";
+	obj = document.getElementById("displayContent");
+	obj.style.display = "none";
+	obj = document.getElementById("pages");
+	obj.style.display = "none";
+	obj = document.getElementById("emptyMessage");
+	obj.innerHTML = message;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function dataFirstToLast(message,p,r){  /* 更改页码显示  */
 	var num = parseInt(message);
 	if (isNaN(num)){
@@ -84,24 +137,3 @@ function jumpNextPage(){  /* 跳转到下一页  */
 }
 
 
-function changeIcon(i){     /* 展示与隐藏内容过程后更改小图标  */
-	var name = "listIcon" + i;
-	var icon = document.getElementsByName(name);
-	if(icon[0].getAttribute("class") == "fa fa-angle-left"){
-		icon[0].setAttribute("class","fa fa-angle-down");
-	}else{
-		icon[0].setAttribute("class","fa fa-angle-left");
-	}
-}
-
-var openAndClose = function (i){  /* 点击标题，展示与隐藏内容  */
-	var name = ".listContent" + i;
-	$(name).slideToggle(500,changeIcon(i));
-}
-
-function removeAllChild(strId){  /* 删除节点的所有子节点  */
-    var div = document.getElementById(strId);
-    while(div.hasChildNodes()){
-        div.removeChild(div.firstChild);
-    }
-}

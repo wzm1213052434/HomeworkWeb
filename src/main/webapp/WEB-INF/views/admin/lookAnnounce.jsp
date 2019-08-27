@@ -234,12 +234,12 @@
 										<tr id="displayMessage" style="display:none;">
 											<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
 										</tr>
-										<tr>
-											<th style="width:15%;">公告号</th>
-											<th style="width:15%;">课程号</th>
-											<th style="width:15%;">公告名</th>
-											<th style="width:40%;">公告描述</th>
-											<th style="width:10%;">发布时间</th>
+										<tr id="displayContent">
+											<th style="width:17%;">公告号</th>
+											<th style="width:17%;">课程号</th>
+											<th style="width:17%;">公告名</th>
+											<th style="width:29%;">公告描述</th>
+											<th style="width:15%;">发布时间</th>
 											<th style="width:5%;">操作</th>
 										</tr>
 									</thead>
@@ -338,13 +338,13 @@ function changePar(){  /* 更改页面原始参数函数  */
 }
 var ajaxForMsg = function (p,r,c) {
     $.ajax({
-        url:'/HomeWorkWeb/admin/lookAnnounceMsg',
+        url:'/HomeWorkWeb/announcement/findCourseAnnouncementByPage',
         type:'GET',
         async:false,
         traditional : true,
         data:{
-            page:p,
-            rows:r,
+        	currentPage:p,
+        	pageSize:r,
             cno:c
         },
         dataType : 'JSON',
@@ -352,15 +352,18 @@ var ajaxForMsg = function (p,r,c) {
             console.log("正在进行，请稍候");
         },
         success: function (data) {
-        	dataFirstToLast(data.message,p,r);
+        	if(data.message == "分页查询成功")
+        		dataFirstToLast(data.data.totalNum,p,r);
+        	else
+        		dataFirstToLast(data.message,p,r);        	
 	       	dataList(data.data);
         }
     })
 }
 function dataList(info){  /* 将信息写到列表中  */
 	var cList = $('#contentList');
-	for(var j=0;j<info.length;j++){
-		var newNode=$('<tr><td>'+info[j].ano+'</td><td>'+info[j].cno+'</td><td>'+info[j].aname+'</td><td>'+info[j].desc+'</td><td>'+info[j].occurtime+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+	for(var j=0;j<info.list.length;j++){
+		var newNode=$('<tr><td>'+info.list[j].ano+'</td><td>'+info.list[j].cno+'</td><td>'+info.list[j].aName+'</td><td>'+info.list[j].desc+'</td><td>'+info.list[j].occurTime+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 		cList.append(newNode);
 	}
 }

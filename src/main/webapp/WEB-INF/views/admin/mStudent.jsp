@@ -234,7 +234,10 @@
 						<div class="table-scrollable">
 							<table class="table table-striped table-hover table-bordered text-center" id="able_1">
 								<thead>
-									<tr role="row">
+									<tr id="displayMessage" style="display:none;">
+										<th style="text-align:center;" colspan="8"><span style="color:#d1d1d1;font-style:oblique;font-size:35px;" id="emptyMessage"></span></th>
+									</tr>
+									<tr id="displayContent" role="row">
 										<th class="text-center" tabindex="0" rowspan="1" colspan="1"></th>
 										<th class="text-center" tabindex="1" rowspan="1" colspan="1">学号</th>
 										<th class="text-center" tabindex="0" rowspan="1" colspan="1">姓名</th>
@@ -292,7 +295,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">学号</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+								<input type="text" class="form-control" placeholder="输入 10 位数字作为学号" onblur="checkSno(this);">
 				            </div>
 						</div>
 						<div class="form-group">
@@ -340,7 +343,7 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">学号</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm" onblur="checkSno(this);">
+								<abbr title="学号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
@@ -451,6 +454,8 @@ function changePar(){  /* 更改页面原始参数函数  */
 }
 function findInform(message){   /* 按输入模糊查询信息  */
 	var input = document.getElementById("contentInput");
+	var obj = document.getElementById("displayMessage");
+	obj.style.display = "none";
 	var inputThing = input.value;
 	if(inputThing == ""){
 		alert(message);
@@ -472,7 +477,12 @@ var ajaxForInfomStudent = function (s) {
             console.log("正在进行，请稍候");
         },
         success: function (data) {
-        	dataList(data.data);
+        	if(typeof(data.data.sno) == "undefined"){
+				var message = "未找到学号为 " + s + " 的学生";
+        		displayError(message);
+        	}else{
+        		dataList(data.data);
+        	}
         }
     })
 }
