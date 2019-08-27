@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
+<!-- 开始head -->
 <head>
-<meta charset="UTF-8">
-<title>样式测试--导航栏中间可变内容</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript" defer="defer">
+	function addBasePath(){
+		//1.得到项目根路径：http://localhost:8080/myproject/
+		var curWwwPath = window.document.location.href;
+		var pathName = window.document.location.pathname;
+		var pos = curWwwPath.indexOf(pathName);
+		var localhostPaht = curWwwPath.substring(0,pos);
+		var projectName = pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+		var realPath = localhostPaht + projectName;
+		var basePath = realPath + '/';
+		console.log(basePath);
+		
+		//2.添加根路径到html的base标签中
+		var $base = '<base href="' + basePath + '">';
+		$('head').prepend($base); //在头部添加
+	}
+	addBasePath();
+</script>
+<meta charset="utf-8"/>
+<title>教师所开课程列表课程详细信息</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <!-- 0.最先：引入CSS -->
@@ -34,21 +54,28 @@
 <link href="app/img/favicon.ico" rel="shortcut icon" />
 <!-- 结束主题样式 -->
 </head>
-<body>
-<!-- BEGIN BORDERED TABLE PORTLET-->
-<div class="portlet box purple">
-	<div class="portlet-title">
-		<div class="caption">
-			<i class="fa fa-comments"></i>
-			查看详细信息
+<!-- 结束head -->
+<!-- 开始body -->
+<body class="page-container-bg-solid">
+<!-- 开始导航栏中间可变内容 -->
+<div class="row">
+	<div class="col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+		<div class="portlet box purple">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-comments"></i>
+					教师所开课程列表课程详细信息
+				</div>
+			</div>
+			<div id="courseList" class="portlet-body">
+				<!-- 此处由JS编写 -->
+			</div>
 		</div>
 	</div>
-	<div id="courseList" class="portlet-body">
-		<!-- 此处由JS编写 -->
-	</div>
 </div>
-<!-- END BORDERED TABLE PORTLET-->
-<!-- 最后：引入JS -->
+<!-- 结束导航栏中间可变内容 -->
+
+<!-- 9999.最后：引入JS -->
 <!-- 开始核心插件 -->
 <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
@@ -62,8 +89,8 @@
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- 结束核心插件 -->
 <!-- 开始页级插件 -->
-<script src="assets/admin/pages/scripts/jquery.media.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-file-upload/js/jquery.fileupload-ui.js"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -83,6 +110,7 @@
 <script src="assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- 结束页级脚本 -->
+<!-- 开始自定义JS -->
 <script type="text/javascript">
 /**
  * function:打开|关闭数据表
@@ -97,21 +125,61 @@ function openOrClose(obj){
 	}
 }
 
-function show(){
-	for(var i=0;i<2;i++){
-		var div = '';
-		div += '<div class="portlet light bordered"><div class="portlet-title">';
-		div += '<div class="caption">' + '边界表' + '</div>';
-		div += '<div class="actions"><a href="javascript:;" class="btn btn-default btn-sm" onclick="openOrClose(this)"><i class="fa fa-angle-up"></i></a></div></div>';
-		div += '<div class="portlet-body" style="display: none;"><div class="table-scrollable"><table class="table table-bordered table-hover">';
-		div += '<thead><tr><th>＃</th><th>名字</th></tr></thead>';
-		div += '<tbody>';
-		div += '<tr><th>＃</th><th>名字</th></tr>';
-		div += '<tr><th>＃</th><th>名字</th></tr>';
-		div += '</tbody>';
-		div += '</table></div></div></div>';
-		$("#courseList").append(div);
-	}
+/**
+ * function:前端页面获取前端页面传来的参数
+ */
+function GetPar(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null)
+		return decodeURIComponent(r[2]);
+	return null;
+};
+
+/**
+ * function:展示教师所开课程详细信息
+ */
+function showCourseListDetail(){
+	//1.获得参数
+	var tno = GetPar("tno");
+	
+	//2.展示数据
+	$.ajax({
+        url: '/HomeWorkWeb/course/getCourseListDetail',
+        type: 'GET',
+        async: false,
+        data: {
+        	tno: tno
+        },
+        success: function (response) {
+        	if(response.data.length == 0){
+        		var str = '<h4>' + response.message + '</h4>';
+        		$("#courseList").html(str);
+        	}
+        	for(var i=0; i<response.data.length; i++){
+        		var div = '';
+        		div += '<div class="portlet light bordered"><div class="portlet-title">';
+        		div += '<div class="caption">' + response.data[i].cname + '</div>';
+        		div += '<div class="actions"><a href="javascript:;" class="btn btn-default btn-sm" onclick="openOrClose(this)"><i class="fa fa-angle-up"></i></a></div></div>';
+        		div += '<div class="portlet-body" style="display: none;"><div class="table-scrollable"><table class="table table-bordered table-hover">';
+        		div += '<tbody>';
+        		div += '<tr><th>教师姓名</th><th>' + response.data[i].tname + '</th></tr>';
+        		div += '<tr><th>课程名</th><th>' + response.data[i].cname + '</th></tr>';
+        		div += '<tr><th>学年</th><th>' + response.data[i].year + '</th></tr>';
+        		div += '<tr><th>学期</th><th>' + response.data[i].term + '</th></tr>';
+        		div += '<tr><th>上课时间</th><th>' + response.data[i].time + '</th></tr>';
+        		div += '<tr><th>上课地点</th><th>' + response.data[i].place + '</th></tr>';
+        		div += '<tr><th>是否结课</th><th>' + response.data[i].isclassend + '</th></tr>';
+        		div += '<tr><th>学院</th><th>' + response.data[i].company + '</th></tr>';
+        		div += '<tr><th>选课人数</th><th>' + response.data[i]['选课人数'] + '</th></tr>';
+        		div += '<tr><th>布置作业数</th><th>' + response.data[i]['布置作业数'] + '</th></tr>';
+        		div += '<tr><th>课程公告数</th><th>' + response.data[i]['课程公告数'] + '</th></tr>';
+        		div += '</tbody>';
+        		div += '</table></div></div></div>';
+        		$("#courseList").append(div);
+        	}
+        }
+	})
 }
 
 /*
@@ -119,8 +187,9 @@ function show(){
  */
 $(document).ready(function () {
 	Metronic.init();
-	show();
+	showCourseListDetail(); //展示教师所开课程详细信息
 });
 </script>
 </body>
+<!-- 结束body -->
 </html>

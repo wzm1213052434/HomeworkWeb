@@ -81,23 +81,23 @@
 function showPublishedWorkList(){
 	//1.修改列表
 	$.ajax({
-	        url: '/HomeWorkWeb/work/getPublishWorkSurvey',
-	        type: 'GET',
-	        async: false,
-	        data: {},
-	        success: function (response) {
-	        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>作业评分</th><th>公布人</th><th></th></tr></thead>';
-	        	for(var i=0; i<response.data.length; i++){
-	        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
-	        		course_tr += '<td>' + response.data[i].作业评分 + '</td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="studentDetail(\'' + response.data[i].sno + '\')">' + response.data[i].公布人 + '</a></td>';
-	        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
-	        	}
-	        	$("#publishWorkList").html(course_tr);
-	        }
-		})
+        url: '/HomeWorkWeb/work/getPublishWorkSurvey',
+        type: 'GET',
+        async: false,
+        data: {},
+        success: function (response) {
+        	var course_tr = '<thead><tr><th>作业</th><th>所属课程</th><th>开课老师</th><th>作业评分</th><th>公布人</th><th></th></tr></thead>';
+        	for(var i=0; i<response.data.length; i++){
+        		course_tr += '<tr><td><a href="javascript:;" class="primary-link">' + response.data[i].作业名 + '</a></td>';
+        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].所属课程名 + '</a></td>';
+        		course_tr += '<td><a href="javascript:;" class="primary-link">' + response.data[i].开课老师 + '</a></td>';
+        		course_tr += '<td>' + response.data[i].作业评分 + '</td>';
+        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="studentDetail(\'' + response.data[i].sno + '\')">' + response.data[i].公布人 + '</a></td>';
+        		course_tr += '<td><a href="javascript:;" class="primary-link" onclick="lookOnline(\'' + response.data[i].提交作业文件名  + '\')">在线查看</a></td></tr>';
+        	}
+        	$("#publishWorkList").html(course_tr);
+        }
+	})
 };
 
 /**
