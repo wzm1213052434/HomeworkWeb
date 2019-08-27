@@ -440,29 +440,23 @@ function showUserName(){
 };
 
 /**
- * 重定向到自己
+ * function:前端页面获取前端页面传来的参数
  */
-function gotoIndex(forwardUrl,gotoUrl,currentPage,pageSize){
-	window.location.href = forwardUrl + "?gotoUrl=" + gotoUrl + "&currentPage=" + currentPage + "&pageSize=" + pageSize;
-}
+function GetPar(name) {
+	var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+	var r = window.location.search.substr(1).match(reg);
+	if(r != null)
+		return decodeURIComponent(r[2]);
+	return null;
+};
 
 /**
- * 解析上个页面带来的所有参数
+ * function:重新回到自己页面
  */
- function parseUrl(){
-     var url = location.href;
-     var i = url.indexOf('?');
-     if(i == -1)
-    	 return;
-     var querystr = url.substr(i+1);
-     var arr1 = querystr.split('&');
-     var arr2 = new Object();
-     for(i in arr1){
-         var ta = arr1[i].split('=');
-         arr2[ta[0]] = ta[1];
-     }
-     return arr2;
- };
+function gotoIndex(currentPage,pageSize){
+	var url = '/HomeWorkWeb/student/index';
+	location.href = encodeURI(url + "?currentPage=" + currentPage + "&pageSize=" + pageSize);
+};
 
 /**
  * function:显示分页列表
@@ -476,17 +470,17 @@ function showPage(response){
 		page_li += '<li><a href="javascript:;">&laquo;</a></li>';
 	}
 	else{
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',1,' + response.pageSize + ')">首页</a></li>';
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage-1) + ',' + response.pageSize + ')">&laquo;</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (1) + ','  + response.pageSize + ')">首页</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.currentPage-1) + ',' + response.pageSize + ')">&laquo;</a></li>';
 	}
 	
 	//2.循环输出中间页码
 	for(var i=response.start; i<response.start+response.pageNo; i++){
 		if(i == response.currentPage){ //给当前页标记,进行区分
-			page_li += '<li class="active"><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+			page_li += '<li class="active"><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
 		}
 		else{
-			page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
+			page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (i) + ',' + response.pageSize + ')">' + i + '&nbsp;&nbsp;</a></li>';
 		}
 	}
 	
@@ -496,8 +490,8 @@ function showPage(response){
 		page_li += '<li><a href="javascript:;">末页</a></li>';
 	}
 	else{
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
-		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(\'forward.jsp\',\'WEB-INF/views/student/index.html\',' + (response.currentPage+1) + ',' + response.pageSize + ')">&raquo;</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + response.totalPage + ',' + response.pageSize + ')">末页</a></li>';
+		page_li += '<li><a href="javascript:void(0);" onclick="gotoIndex(' + (response.currentPage+1) + ',' + response.pageSize + ')">&raquo;</a></li>';
 	}
 	
 	//4.输出总页数
@@ -508,20 +502,16 @@ function showPage(response){
 /**
  * 展示公告列表
  */
-var default_currentPage = 1; //默认当前页
-var default_pageSize = 7; //默认页大小
+var currentPage = 1; //默认当前页
+var pageSize = 7; //默认页大小
 function showAnnouncement(){
 	//1.获得前端参数
-	var data = parseUrl();//解析所有参数
-	var currentPage;
-	var pageSize;
-	if(data == null){ //如果没有携带参数，给默认值
-		currentPage = default_currentPage;
-		pageSize = default_pageSize;
-	}
-	else{
-		currentPage = data['currentPage'];
-		pageSize = data['pageSize'];
+	var a = GetPar('currentPage');
+	var b = GetPar('pageSize');
+	
+	if(a!=null && b!=null){ //参数不为空时:使用本参数
+		currentPage = a;
+		pageSize = b;
 	}
 	
 	//2.使用Ajax调用接口

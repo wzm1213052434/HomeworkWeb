@@ -56,7 +56,7 @@
 	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
-				<prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/nopermission.jsp</prop>
+				<prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/noPermission.html</prop>
 			</props>
 		</property>
 	</bean>
@@ -65,7 +65,7 @@
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login" />
-        <property name="unauthorizedUrl" value="/nopermission.jsp" />
+        <property name="unauthorizedUrl" value="/noPermission.html" />
         <property name="filterChainDefinitions">
             <value>
             	/** = anon
