@@ -393,6 +393,60 @@
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
+<!-- 获取内容  开始 -->
+<script>
+var Page = 1;      /* 搜索信息所用初始页号  */
+var Rows = 10;      /* 搜索信息所用每页条数  */
+var TheName = '';  /* 搜索信息所用课程名     */
+var total = 1;  /* 记录总页数  */
+var now = 1;    /* 记录当前页  */
+
+function changePar(){  /* 更改页面原始参数函数  */
+	var id1 = GetPar("page");
+	var id2 = GetPar("cname");
+	if(id1 != null){
+		var nowpage = parseInt(id1);
+		Page = nowpage;
+		now = Page;
+	}
+	if(id2 != null){
+		TheName = id2;
+	}
+}
+var ajaxForMsg = function (p,r,c) {
+    $.ajax({
+        url:'/HomeWorkWeb/admin/lookCourseMsg',
+        type:'GET',
+        async:false,
+        traditional : true,
+        data:{
+            page:p,
+            rows:r,
+            cname:c
+        },
+        dataType : 'JSON',
+        beforeSend: function () {
+            console.log("正在进行，请稍候");
+        },
+        success: function (data) {
+        	dataFirstToLast(data.message,p,r);
+	       	dataList(data.data);
+        }
+    })
+}
+function dataList(info){  /* 将信息写到列表中  */
+	var cList = $('#contentList');
+	for(var j=0;j<info.length;j++){
+		if(info[j].state == "ture")
+			var st = "是";
+		else
+			var st = "否";
+		var newNode=$('<tr><td>'+info[j].cno+'</td><td>'+info[j].tno+'</td><td><a href="admin/lookCourseDetail?cno='+info[j].cno+'">'+info[j].cname+'</a></td><td>'+info[j].year+'</td><td>'+info[j].term+'</td><td>'+info[j].time+'</td><td>'+info[j].place+'</td><td>'+st+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+		cList.append(newNode);
+	}
+}
+</script>
+<!-- 获取内容  结束 -->
 <script>
 jQuery(document).ready(function() {    
 	Metronic.init(); // init metronic core componets
