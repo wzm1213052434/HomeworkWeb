@@ -35,6 +35,8 @@
 <link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- 结束全局强制样式 -->
 <!-- 开始页级插件样式 -->
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
@@ -178,8 +180,10 @@
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
-								<a href="extra_profile.html">
-								<i class="icon-user"></i> 我的信息 </a>
+								<a id="toChange" data-toggle="modal" href="#modelMessage">
+									<i class="icon-user"></i>
+									我的信息
+								</a>
 							</li>
 							
 							<li>
@@ -213,6 +217,12 @@
 	<!-- 1.1结束顶部内容 -->
 </div>
 <!-- 1.结束顶部div -->
+
+<!-- 开始显示模态框 -->
+<div id="modelMessage" class="modal fade" tabindex="-1" data-width="760" aria-hidden="true" style="display: none; width: 760px; margin-left: -379px; margin-top: -249.5px;">
+	<!-- 此处由JS显示模态框 -->
+</div>
+<!-- 结束模态框 -->
 
 <div class="clearfix">
 </div>
@@ -383,6 +393,8 @@
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- 结束核心插件 -->
 <!-- 开始页级插件 -->
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modalmanager.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-modal/js/bootstrap-modal.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
@@ -639,6 +651,24 @@ function toRead(obj,ano){
 }
 
 /**
+ * function:学生更改信息模态框
+ */
+function changeStudentMessage(){
+    $("#toChange").on('click', function () { //点击查看模态框
+    	//显示模态框内容
+    	$.ajax({
+            url: '/HomeWorkWeb/student/changeStudentMessage',
+            type: 'GET',
+            async: false,
+            data: {},
+            success: function (response) {
+            	$("#modelMessage").html(response);
+            }
+    	})
+    });
+};
+
+/**
  * 加载完成后初始化页面
  */
 $(document).ready(function() {
@@ -649,6 +679,7 @@ $(document).ready(function() {
 	showUserName(); //初始化用户名
 	showNewAnnouncementCount(); //展示最新公告数
 	showAnnouncement();	//展示公告列表
+	changeStudentMessage(); //学生更改信息模态框
 });
 </script>
 <!-- 结束自定义JS -->
