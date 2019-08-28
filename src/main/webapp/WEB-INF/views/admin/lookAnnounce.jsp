@@ -363,7 +363,7 @@ var ajaxForMsg = function (p,r,c) {
 function dataList(info){  /* 将信息写到列表中  */
 	var cList = $('#contentList');
 	for(var j=0;j<info.list.length;j++){
-		var newNode=$('<tr><td>'+info.list[j].ano+'</td><td>'+info.list[j].cno+'</td><td>'+info.list[j].aName+'</td><td>'+info.list[j].desc+'</td><td>'+info.list[j].occurTime+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+		var newNode=$('<tr><td>'+info.list[j].ano+'</td><td>'+info.list[j].cno+'</td><td>'+info.list[j].aname+'</td><td>'+info.list[j].desc+'</td><td>'+info.list[j].occurtime+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 		cList.append(newNode);
 	}
 }
