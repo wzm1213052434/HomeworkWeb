@@ -91,12 +91,12 @@ public class WorkMapperTest {
     	map.put("username","0000123456");
     	map.put("wno","(2017-2018-1)-09191430-104496-3-1");
     	map.put("studentWorkName","本次作业呀"); //提交作业文件名-更新
-    	map.put("subTime",new java.sql.Date(new Date().getTime())); //提交时间-更新
-    	map.put("times",1); //剩余提交次数-减1
+    	map.put("subTime",new java.sql.Date(new Date().getTime()).toString()); //提交时间-更新
+    	map.put("times","1"); //剩余提交次数-减1
     	map.put("isCorrect","0"); //是否批改-为否
     	map.put("comment","无"); //评论-清空
     	map.put("score","无"); //成绩-清空
-		map.put("updateTime",new java.sql.Date(new Date().getTime())); //更新时间-更新
+		map.put("updateTime",new java.sql.Date(new Date().getTime()).toString()); //更新时间-更新
 		map.put("isPublish","0"); //是否发布-为否
 		workMapper.updateStudentWork(map);
 		System.out.println("动态sql更新学生作业表成功");

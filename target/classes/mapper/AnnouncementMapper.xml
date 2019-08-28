@@ -28,7 +28,7 @@
 		select count(*) from db_announcement where isread = '0';
 	</select>
 	
-	<!-- 动态sql更新公告（注意：有些非字符串的不能判断!=''） -->
+	<!-- 动态sql更新公告（注意：基表有些非字符串的不能判断!=''） -->
 	<update id="updateAnnouncement" parameterType="com.xaut.entity.Announcement">
 		update db_announcement
 		<set>

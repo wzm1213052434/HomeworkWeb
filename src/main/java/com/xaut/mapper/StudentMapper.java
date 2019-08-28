@@ -93,5 +93,5 @@ public interface StudentMapper {
      * function:动态sql更新学生表
      * @param map
      */
-    void updateStudent(Map<String, Object> map);
+    void updateStudent(Student student);
 }

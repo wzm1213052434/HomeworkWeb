@@ -1,7 +1,6 @@
 package com.xaut.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.xaut.entity.User;
 import com.xaut.util.ResponseBean;
@@ -27,5 +26,5 @@ public interface UserService {
 	 * @param map
 	 * @return
 	 */
-	ResponseBean changeUserMessage(Map<String,Object> map);
+	ResponseBean updateUser(User user);
 }

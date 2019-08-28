@@ -8,5 +8,8 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         
         <setting name="logImpl" value="STDOUT_LOGGING" />
+        
+        <!--解决:查询返回结果含null没有对应字段值问题-->
+        <setting name="callSettersOnNulls" value="true"/>
     </settings>
 </configuration>

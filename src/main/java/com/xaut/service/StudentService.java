@@ -2,6 +2,7 @@ package com.xaut.service;
 
 import java.util.Map;
 
+import com.xaut.entity.Student;
 import com.xaut.util.ResponseBean;
 
 /**
@@ -57,5 +58,5 @@ public interface StudentService {
      * function:动态sql更新学生表
      * @param map
      */
-    ResponseBean updateStudent(Map<String, Object> map);
+    ResponseBean updateStudent(Student student);
 }

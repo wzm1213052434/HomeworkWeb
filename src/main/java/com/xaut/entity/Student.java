@@ -13,6 +13,9 @@ public class Student {
     /* 学生姓名 */
     private String sName;
 
+    /* 学生学院 */
+    private String company;
+    
     /* 专业 */
     private String depart;
 
@@ -36,6 +39,14 @@ public class Student {
 
 	public void setsName(String sName) {
 		this.sName = sName;
+	}
+
+	public String getCompany() {
+		return company;
+	}
+
+	public void setCompany(String company) {
+		this.company = company;
 	}
 
 	public String getDepart() {
@@ -64,7 +75,7 @@ public class Student {
 
 	@Override
 	public String toString() {
-		return "Student [sno=" + sno + ", sName=" + sName + ", depart=" + depart + ", mailbox=" + mailbox
-				+ ", updateTime=" + updateTime + "]";
+		return "Student [sno=" + sno + ", sName=" + sName + ", company=" + company + ", depart=" + depart + ", mailbox="
+				+ mailbox + ", updateTime=" + updateTime + "]";
 	}
 }

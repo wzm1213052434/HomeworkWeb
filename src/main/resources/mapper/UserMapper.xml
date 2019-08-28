@@ -73,8 +73,8 @@
 		where user_roles.uid = #{user_id} and user_roles.rid = #{role_id};
     </delete>
     
-    <!-- 动态sql更新用户表 -->
-    <update id="updateUser" parameterType="java.util.Map">
+    <!-- 动态sql更新用户表（注意：基表有些非字符串的不能判断!=''） -->
+    <update id="updateUser" parameterType="com.xaut.entity.User">
 		update users u
 		<set>
 			<if test="userName!=null and userName!=''">
@@ -92,7 +92,7 @@
 			<if test="locked!=null and locked!=''">
 				u.locked = #{locked},
 			</if>
-			<if test="updateTime!=null and updateTime!=''">
+			<if test="updateTime != null">
 				u.updatetime = #{updateTime},
 			</if>
 		</set>

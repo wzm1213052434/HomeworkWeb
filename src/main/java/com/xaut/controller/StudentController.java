@@ -2,8 +2,6 @@ package com.xaut.controller;
 
 import java.io.File;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.xaut.entity.Student;
+import com.xaut.entity.User;
 import com.xaut.service.StudentService;
 import com.xaut.service.UserService;
 import com.xaut.util.CommonString;
@@ -175,16 +175,17 @@ public class StudentController {
     	String mailbox = request.getParameter("mailbox");
     	
     	//2..更新学生表
-    	Map<String,Object> stu_map = new HashMap<String,Object>();
-    	stu_map.put("userName",userName);
-    	stu_map.put("mailbox",mailbox);
-    	studentService.updateStudent(stu_map);
+    	Student student = new Student();
+    	student.setSno(userName);
+    	student.setMailbox(mailbox);
+    	student.setUpdateTime(new java.sql.Date(new Date().getTime()));
+    	studentService.updateStudent(student);
     	
     	//3..更新用户表
-    	Map<String,Object> map = new HashMap<String,Object>();
-    	map.put("userName",userName);
-    	map.put("passWord",new Md5Hash(passWord,userName).toString());
-    	map.put("updateTime",new java.sql.Date(new Date().getTime()).toString());
-    	return userService.changeUserMessage(map);
+    	User user = new User();
+    	user.setUserName(userName);
+    	user.setPassWord(new Md5Hash(passWord,userName).toString());
+    	user.setUpdateTime(new java.sql.Date(new Date().getTime()));
+    	return userService.updateUser(user);
     }
 }

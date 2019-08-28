@@ -113,8 +113,8 @@
 		where s.sno = #{sno} and s.sno = sc.sno;
 	</select>
 	
-	<!-- 动态sql更新用户表 -->
-	<update id="updateStudent" parameterType="java.util.Map">
+	<!-- 动态sql更新用户表（注意：基表有些非字符串的不能判断!=''） -->
+	<update id="updateStudent" parameterType="com.xaut.entity.Student">
 		update db_student s
 		<set>
 			<if test="sno!=null and sno!=''">
@@ -132,7 +132,7 @@
 			<if test="company!=null and company!=''">
 				s.company = #{company},
 			</if>
-			<if test="updateTime!=null and updateTime!=''">
+			<if test="updateTime != null">
 				s.updatetime = #{updateTime},
 			</if>
 		</set>
