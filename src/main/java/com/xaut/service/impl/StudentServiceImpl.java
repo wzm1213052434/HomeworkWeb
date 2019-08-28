@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
 import com.xaut.mapper.StudentMapper;
 import com.xaut.mapper.WorkMapper;
 import com.xaut.service.StudentService;
@@ -161,4 +163,26 @@ public class StudentServiceImpl implements StudentService {
 		
 		return new ResponseBean(true, map, "获得学生详细信息成功");
     }
+    
+    /**
+     * function:动态sql更新学生表
+     * @param map
+     */
+    public ResponseBean updateStudent(Map<String, Object> map) {
+    	if (map == null) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		String userName = studentMapper.getStudentNameByUsername(map.get("userName").toString());
+		if(userName == null || "".equals(userName)) {
+			return new ResponseBean(false, "无此学生");
+		}
+		try {
+			studentMapper.updateStudent(map);
+		} catch (Exception e) {
+			return new ResponseBean(false, "更新学生信息异常");
+		}
+		
+		return new ResponseBean(true, "更新学生信息成功");
+	}
 }

@@ -1,11 +1,15 @@
 package com.xaut.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.xaut.entity.User;
 import com.xaut.mapper.UserMapper;
 import com.xaut.service.UserService;
+import com.xaut.util.ResponseBean;
 
 @Service("UserService")
 public class UserServiceImpl implements UserService{
@@ -31,5 +35,28 @@ public class UserServiceImpl implements UserService{
      */
 	public List<String> findPermissionsByUsername(String username){
 		return this.userMapper.findPermissionsByUsername(username);
+	}
+	
+	/**
+	 * function:更新用户信息
+	 * @param map
+	 * @return
+	 */
+	public ResponseBean changeUserMessage(Map<String,Object> map) {
+		if (map == null) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		User user = userMapper.findUserByUsername(map.get("userName").toString());
+		if(user == null) {
+			return new ResponseBean(false, "无此用户");
+		}
+		try {
+			userMapper.updateUser(map);
+		} catch (Exception e) {
+			return new ResponseBean(false, "更新用户信息异常");
+		}
+		
+		return new ResponseBean(true, "更新用户信息成功");
 	}
 }

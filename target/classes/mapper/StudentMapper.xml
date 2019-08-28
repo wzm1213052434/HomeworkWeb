@@ -112,4 +112,30 @@
 		from db_student s,db_studcour sc
 		where s.sno = #{sno} and s.sno = sc.sno;
 	</select>
+	
+	<!-- 动态sql更新用户表 -->
+	<update id="updateStudent" parameterType="java.util.Map">
+		update db_student s
+		<set>
+			<if test="sno!=null and sno!=''">
+				s.sno = #{sno},
+			</if>
+			<if test="sName!=null and sName!=''">
+				s.sname = #{sName},
+			</if>
+			<if test="depart!=null and depart!=''">
+				s.depart = #{depart},
+			</if>
+			<if test="mailbox!=null and mailbox!=''">
+				s.mailbox = #{mailbox},
+			</if>
+			<if test="company!=null and company!=''">
+				s.company = #{company},
+			</if>
+			<if test="updateTime!=null and updateTime!=''">
+				s.updatetime = #{updateTime},
+			</if>
+		</set>
+		where s.sno = #{sno};
+	</update>
 </mapper>

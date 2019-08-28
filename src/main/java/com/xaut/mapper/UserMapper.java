@@ -1,6 +1,8 @@
 package com.xaut.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import com.xaut.entity.User;
 
@@ -49,5 +51,10 @@ public interface UserMapper {
 	 * @param uid rid
 	 */
 	public void deteleRoleByUID(@Param("user_id") String uid,@Param("role_id") String rid);
-
+	
+	/**
+     * function:动态sql更新用户表
+     * @param map
+     */
+    void updateUser(Map<String, Object> map);
 }

@@ -72,5 +72,30 @@
 		from user_roles
 		where user_roles.uid = #{user_id} and user_roles.rid = #{role_id}
     </delete>
-
+    
+    <!-- 动态sql更新用户表 -->
+    <update id="updateUser" parameterType="java.util.Map">
+		update users u
+		<set>
+			<if test="userName!=null and userName!=''">
+				u.username = #{userName},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				u.password = #{passWord},
+			</if>
+			<if test="flag!=null and flag!=''">
+				u.flag = #{flag},
+			</if>
+			<if test="salt!=null and salt!=''">
+				u.salt = #{salt},
+			</if>
+			<if test="locked!=null and locked!=''">
+				u.locked = #{locked},
+			</if>
+			<if test="updateTime!=null and updateTime!=''">
+				u.updatetime = #{updateTime},
+			</if>
+		</set>
+		where u.username = #{userName};
+	</update>
 </mapper>

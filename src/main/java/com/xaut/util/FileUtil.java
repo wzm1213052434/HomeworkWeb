@@ -227,7 +227,7 @@ public class FileUtil {
 			//1.2新增用户
 			User user = new User();
 			user.setUserName(stu.getSno()); //用户账号
-			user.setPassWord(new Md5Hash(stu.getSno(),stu.getSno()).toString()); //密码
+			user.setPassWord(new Md5Hash(CommonString.DEFAULT_PASSWORD,stu.getSno()).toString()); //密码
 			user.setFlag("3"); //账号类型(3为学生)
 			user.setSalt(stu.getSno()); //加盐(就是账号)
 			user.setLocked("0"); //是否锁定(0为未锁定)

@@ -52,4 +52,10 @@ public interface StudentService {
      * @return
      */
     ResponseBean getStudentDetail(String sno);
+    
+    /**
+     * function:动态sql更新学生表
+     * @param map
+     */
+    ResponseBean updateStudent(Map<String, Object> map);
 }

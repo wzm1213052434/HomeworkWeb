@@ -1,5 +1,8 @@
 package com.xaut.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +49,21 @@ public class StudentServiceImplTest {
 	public void getStudentDetailTest() {
 		ResponseBean result = studentService.getStudentDetail("0000123456");
 		//格式化输出
+		HandleJSON handleJSON = new HandleJSON();
+		System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
+	
+	/**
+	 * test:动态sql更新学生表
+	 */
+	@Test
+	public void updateStudentTest() {
+	   	Map<String,Object> map = new HashMap<String,Object>();
+    	map.put("userName","0000123456");
+    	map.put("mailbox","1612571478@qq.com");
+    	ResponseBean result = studentService.updateStudent(map);
+    	
+    	//格式化输出
 		HandleJSON handleJSON = new HandleJSON();
 		System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}

@@ -55,7 +55,7 @@
 	<update id="updateStudentWork" parameterType="java.util.Map">
 		update db_studwork sw
 		<set>
-			<if test="studentWorkName != null">
+			<if test="studentWorkName!=null and studentWorkName!=''">
 				sw.studentworkname = #{studentWorkName},
 			</if>
 			<if test="subTime != null">
@@ -67,7 +67,7 @@
 			<if test="isCorrect != null">
 				sw.iscorrect = #{isCorrect},
 			</if>
-			<if test="comment != null">
+			<if test="comment!=null and comment!=''">
 				sw.comment = #{comment},
 			</if>
 			<if test="score != null">

@@ -17,7 +17,6 @@ import com.xaut.entity.User;
 
 @Controller
 public class UserController {
-	
 	/**
 	 * 向用户登录页面跳转
 	 */
