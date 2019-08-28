@@ -574,25 +574,23 @@ function loadPage(url) {
 /**
  * function:左部导航栏操作
  */
-$(document).ready(function () {
+ $(document).ready(function () {
 	//点击一级目录
 	$('#menulist > li > a').click(function () {
 		$('#menulist > li').removeClass('active'); //去除所有一级标题
 		$('#menulist ul > li').removeClass('active'); //去除所有二级标题
-		$('#menulist > li').removeClass('open'); //为了关闭一级标题
-		$('#menulist li a span').removeClass('open'); //关闭所有二级标题箭头
-		
-		$('#menulist > li > ul').attr("style","display:none"); //隐藏二级标题
-		$(this).parent().addClass('active'); //选中本级标题
+		if($(this).next().length <= 0){ //如果仅有一级标题
+			$('#menulist > li > ul').hide(300); //隐藏二级标题
+			$('#menulist > li').removeClass('open'); //关闭所有一级标题
+			$('#menulist li a span').removeClass('open'); //关闭所有一级标题箭头
+			$(this).parent().addClass('active'); //选中本级标题
+		}
 	});
 	
 	//点击二级目录
 	$('#menulist ul li > a').click(function () {
-		$('#menulist > li').removeClass('active'); //去除所有一级标题
 		$('#menulist ul > li').removeClass('active'); //去除所有二级标题
-		
 		$(this).parent().addClass('active'); //选中本级标题
-		$(this).parent().parent().parent().addClass('active'); //选中一级标题
 	});
 });
 
