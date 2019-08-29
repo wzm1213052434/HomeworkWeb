@@ -339,12 +339,11 @@
             	</div>
             </div>
             <!-- 修改信息模态框2  结束-->	
+            
 			<!-- 老刘的分界线 -->
 		</div>
 	</div>
 </div>
-
-
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
@@ -353,7 +352,6 @@
 <![endif]-->
 <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
-<!-- IMPORTANT! Load jquery-ui.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
@@ -375,9 +373,7 @@
 <script src="assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- IMPORTANT! fullcalendar depends on jquery-ui.min.js for drag & drop support -->
 <script src="assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
