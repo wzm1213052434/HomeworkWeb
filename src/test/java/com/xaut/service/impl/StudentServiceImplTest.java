@@ -5,7 +5,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 import com.alibaba.fastjson.JSON;
+import com.xaut.entity.Student;
 import com.xaut.service.StudentService;
 import com.xaut.util.HandleJSON;
 import com.xaut.util.ResponseBean;
@@ -46,6 +48,21 @@ public class StudentServiceImplTest {
 	public void getStudentDetailTest() {
 		ResponseBean result = studentService.getStudentDetail("0000123456");
 		//格式化输出
+		HandleJSON handleJSON = new HandleJSON();
+		System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+	}
+	
+	/**
+	 * test:动态sql更新学生表
+	 */
+	@Test
+	public void updateStudentTest() {
+		Student student = new Student();
+		student.setSno("0000123456");
+		student.setMailbox("abcdefg@qq.com");
+    	ResponseBean result = studentService.updateStudent(student);
+    	
+    	//格式化输出
 		HandleJSON handleJSON = new HandleJSON();
 		System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
 	}

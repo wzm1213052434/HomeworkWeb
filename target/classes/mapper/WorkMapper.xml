@@ -51,32 +51,32 @@
 		where sw.sno = #{username} and sw.wno = #{wno} and sw.wno = w.wno;
 	</select>
 	
-	<!-- 动态sql更新学生作业表（注意：有些非字符串的不能判断!=''） -->
+	<!-- 动态sql更新学生作业表（注意：中间表为防止错误全用String） -->
 	<update id="updateStudentWork" parameterType="java.util.Map">
 		update db_studwork sw
 		<set>
-			<if test="studentWorkName != null">
+			<if test="studentWorkName!=null and studentWorkName!=''">
 				sw.studentworkname = #{studentWorkName},
 			</if>
-			<if test="subTime != null">
+			<if test="subTime!=null and subTime!=''">
 				sw.subtime = #{subTime},
 			</if>
-			<if test="times != null">
+			<if test="times!=null and times!=''">
 				sw.times = #{times},
 			</if>
-			<if test="isCorrect != null">
+			<if test="isCorrect!=null and  isCorrect!=''">
 				sw.iscorrect = #{isCorrect},
 			</if>
-			<if test="comment != null">
+			<if test="comment!=null and comment!=''">
 				sw.comment = #{comment},
 			</if>
-			<if test="score != null">
+			<if test="score!=null and score!=''">
 				sw.score = #{score},
 			</if>
-			<if test="updateTime != null">
+			<if test="updateTime!=null and updateTime!=''">
 				sw.updatetime = #{updateTime},
 			</if>
-			<if test="isPublish != null">
+			<if test="isPublish!=null and isPublish!=''">
 				sw.ispublish = #{isPublish},
 			</if>
 		</set>

@@ -1,9 +1,11 @@
 package com.xaut.controller;
 
 import java.io.File;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.xaut.entity.Student;
+import com.xaut.entity.User;
 import com.xaut.service.StudentService;
+import com.xaut.service.UserService;
 import com.xaut.util.CommonString;
 import com.xaut.util.FileUtil;
 import com.xaut.util.ResponseBean;
@@ -26,6 +32,9 @@ public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * 功能：学生主页
@@ -151,4 +160,32 @@ public class StudentController {
 		String sno = request.getParameter("sno");
 		return studentService.getStudentDetail(sno);
 	}
+	
+	/**
+	 * function:更新学生详细信息
+	 * @param request
+	 * @return
+	 */
+    @RequestMapping(value = "/changeStudent", method = {RequestMethod.GET})
+	@ResponseBody
+    public ResponseBean changeStudentMessage(HttpServletRequest request) {
+    	//1..获取参数
+    	String userName = request.getParameter("userName");
+    	String passWord = request.getParameter("passWord");
+    	String mailbox = request.getParameter("mailbox");
+    	
+    	//2..更新学生表
+    	Student student = new Student();
+    	student.setSno(userName);
+    	student.setMailbox(mailbox);
+    	student.setUpdateTime(new java.sql.Date(new Date().getTime()));
+    	studentService.updateStudent(student);
+    	
+    	//3..更新用户表
+    	User user = new User();
+    	user.setUserName(userName);
+    	user.setPassWord(new Md5Hash(passWord,userName).toString());
+    	user.setUpdateTime(new java.sql.Date(new Date().getTime()));
+    	return userService.updateUser(user);
+    }
 }

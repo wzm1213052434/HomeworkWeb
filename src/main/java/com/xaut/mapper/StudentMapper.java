@@ -88,4 +88,10 @@ public interface StudentMapper {
      * @return
      */
     Map<String, Object> getStudentDetail(@Param("sno") String sno);
+    
+    /**
+     * function:动态sql更新学生表
+     * @param map
+     */
+    void updateStudent(Student student);
 }

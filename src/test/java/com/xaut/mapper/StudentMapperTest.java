@@ -124,4 +124,27 @@ public class StudentMapperTest {
     	HandleJSON handleJSON = new HandleJSON();
     	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
     }
+    
+    /**
+     * test:动态sql更新学生表
+     */
+    @Test
+    public void updateStudentTest() {
+    	Student student = new Student();
+		student.setSno("0000123456");
+		student.setMailbox("1612571478@qq.com");
+		
+		studentMapper.updateStudent(student);
+		System.out.println("动态sql更新学生表成功");
+    }
+    
+    /**
+     * test:学生详细信息
+     */
+    @Test
+    public void getStudentDetailTest() {
+    	Map<String, Object> result = this.studentMapper.getStudentDetail("0000123456");
+    	HandleJSON handleJSON = new HandleJSON();
+    	System.out.println(handleJSON.print_JSON(JSON.toJSONString(handleJSON.to_JSON(result))));
+    }
 }

@@ -5,11 +5,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import com.xaut.entity.Student;
 import com.xaut.mapper.StudentMapper;
 import com.xaut.mapper.WorkMapper;
 import com.xaut.service.StudentService;
@@ -106,16 +109,17 @@ public class StudentServiceImpl implements StudentService {
     public ResponseBean studentSubmitWorkToUpdate(String userName,String wno,String originalFilename) {
     	//1. 查询学生作业表
     	Map<String,Object> data = workMapper.getWorkDetail(userName, wno);
+    	Integer pre_times = new Integer(data.get("times").toString());
     	
     	//2.更新学生作业表(评论,成绩保持为上一次的)
     	Map<String,Object> map = new HashMap<String,Object>();
     	map.put("username",userName);
     	map.put("wno",wno);
     	map.put("studentWorkName",originalFilename); //提交作业文件名-更新
-    	map.put("subTime",new java.sql.Date(new Date().getTime())); //提交时间-更新
-    	map.put("times",Integer.parseInt((String) data.get("times"))-1); //剩余提交次数-减1
+    	map.put("subTime",new java.sql.Date(new Date().getTime()).toString()); //提交时间-更新
+    	map.put("times",String.valueOf(pre_times-1)); //剩余提交次数-减1
     	map.put("isCorrect","0"); //是否批改-为否
-		map.put("updateTime",new java.sql.Date(new Date().getTime())); //更新时间-更新
+		map.put("updateTime",new java.sql.Date(new Date().getTime()).toString()); //更新时间-更新
 		map.put("isPublish","0"); //是否发布-为否
 		return updateStudentWork(map);
     }
@@ -161,4 +165,26 @@ public class StudentServiceImpl implements StudentService {
 		
 		return new ResponseBean(true, map, "获得学生详细信息成功");
     }
+    
+    /**
+     * function:动态sql更新学生表
+     * @param map
+     */
+    public ResponseBean updateStudent(Student student) {
+    	if (student == null) {
+			return new ResponseBean(false, "参数为空");
+		}
+    	
+		String userName = studentMapper.getStudentNameByUsername(student.getSno());
+		if(userName == null || "".equals(userName)) {
+			return new ResponseBean(false, "无此学生");
+		}
+		try {
+			studentMapper.updateStudent(student);
+		} catch (Exception e) {
+			return new ResponseBean(false, "更新学生信息异常");
+		}
+		
+		return new ResponseBean(true, "更新学生信息成功");
+	}
 }

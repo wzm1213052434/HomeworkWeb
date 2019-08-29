@@ -3,8 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>学生更改信息模态框</title>
+<!-- 0.最先：引入CSS -->
+<!-- 开始全局强制样式 -->
+<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- 结束全局强制样式 -->
+<!-- 开始页级插件样式 -->
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-editable/bootstrap-editable/css/bootstrap-editable.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/bootstrap-editable/inputs-ext/address/address.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet"/>
+<link href="assets/global/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet"/>
+<link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
+<link href="assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css">
+<!-- 结束页级插件样式 -->
+<!-- 开始页面样式 -->
+<link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<!-- 结束页面样式 -->
+<!-- 开始主题样式 -->
+<link href="assets/global/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="assets/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="assets/admin/layout4/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="app/img/favicon.ico" rel="shortcut icon" />
+<!-- 结束主题样式 -->
 </head>
-<body>
+<body class="page-header-fixed page-sidebar-closed-hide-logo">
 <!-- 开始模态框内容 -->
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -13,61 +50,28 @@
 <div class="modal-body">
 	<div class="row">
 		<div class="col-md-6">
-			<h4>一些输入</h4>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
+			<h4>一些信息</h4>
+			<div class="table-scrollable">
+				<table id="stu_left" class="table table-bordered table-hover">
+					<!-- 此处由js填写 -->
+				</table>
+			</div>
 		</div>
 		<div class="col-md-6">
 			<h4>更多输入</h4>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
-			<p>
-				<input class="form-control" type="text">
-			</p>
+			<div class="table-scrollable">
+				<table id="stu_right" class="table table-bordered table-hover">
+					<!-- 此处由js填写 -->
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
 <div class="modal-footer">
 		<button type="button" data-dismiss="modal" class="btn btn-default">关</button>
-		<button type="button" class="btn blue">保存更改</button>
+		<button type="button" class="btn blue" onclick="changeStudentMessage()">保存更改</button>
 </div>
 <!-- 结束模态框内容 -->
-
 
 <!-- 999.最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -96,6 +100,9 @@
 <script src="assets/global/plugins/morris/morris.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/morris/raphael-min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="assets/global/plugins/bootstrap-editable/bootstrap-editable/js/bootstrap-editable.js"></script>
+<script type="text/javascript" src="assets/global/plugins/bootstrap-editable/inputs-ext/address/address.js"></script>
+<script type="text/javascript" src="assets/global/plugins/bootstrap-editable/inputs-ext/wysihtml5/wysihtml5.js"></script>
 <!-- 结束页级插件 -->
 <!-- 开始页级脚本 -->
 <script src="assets/global/scripts/metronic.js" type="text/javascript"></script>
@@ -105,5 +112,107 @@
 <script src="assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <!-- 结束页级脚本 -->
+
+<script type="text/javascript">
+/**
+ * function:展示用户信息
+ */
+ function showUserMessage(){
+	//1..获得参数
+    var userName = sessionStorage.getItem('userName');
+	//2..展示数据
+	$.ajax({
+        url: '/HomeWorkWeb/student/getStudentDetail',
+        type: 'GET',
+        async: false,
+        data: {
+        	sno: userName,
+        },
+        success: function (response) {
+        	//2.1 左部信息展示
+        	var stu_left = '';
+        	stu_left += '<tbody>';
+        	stu_left += '<tr><td>姓名</td><td>' + response.data.sname + '</td></tr>';
+        	stu_left += '<tr><td>账号</td><td>' + response.data.sno + '</td></tr>';
+        	stu_left += '<tr><td>密码</td><td><a href="javascript:;" id="passWord"></a></td></tr>';
+        	stu_left += '<tr><td>邮箱</td><td><a href="javascript:;" id="mailbox">' + response.data.mailbox + '</a></td></tr>';
+        	stu_left += '<tr><td>学院</td><td>' + response.data.company + '</td></tr>';
+        	stu_left += '<tr><td>系</td><td>' + response.data.depart + '</td></tr>';
+        	stu_left += '</tbody>';
+        	$("#stu_left").html(stu_left);
+        	
+        	//2.2 右部信息展示
+        	var stu_right = '';
+        	stu_right += '<tbody>';
+        	stu_right += '<tr><td>个人说明</td></tr>';
+        	stu_right += '<tr><td><a href="javascript:;" id="description1">' + '暂无学生个人说明数据' + '</a></td></tr>';
+        	stu_right += '</tbody>';
+        	$("#stu_right").html(stu_right);
+        }
+	})
+ };
+ 
+/**
+ * function:表格编辑
+ */
+function tableEdit(){
+	//text文本
+	var text = ["#passWord","#mailbox"];
+	for(var index in text){
+		$(text[index]).editable({
+	         type: "text",
+	         disabled: false,
+	         emptytext: "空文本",
+	         mode: "inline",
+	         validate: function (value) { //字段验证
+	             if (!$.trim(value)) {
+	                 return '不能为空';
+	             }
+	         }
+	     });
+	}
+	
+	//textarea多行文本
+	var textarea = ["#description1"]; 
+	for(var index in textarea){
+		$(textarea[index]).editable({
+	         type: "textarea",
+	         disabled: false,
+	         emptytext: "空文本",
+	         mode: "inline",
+	         validate: function (value) { //字段验证
+	             if (!$.trim(value)) {
+	                 return '不能为空';
+	             }
+	         }
+	     });
+	}
+};
+ 
+/**
+ * function:修改用户信息
+ */
+function changeStudentMessage(){
+	//1..获得参数
+	var userName = sessionStorage.getItem('userName');
+	var passWord = $("#passWord").val();
+	var mailbox = $("#mailbox").val();
+	alert(userName+'='+passWord+'='+mailbox);
+	//接口：student/changeStudent
+ };
+ 
+/*
+ * function:页面加载完成调用
+ */
+$(document).ready(function () {
+	Metronic.init(); // 初始化核心组件
+	Layout.init(); // 初始化布局
+	QuickSidebar.init(); // 初始化快速侧边栏
+	Demo.init(); //初始化演示功能
+	
+	showUserMessage(); //展示用户信息
+	tableEdit(); //表格编辑
+});
+</script>
 </body>
 </html>

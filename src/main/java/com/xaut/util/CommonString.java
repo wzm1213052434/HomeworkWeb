@@ -22,6 +22,7 @@ public class CommonString {
     //3---账号信息
     public static final String LOCKED = "1"; // 账号锁定状态
     public static final String UN_LOCKED = "0"; // 账号未锁定状态
+    public static final String DEFAULT_PASSWORD = "123456"; //默认密码
     
     //4---资源路径
     public static final String STUDENTHOMEWORKPATH = "E:\\HomeWorkWeb\\student\\work"; // 保存学生作业的路径

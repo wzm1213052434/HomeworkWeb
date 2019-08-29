@@ -16,10 +16,6 @@ import com.xaut.entity.User;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring/applicationContext.xml")
 public class UserMapperTest {
-	
-//	ApplicationContext act = new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
-//	UserMapper useMapper = act.getBean(UserMapper.class);
-
 	@Autowired
 	private UserMapper userMapper;
 	

@@ -52,7 +52,7 @@
     <select id="findUserIDByUsername" resultType="String" parameterType="String">
     	select users.id
 		from users
-		where users.username = #{userName}
+		where users.username = #{userName};
     </select>
     
     <!-- 根据用户ID为用户增加一个角色 -->
@@ -70,7 +70,32 @@
     <delete id="deteleRoleByUID">
     	delete
 		from user_roles
-		where user_roles.uid = #{user_id} and user_roles.rid = #{role_id}
+		where user_roles.uid = #{user_id} and user_roles.rid = #{role_id};
     </delete>
-
+    
+    <!-- 动态sql更新用户表（注意：基表有些非字符串的不能判断!=''） -->
+    <update id="updateUser" parameterType="com.xaut.entity.User">
+		update users u
+		<set>
+			<if test="userName!=null and userName!=''">
+				u.username = #{userName},
+			</if>
+			<if test="passWord!=null and passWord!=''">
+				u.password = #{passWord},
+			</if>
+			<if test="flag!=null and flag!=''">
+				u.flag = #{flag},
+			</if>
+			<if test="salt!=null and salt!=''">
+				u.salt = #{salt},
+			</if>
+			<if test="locked!=null and locked!=''">
+				u.locked = #{locked},
+			</if>
+			<if test="updateTime != null">
+				u.updatetime = #{updateTime},
+			</if>
+		</set>
+		where u.username = #{userName};
+	</update>
 </mapper>
