@@ -180,7 +180,7 @@
 						</a>
 						<ul class="dropdown-menu dropdown-menu-default">
 							<li>
-								<a id="toChange" data-toggle="modal" href="#modelMessage">
+								<a data-toggle="modal" href="#modelMessage">
 									<i class="icon-user"></i>
 									我的信息
 								</a>
@@ -649,24 +649,37 @@ function toRead(obj,ano){
         	}        		
         }
 	})
-}
+};
 
 /**
  * function:学生更改信息模态框
  */
 function changeStudentMessage(){
-    $("#toChange").on('click', function () { //点击查看模态框
-    	//1..显示模态框内容
-    	$.ajax({
-            url: '/HomeWorkWeb/student/changeStudentMessage',
+	//模态框设置
+	$("#modelMessage").modal({
+		backdrop: 'static',
+		keyboard: false,
+		show: false
+	});
+	 
+	//一开始显示模态框立即触发
+	$("#modelMessage").on('show.bs.modal', function () {
+		//1..显示模态框内容
+		$.ajax({
+			url: '/HomeWorkWeb/student/changeStudentMessage',
             type: 'GET',
             async: false,
             data: {},
             success: function (response) {
             	$("#modelMessage").html(response);
-            }
-    	})
-    });
+			}
+		})
+	});
+	
+	//模态框二次点击不能关闭---修复bug
+	$("#modelMessage").on('hidden.bs.modal', function () {
+		window.location.reload();
+	});
 };
 
 /**
