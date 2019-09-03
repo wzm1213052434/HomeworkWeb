@@ -24,13 +24,14 @@
 <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css" rel="stylesheet" type="text/css" />
 <link href="assets/global/plugins/bootstrap-modal/css/bootstrap-modal.css" rel="stylesheet" type="text/css" />
 <!-- END GLOBAL MANDATORY STYLES -->
-<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-<link href="assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
-<link href="assets/global/plugins/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
-<link href="assets/global/plugins/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
+<!-- BEGIN PAGE LEVEL PLUGIN STYLES --> 
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+	<!-- 可编辑表格  开始 -->
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/select2/select2.css"/>
+<link rel="stylesheet" type="text/css" href="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
+	<!-- 可编辑表格  结束 -->
 <!-- END PAGE STYLES -->
 <!-- BEGIN THEME STYLES -->
 <link href="assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
@@ -46,9 +47,7 @@
 <div class="page-header navbar navbar-fixed-top">
 	<div class="page-header-inner">
 		<div class="page-logo">
-			<a href="admin/index">
-				<img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/>
-			</a>
+			<a href="admin/index"><img src="assets/admin/layout/img/logo-big.png" style="width:190px;height:45px;margin:0;" alt="XAUTlogo" class="logo-default"/></a>
 			<div class="menu-toggler sidebar-toggler hide"></div>
 		</div>
 		<a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
@@ -339,12 +338,10 @@
             	</div>
             </div>
             <!-- 修改信息模态框2  结束-->	
-            
 			<!-- 老刘的分界线 -->
 		</div>
 	</div>
 </div>
-<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
 <script src="js/global/plugins/respond.min.js"></script>
@@ -361,21 +358,8 @@
 <script src="assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<script src="assets/global/plugins/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-<script src="assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+<!-- BEGIN PAGE LEVEL PLUGINS --> 
+<script src="assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script> 
 <script src="assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
@@ -389,7 +373,9 @@
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
-<!-- 获取内容  开始 -->
+<!-- 自定义函数   开始 -->
+<script src="assets/admin/admin/pageM/functions.js" type="text/javascript"></script>
+<!-- 自定义函数   结束 -->
 <script>
 var Page = 1;      /* 搜索信息所用初始页号  */
 var Rows = 10;      /* 搜索信息所用每页条数  */
@@ -445,16 +431,11 @@ function dataList(info){  /* 将信息写到列表中  */
 <!-- 获取内容  结束 -->
 <script>
 jQuery(document).ready(function() {    
-	Metronic.init(); // init metronic core componets
-	Layout.init(); // init layout
-	QuickSidebar.init(); // init quick sidebar
-	Demo.init(); // init demo features
-	UIExtendedModals.init();//模态框函数
-	Index.init();   
-	Index.initDashboardDaterange();
-	Index.initChat();
-	Index.initMiniCharts();
-	Tasks.initDashboardWidget();
+	Metronic.init(); 		// init metronic core componets
+	Layout.init(); 			// init layout
+	QuickSidebar.init(); 	// init quick sidebar
+	Demo.init(); 			// init demo features
+	UIExtendedModals.init();// 模态框初始化
 });
 </script>
 </body>
