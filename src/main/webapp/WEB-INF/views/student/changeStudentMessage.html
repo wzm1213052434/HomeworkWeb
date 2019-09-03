@@ -41,16 +41,16 @@
 <link href="app/img/favicon.ico" rel="shortcut icon" />
 <!-- 结束主题样式 -->
 </head>
-<body class="page-header-fixed page-sidebar-closed-hide-logo">
-<!-- 开始模态框内容 -->
+<body>
+<!-- 模态框内容 -->
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-	<h4 class="modal-title">响应</h4>
+	<h4 class="modal-title">我的信息</h4>
 </div>
 <div class="modal-body">
 	<div class="row">
 		<div class="col-md-6">
-			<h4>一些信息</h4>
+			<h4>基本</h4>
 			<div class="table-scrollable">
 				<table id="stu_left" class="table table-bordered table-hover">
 					<!-- 此处由js填写 -->
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 		<div class="col-md-6">
-			<h4>更多输入</h4>
+			<h4>描述信息入</h4>
 			<div class="table-scrollable">
 				<table id="stu_right" class="table table-bordered table-hover">
 					<!-- 此处由js填写 -->
@@ -71,7 +71,7 @@
 		<button type="button" data-dismiss="modal" class="btn btn-default">关</button>
 		<button type="button" class="btn blue" onclick="changeStudentMessage()">保存更改</button>
 </div>
-<!-- 结束模态框内容 -->
+<!-- 模态框内容 -->
 
 <!-- 999.最后：引入JS -->
 <!-- 开始核心插件 -->
@@ -111,6 +111,7 @@
 <script src="assets/admin/layout4/scripts/demo.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/index3.js" type="text/javascript"></script>
 <script src="assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="assets/admin/pages/scripts/ui-extended-modals.js"></script>
 <!-- 结束页级脚本 -->
 
 <script type="text/javascript">
@@ -134,7 +135,7 @@
         	stu_left += '<tbody>';
         	stu_left += '<tr><td>姓名</td><td>' + response.data.sname + '</td></tr>';
         	stu_left += '<tr><td>账号</td><td>' + response.data.sno + '</td></tr>';
-        	stu_left += '<tr><td>密码</td><td><a href="javascript:;" id="passWord"></a></td></tr>';
+        	stu_left += '<tr><td>密码</td><td><a href="javascript:;" id="passWord">********</a></td></tr>';
         	stu_left += '<tr><td>邮箱</td><td><a href="javascript:;" id="mailbox">' + response.data.mailbox + '</a></td></tr>';
         	stu_left += '<tr><td>学院</td><td>' + response.data.company + '</td></tr>';
         	stu_left += '<tr><td>系</td><td>' + response.data.depart + '</td></tr>';
@@ -155,51 +156,89 @@
 /**
  * function:表格编辑
  */
+var passWord = ''; //需要的参数
+var mailbox = '';
+var student_description = '';
 function tableEdit(){
-	//text文本
-	var text = ["#passWord","#mailbox"];
-	for(var index in text){
-		$(text[index]).editable({
-	         type: "text",
-	         disabled: false,
-	         emptytext: "空文本",
-	         mode: "inline",
-	         validate: function (value) { //字段验证
-	             if (!$.trim(value)) {
-	                 return '不能为空';
-	             }
-	         }
-	     });
-	}
+	//passWord
+	$("#passWord").editable({
+         type: "text",
+         disabled: false,
+         emptytext: "空文本",
+         mode: "inline",
+         validate: function (value) { //字段验证
+             if (!$.trim(value)) {
+                 return '不能为空';
+             }
+         },
+         success: function(response, newValue) {//设置为修改后的参数
+        	 passWord = newValue;
+         }
+     });
 	
-	//textarea多行文本
-	var textarea = ["#description1"]; 
-	for(var index in textarea){
-		$(textarea[index]).editable({
-	         type: "textarea",
-	         disabled: false,
-	         emptytext: "空文本",
-	         mode: "inline",
-	         validate: function (value) { //字段验证
-	             if (!$.trim(value)) {
-	                 return '不能为空';
-	             }
-	         }
-	     });
-	}
+	//mailbox
+	$("#mailbox").editable({
+         type: "text",
+         disabled: false,
+         emptytext: "空文本",
+         mode: "inline",
+         validate: function (value) { //字段验证
+             if (!$.trim(value)) {
+                 return '不能为空';
+             }
+         },
+         success: function(response, newValue) {//设置为修改后的参数
+        	 mailbox = newValue;
+         }
+     });
+	
+	//description1
+	$("#description1").editable({
+         type: "textarea",
+         disabled: false,
+         emptytext: "空文本",
+         mode: "inline",
+         validate: function (value) { //字段验证
+             if (!$.trim(value)) {
+                 return '不能为空';
+             }
+         },
+         success: function(response, newValue) {//设置为修改后的参数
+			student_description = newValue;
+         }
+     });
 };
  
 /**
  * function:修改用户信息
  */
 function changeStudentMessage(){
-	//1..获得参数
+	//1..获得参数(包括修改可编辑表格后的参数)
 	var userName = sessionStorage.getItem('userName');
-	var passWord = $("#passWord").val();
-	var mailbox = $("#mailbox").val();
-	alert(userName+'='+passWord+'='+mailbox);
-	//接口：student/changeStudent
- };
+	
+	//2..更新数据库
+	if(passWord=='' && mailbox=='' && student_description==''){
+		alert("您未修改任何内容，不用保存")
+		return false;
+	}
+	if(!mailbox.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)){
+		alert("请输入有效的邮箱");
+		return false;
+	}
+	$.ajax({
+		url: '/HomeWorkWeb/student/changeStudent',
+		type: 'POST',
+		async: false,
+		data:{
+			userName: userName,
+			passWord: passWord,
+			mailbox: mailbox
+		},
+		success: function (response) {
+			alert(response.message);
+		}
+	});
+};
  
 /*
  * function:页面加载完成调用
@@ -209,6 +248,7 @@ $(document).ready(function () {
 	Layout.init(); // 初始化布局
 	QuickSidebar.init(); // 初始化快速侧边栏
 	Demo.init(); //初始化演示功能
+	UIExtendedModals.init();
 	
 	showUserMessage(); //展示用户信息
 	tableEdit(); //表格编辑

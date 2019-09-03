@@ -166,7 +166,7 @@ public class StudentController {
 	 * @param request
 	 * @return
 	 */
-    @RequestMapping(value = "/changeStudent", method = {RequestMethod.GET})
+    @RequestMapping(value = "/changeStudent", method = {RequestMethod.POST})
 	@ResponseBody
     public ResponseBean changeStudentMessage(HttpServletRequest request) {
     	//1..获取参数
@@ -184,7 +184,11 @@ public class StudentController {
     	//3..更新用户表
     	User user = new User();
     	user.setUserName(userName);
-    	user.setPassWord(new Md5Hash(passWord,userName).toString());
+    	if("".equals(passWord)) { //密码为空时(前端传''代表未修改),不能加密(因为''加密后不为空)
+    		user.setPassWord(passWord);
+    	} else {
+    		user.setPassWord(new Md5Hash(passWord,userName).toString());
+    	}
     	user.setUpdateTime(new java.sql.Date(new Date().getTime()));
     	return userService.updateUser(user);
     }
