@@ -241,21 +241,21 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr role="row" class="odd">
+									<tr role="row">
 										<td>1</td>
 										<td>admin</td>
 										<td>123456</td>
 										<td><span class="label label-sm label-success">正常</span></td>
-										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large2" onclick="getInfo(this);">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
-									<tr role="row" class="odd">
-										<td class="sorting_1">2</td>
-										<td class="sorting_1">admin2</td>
+									<tr role="row">
+										<td>2</td>
+										<td>admin2</td>
 										<td>456789</td>
 										<td><span class="label label-sm label-danger">冻结</span></td>
-										<td><a class="edit" data-toggle="modal" href="#large2">更改密码</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large2" onclick="getInfo(this);">更改密码</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -319,13 +319,13 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">账号</label>
 							<div class="col-sm-11 col-md-11">
-								<abbr title="账号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
+								<abbr title="账号不能修改"><input id="username2" type="text" class="form-control" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">密码</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="password2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
@@ -426,6 +426,21 @@ function dataList(info){  /* 将信息写到列表中  */
 		var newNode=$('<tr><td>'+info[j].cno+'</td><td>'+info[j].tno+'</td><td><a href="admin/lookCourseDetail?cno='+info[j].cno+'">'+info[j].cname+'</a></td><td>'+info[j].year+'</td><td>'+info[j].term+'</td><td>'+info[j].time+'</td><td>'+info[j].place+'</td><td>'+st+'</td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 		cList.append(newNode);
 	}
+}
+
+function getInfo(it){  /* 点击修改信息时将所有信息写到模拟框内 */
+	var thing = it.parentNode.parentNode.childNodes;
+	try{
+		var no = thing[1].innerHTML;
+		var username = thing[3].innerHTML;
+		var password = thing[5].innerHTML;
+	}catch(err){
+		var no = thing[0].innerHTML;
+		var username = thing[1].innerHTML;
+		var password = thing[2].innerHTML;
+	}
+	$("#username2").attr("value",username);
+	$("#password2").attr("value",password);
 }
 </script>
 <!-- 获取内容  结束 -->

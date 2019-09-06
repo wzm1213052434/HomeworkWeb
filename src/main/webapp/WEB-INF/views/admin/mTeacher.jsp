@@ -254,7 +254,7 @@
 										<td><a href="admin/mTeacherDetail?company=计算机科学与工程">计算机科学与工程</a></td>
 										<td>123456</td>
 										<td><span class="label label-sm label-success">正常</span></td>
-										<td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large" onclick="getInfo(this);">更改信息</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -330,25 +330,25 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">工号</label>
 							<div class="col-sm-11 col-md-11">
-								<abbr title="工号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
+								<abbr title="工号不能修改"><input id="tno2" type="text" class="form-control" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">姓名</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="tname2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">学院</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="company2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">密码</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="password2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
@@ -472,8 +472,29 @@ function dataList(info){  /* 将信息写到列表中  */
 	pages.style.display = "none";
 	removeAllChild("contentList");
 	var cList = $('#contentList');
-	var newNode=$('<tr role="row" class="odd"><td>1</td><td>'+info.tno+'</td><td>'+info.tname+'</td><td><a href="admin/mTeacherDetail?company="'+info.company+'">'+info.company+'</a></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+	var newNode=$('<tr role="row"><td>1</td><td>'+info.tno+'</td><td>'+info.tname+'</td><td><a href="admin/mTeacherDetail?company="'+info.company+'">'+info.company+'</a></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large" onclick="getInfo(this);">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 	cList.append(newNode);
+}
+
+function getInfo(it){  /* 点击修改信息时将所有信息写到模拟框内 */
+	var thing = it.parentNode.parentNode.childNodes;
+	try{
+		var no = thing[1].innerHTML;
+		var tno = thing[3].innerHTML;
+		var tname = thing[5].innerHTML;
+		var company = thing[7].childNodes[0].innerHTML;
+		var password = thing[9].innerHTML;
+	}catch(err){
+		var no = thing[0].innerHTML;
+		var tno = thing[1].innerHTML;
+		var tname = thing[2].innerHTML;
+		var company = thing[3].childNodes[0].innerHTML;
+		var password = thing[4].innerHTML;
+	}
+	$("#tno2").attr("value",tno);
+	$("#tname2").attr("value",tname);
+	$("#company2").attr("value",company);
+	$("#password2").attr("value",password);
 }
 </script>
 <!-- 获取内容  结束 -->

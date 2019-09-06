@@ -249,8 +249,8 @@
 									</tr>
 								</thead>
 								<tbody id="contentList">
-									<tr role="row" class="odd">
-										<td class="sorting_1">1</td>
+									<tr role="row">
+										<td>1</td>
 										<td>3160661515</td>
 										<td>小兵</td>
 										<td><a href="admin/mStudentDetail?depart='计算机科学与技术'">计算机科学与技术</a></td>
@@ -261,7 +261,7 @@
 												 正常
 											</span>
 										</td>
-										<td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td>
+										<td><a class="edit" data-toggle="modal" href="#large" onclick="getInfo(this);">更改信息</a></td>
 										<td><a class="edit" href="javascript:;">冻结/解冻</a></td>
 										<td><a class="edit" href="javascript:;">删除</a></td>
 									</tr>
@@ -343,31 +343,31 @@
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">学号</label>
 							<div class="col-sm-11 col-md-11">
-								<abbr title="学号不能修改"><input type="text" class="form-control" placeholder="input-sm" disabled></abbr>
+								<abbr title="学号不能修改"><input id="sno2" type="text" class="form-control" disabled></abbr>
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">姓名</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="sname2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">专业</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="depart2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">邮箱</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="mailbox2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-1 col-md-1 control-label">密码</label>
 							<div class="col-sm-11 col-md-11">
-								<input type="text" class="form-control" placeholder="input-sm">
+								<input id="password2" type="text" class="form-control">
 				            </div>
 						</div>
 						<div class="form-group">
@@ -491,9 +491,34 @@ function dataList(info){  /* 将信息写到列表中  */
 	pages.style.display = "none";
 	removeAllChild("contentList");
 	var cList = $('#contentList');
-	var newNode=$('<tr role="row" class="odd"><td>1</td><td>'+info.sno+'</td><td>'+info.sname+'</td><td><a href="admin/mStudentDetail?depart="'+info.depart+'">'+info.depart+'</a></td><td></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
+	var newNode=$('<tr role="row"><td>1</td><td>'+info.sno+'</td><td>'+info.sname+'</td><td><a href="admin/mStudentDetail?depart="'+info.depart+'">'+info.depart+'</a></td><td></td><td></td><td></td><td><a class="edit" data-toggle="modal" href="#large" onclick="getInfo(this);">更改信息</a></td><td><a class="edit" href="javascript:;">冻结/解冻</a></td><td><a class="edit" href="javascript:;">删除</a></td></tr>');
 	cList.append(newNode);
 }
+
+function getInfo(it){  /* 点击修改信息时将所有信息写到模拟框内 */
+	var thing = it.parentNode.parentNode.childNodes;
+	try{
+		var no = thing[1].innerHTML;
+		var sno = thing[3].innerHTML;
+		var sname = thing[5].innerHTML;
+		var depart = thing[7].childNodes[0].innerHTML;
+		var mailbox = thing[9].innerHTML;
+		var password = thing[11].innerHTML;
+	}catch(err){
+		var no = thing[0].innerHTML;
+		var sno = thing[1].innerHTML;
+		var sname = thing[2].innerHTML;
+		var depart = thing[3].childNodes[0].innerHTML;
+		var mailbox = thing[4].innerHTML;
+		var password = thing[5].innerHTML;
+	}
+	$("#sno2").attr("value",sno);
+	$("#sname2").attr("value",sname);
+	$("#depart2").attr("value",depart);
+	$("#mailbox2").attr("value",mailbox);
+	$("#password2").attr("value",password);
+}
+
 </script>
 <!-- 获取内容  结束 -->
 <script>
