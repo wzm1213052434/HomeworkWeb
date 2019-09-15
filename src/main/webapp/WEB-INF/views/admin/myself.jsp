@@ -210,8 +210,8 @@
 			<div class="portlet box green">
 				<div class="portlet-title" style="vertical-align:middle;position:relative;">
 					<div class="caption" style="position:absolute;top:30%;"><i class="fa fa-comments"></i>您的信息</div>
-					<div class="tools" style="height:17px;position:absolute;top:30%;right:2%;overflow:hidden;">
-						<a href="javascript:;" class="collapse" title="折叠"></a>
+					<div style="position:absolute;top:30%;right:2%;overflow:hidden;">
+						<i class="fa fa-star" onmouseover="this.setAttribute('class','fa fa-star fa-spin')" onmouseout="this.setAttribute('class','fa fa-star')"></i>
 					</div>
 				</div>
 				<div class="portlet-body">
