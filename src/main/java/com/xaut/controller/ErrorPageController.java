@@ -22,12 +22,4 @@ public class ErrorPageController {
     public String page500() {
         return "forward:/WEB-INF/500.html";
     }
-	
-	/**
-	 * function:505异常
-	 */
-	@RequestMapping(value = "/505",method = {RequestMethod.GET})
-    public String page505() {
-        return "forward:/WEB-INF/505.html";
-    }
 }

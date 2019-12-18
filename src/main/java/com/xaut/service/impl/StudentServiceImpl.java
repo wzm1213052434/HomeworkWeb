@@ -109,7 +109,7 @@ public class StudentServiceImpl implements StudentService {
     public ResponseBean studentSubmitWorkToUpdate(String userName,String wno,String originalFilename) {
     	//1. 查询学生作业表
     	Map<String,Object> data = workMapper.getWorkDetail(userName, wno);
-    	Integer pre_times = new Integer(data.get("times").toString());
+    	Integer pre_times = Integer.valueOf(data.get("times").toString());
     	
     	//2.更新学生作业表(评论,成绩保持为上一次的)
     	Map<String,Object> map = new HashMap<String,Object>();
